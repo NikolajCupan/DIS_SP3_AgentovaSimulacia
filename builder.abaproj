@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ABAsim>
+  <Agents>
+    <Agent>
+      <SimId>1</SimId>
+      <InternalId>1</InternalId>
+      <Name>AgentModel</Name>
+      <Bounds>1090,242,180,180</Bounds>
+      <Reasoner>ManagerModel</Reasoner>
+      <ReasonerBounds>74,25,32,25</ReasonerBounds>
+      <UsePetriNet>false</UsePetriNet>
+    </Agent>
+  </Agents>
+  <Messages/>
+  <IID>3</IID>
+</ABAsim>
