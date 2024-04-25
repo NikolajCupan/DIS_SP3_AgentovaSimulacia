@@ -118,7 +118,7 @@ public class AgentAutomat extends Agent
 		}
 		if (this.automatObsadeny)
 		{
-			throw new RuntimeException("Nemozno vypnut automat, ktory je obsadeny!");
+			throw new RuntimeException("Nemozno vypnut/zapnut automat, ktory je obsadeny!");
 		}
 
 		this.automatVypnuty = automatVypnuty;

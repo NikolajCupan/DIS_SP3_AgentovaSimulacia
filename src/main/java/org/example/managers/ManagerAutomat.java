@@ -24,7 +24,7 @@ public class ManagerAutomat extends Manager
 		this.startContinualAssistant(zakaznik);
 	}
 
-	private void skontrolujVypnutieAutomatu()
+	private void skusNaplanovatDalsiePouzitieAutomatu()
 	{
 		// Zistenie situacie ohladom naplnenia frontu pred obsluznymi miestami
 		MyMessage vypnutieAutomat = new MyMessage(this.mySim());
@@ -84,6 +84,14 @@ public class ManagerAutomat extends Manager
 	//meta! sender="AgentSystem", id="73", type="Notice"
 	public void processNoticeZapnutieAutomat(MessageForm message)
 	{
+		AgentAutomat automat = this.myAgent();
+		automat.setAutomatVypnuty(false);
+		this.skusNaplanovatDalsiePouzitieAutomatu();
+
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(this.mySim().currentTime()) + " <- zapnutie automat");
+		}
 	}
 
 	//meta! sender="MonitorVyprazdnenieFrontAutomat", id="48", type="Finish"
@@ -103,7 +111,7 @@ public class ManagerAutomat extends Manager
 		this.response(message);
 
 		// Pokus o naplanovanie dalsej obsluhy pri automate
-		this.skontrolujVypnutieAutomatu();
+		this.skusNaplanovatDalsiePouzitieAutomatu();
 	}
 
 	//meta! sender="MonitorVyprazdnenieFrontAutomat", id="63", type="Notice"

@@ -35,8 +35,8 @@ public class MySimulation extends Simulation
 		this.zvysenyTokZakaznikov = zvysenyTokZakaznikov;
 		this.prestavka = prestavka;
 
-		this.pocetObycajnychObsluznychMiest = (int)Math.floor(pocetObsluznychMiest / 3.0);
-		this.pocetOnlineObsluznychMiest = pocetObsluznychMiest - this.pocetObycajnychObsluznychMiest;
+		this.pocetOnlineObsluznychMiest = (int)Math.floor(pocetObsluznychMiest / 3.0);
+		this.pocetObycajnychObsluznychMiest = pocetObsluznychMiest - this.pocetOnlineObsluznychMiest;
 		this.pocetPokladni = pocetPokladni;
 	}
 

@@ -30,6 +30,8 @@ public class ManagerObsluzneMiesta extends Manager
 
 	private void spracujObsluzenehoZakaznika(MessageForm message)
 	{
+		boolean frontPlnyPred = this.myAgent().frontPlny();
+
 		message.setCode(Mc.requestResponseObsluhaObsluzneMiesto);
 		this.response(message);
 
@@ -52,6 +54,26 @@ public class ManagerObsluzneMiesta extends Manager
 				this.spustiObsluhu(dalsiZakaznik, dalsiZakaznikSprava);
 			}
 		}
+
+		boolean frontPlnyPo = this.myAgent().frontPlny();
+		if (frontPlnyPred && !frontPlnyPo)
+		{
+			// Doslo k uvolneniu miesta vo fronte
+			this.zapniAutomat();
+		}
+	}
+
+	private void zapniAutomat()
+	{
+		if (this.myAgent().frontVelkost() != Konstanty.KAPACITA_FRONT_OBSLUZNE_MIESTA - 1)
+		{
+			throw new RuntimeException("Automat je zapinany pri nespravnej velkosti frontu!");
+		}
+
+		MyMessage uvolnenieFront = new MyMessage(this.mySim());
+		uvolnenieFront.setCode(Mc.noticeUvolnenieFront);
+		uvolnenieFront.setAddressee(Id.agentSystem);
+		this.notice(uvolnenieFront);
 	}
 	// Vlastne koniec
 

@@ -126,6 +126,10 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentObsluzneMiesta", id="72", type="Notice"
 	public void processNoticeUvolnenieFront(MessageForm message)
 	{
+		MyMessage zapnutieAutomat = new MyMessage(this.mySim());
+		zapnutieAutomat.setCode(Mc.noticeZapnutieAutomat);
+		zapnutieAutomat.setAddressee(Id.agentAutomat);
+		this.notice(zapnutieAutomat);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"

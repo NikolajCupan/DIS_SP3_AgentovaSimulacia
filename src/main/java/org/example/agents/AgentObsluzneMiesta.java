@@ -201,21 +201,6 @@ public class AgentObsluzneMiesta extends Agent
 		return false;
 	}
 
-	public MessageForm odoberFront()
-	{
-		if (this.frontObsluzneMiesta.isEmpty())
-		{
-			throw new RuntimeException("Front pred obsluznymi miestami je prazdny!");
-		}
-
-		// TODO 1: check na situaciu, kedy vyberam zakaznika z frontu pred obsluznymi miestami, ale vsetky
-		// TODO 1: obsluzne miesta su prave pouzivane
-
-		// TODO 2: odoslat notice automatu, ked dojde k uvoleneniu miesta vo fronte pred obsluznymi miestami
-
-		return this.frontObsluzneMiesta.dequeue();
-	}
-
 	public boolean frontPlny()
 	{
 		if (this.frontObsluzneMiesta.size() > Konstanty.KAPACITA_FRONT_OBSLUZNE_MIESTA)
@@ -225,6 +210,11 @@ public class AgentObsluzneMiesta extends Agent
 
 		return this.frontObsluzneMiesta.size() == Konstanty.KAPACITA_FRONT_OBSLUZNE_MIESTA;
     }
+
+    public int frontVelkost()
+	{
+		return this.frontObsluzneMiesta.size();
+	}
 
 	public void zacniPrestavku()
 	{
