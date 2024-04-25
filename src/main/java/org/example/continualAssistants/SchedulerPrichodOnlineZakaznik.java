@@ -19,7 +19,7 @@ public class SchedulerPrichodOnlineZakaznik extends Scheduler
 	public void customSchedulerPrichodOnlineZakaznik()
 	{
 		this.rngGeneratorNasad = new GeneratorNasad();
-		this.rngPrichodOnlineZakaznik = new ExponentialRNG(Konstanty.POCET_ONLINE_ZAKAZNIKOV_ZA_HODINU,
+		this.rngPrichodOnlineZakaznik = new ExponentialRNG(Konstanty.POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU,
 			this.rngGeneratorNasad.generator());
 	}
 

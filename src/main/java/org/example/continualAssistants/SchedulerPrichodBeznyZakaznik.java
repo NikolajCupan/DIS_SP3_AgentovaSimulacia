@@ -19,7 +19,7 @@ public class SchedulerPrichodBeznyZakaznik extends Scheduler
 	public void customSchedulerPrichodBeznyZakaznik()
 	{
 		this.rngGeneratorNasad = new GeneratorNasad();
-		this.rngPrichodBeznyZakaznik = new ExponentialRNG(Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_HODINU,
+		this.rngPrichodBeznyZakaznik = new ExponentialRNG(Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU,
 			this.rngGeneratorNasad.generator());
 	}
 

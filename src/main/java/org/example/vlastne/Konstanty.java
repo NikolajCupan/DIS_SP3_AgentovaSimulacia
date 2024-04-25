@@ -12,9 +12,9 @@ public class Konstanty
 
 
     // Generatory
-    public static final double POCET_BEZNYCH_ZAKAZNIKOV_ZA_HODINU = 15.0;
-    public static final double POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_HODINU = 5.0;
-    public static final double POCET_ONLINE_ZAKAZNIKOV_ZA_HODINU = 10.0;
+    public static final double POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU = 15.0 * 60.0;
+    public static final double POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU = 5.0 * 60.0;
+    public static final double POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU = 10.0 * 60.0;
 
 
     // Debug
