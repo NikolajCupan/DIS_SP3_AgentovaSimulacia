@@ -4,10 +4,10 @@ import OSPABA.*;
 import OSPDataStruct.SimQueue;
 import OSPStat.Stat;
 import OSPStat.WStat;
+import org.example.Vlastne.Zakaznik;
 import org.example.simulation.*;
 import org.example.managers.*;
 import org.example.continualAssistants.*;
-import org.example.instantAssistants.*;
 import org.example.Vlastne.Ostatne.Helper;
 
 //meta! id="39"
@@ -57,6 +57,20 @@ public class AgentAutomat extends Agent
 	public boolean frontPrazdny()
 	{
 		return this.frontAutomat.isEmpty();
+	}
+
+	public void vyprazdniFront()
+	{
+		int velkostFront = this.frontAutomat.size();
+		for (int i = 0; i < velkostFront; i++)
+		{
+			MyMessageZakaznik sprava = (MyMessageZakaznik)this.frontAutomat.dequeue();
+			Zakaznik zakaznik = sprava.getZakaznik();
+			zakaznik.predcasnyOdchod();
+
+			sprava.setAddressee(Id.agentSystem);
+			this.manager().response(sprava);
+		}
 	}
 
 	public boolean getAutomatObsadeny()

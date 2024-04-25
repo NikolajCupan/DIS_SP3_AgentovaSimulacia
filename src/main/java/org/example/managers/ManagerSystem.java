@@ -1,6 +1,7 @@
 package org.example.managers;
 
 import OSPABA.*;
+import org.example.Vlastne.Zakaznik;
 import org.example.simulation.*;
 import org.example.agents.*;
 
@@ -33,7 +34,12 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentAutomat", id="41", type="Response"
 	public void processRequestResponseObsluhaAutomat(MessageForm message)
 	{
-		System.out.println("hi");
+		MyMessageZakaznik sprava = (MyMessageZakaznik)message;
+		Zakaznik zakaznik = sprava.getZakaznik();
+		if (zakaznik.getPredcasnyOdchod())
+		{
+			System.out.println("skoro");
+		}
 	}
 
 	//meta! sender="AgentPrevzatieTovar", id="94", type="Response"

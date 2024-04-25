@@ -87,7 +87,7 @@ public class ManagerAutomat extends Manager
 			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- vyprazdnenie front automat");
 		}
 
-		// TODO: Vyprazdnenie automatu
+		this.myAgent().vyprazdniFront();
 	}
 
 	//meta! sender="AgentSystem", id="70", type="Response"
