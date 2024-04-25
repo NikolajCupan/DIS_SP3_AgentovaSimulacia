@@ -6,10 +6,10 @@ import org.example.managers.*;
 import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
 
-//meta! id="1"
-public class AgentModel extends Agent
+//meta! id="91"
+public class AgentPrevzatieTovar extends Agent
 {
-	public AgentModel(int id, Simulation mySim, Agent parent)
+	public AgentPrevzatieTovar(int id, Simulation mySim, Agent parent)
 	{
 		super(id, mySim, parent);
 		init();
@@ -25,9 +25,9 @@ public class AgentModel extends Agent
 	//meta! userInfo="Generated code: do not modify", tag="begin"
 	private void init()
 	{
-		new ManagerModel(Id.managerModel, mySim(), this);
-		addOwnMessage(Mc.requestResponsePrichodZakaznik);
-		addOwnMessage(Mc.requestResponseSpracovanieZakaznik);
+		new ManagerPrevzatieTovar(Id.managerPrevzatieTovar, mySim(), this);
+		new ProcessPrevzatieTovar(Id.processPrevzatieTovar, mySim(), this);
+		addOwnMessage(Mc.requestResponsePrevzatieTovar);
 	}
 	//meta! tag="end"
 }

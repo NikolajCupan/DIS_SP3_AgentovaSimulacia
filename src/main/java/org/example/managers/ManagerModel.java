@@ -35,6 +35,16 @@ public class ManagerModel extends Manager
 		}
 	}
 
+	//meta! sender="AgentOkolie", id="31", type="Request"
+	public void processRequestResponsePrichodZakaznik(MessageForm message)
+	{
+	}
+
+	//meta! sender="AgentSystem", id="38", type="Response"
+	public void processRequestResponseSpracovanieZakaznik(MessageForm message)
+	{
+	}
+
 	//meta! userInfo="Generated code: do not modify", tag="begin"
 	public void init()
 	{
@@ -45,6 +55,14 @@ public class ManagerModel extends Manager
 	{
 		switch (message.code())
 		{
+		case Mc.requestResponseSpracovanieZakaznik:
+			processRequestResponseSpracovanieZakaznik(message);
+		break;
+
+		case Mc.requestResponsePrichodZakaznik:
+			processRequestResponsePrichodZakaznik(message);
+		break;
+
 		default:
 			processDefault(message);
 		break;
