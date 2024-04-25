@@ -9,10 +9,32 @@ import org.example.instantAssistants.*;
 //meta! id="74"
 public class AgentPokladne extends Agent
 {
+	// Vlastne
+	private void customAgentPokladne()
+	{
+		this.addOwnMessage(Mc.holdZaciatokPrestavkaPokladne);
+		this.addOwnMessage(Mc.holdKoniecPrestavkaPokladne);
+	}
+
+	public void zacniPrestavku()
+	{
+		// TODO: zaciatok presavky pokladne
+	}
+
+	public void ukonciPrestavku()
+	{
+		// TODO: koniec prestavky pokladne
+	}
+	// Vlastne koniec
+
+
 	public AgentPokladne(int id, Simulation mySim, Agent parent)
 	{
 		super(id, mySim, parent);
 		init();
+
+		// Vlastne
+		this.customAgentPokladne();
 	}
 
 	@Override

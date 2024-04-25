@@ -1,6 +1,8 @@
 package org.example.managers;
 
 import OSPABA.*;
+import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.Vlastne.Ostatne.Prezenter;
 import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.continualAssistants.*;
@@ -30,11 +32,23 @@ public class ManagerPokladne extends Manager
 	//meta! sender="MonitorKoniecPrestavkaPokladne", id="106", type="Notice"
 	public void processNoticeVnutornaKoniecPrestavkaPokladne(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- koniec prestavky pokladne");
+		}
+
+		this.myAgent().ukonciPrestavku();
 	}
 
 	//meta! sender="MonitorZaciatokPrestavkaPokladne", id="103", type="Notice"
 	public void processNoticeVnutornaZaciatokPrestavkaPokladne(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- zaciatok prestavky pokladne");
+		}
+
+		this.myAgent().zacniPrestavku();
 	}
 
 	//meta! sender="AgentSystem", id="85", type="Request"
@@ -50,6 +64,16 @@ public class ManagerPokladne extends Manager
 	//meta! sender="AgentSystem", id="172", type="Notice"
 	public void processNoticeInicializaciaPokladne(MessageForm message)
 	{
+		if (((MySimulation)this.mySim()).getPrestavka())
+		{
+			MyMessage zaciatokPrestavka = new MyMessage(this.mySim());
+			zaciatokPrestavka.setAddressee(this.myAgent().findAssistant(Id.monitorZaciatokPrestavkaPokladne));
+			this.startContinualAssistant(zaciatokPrestavka);
+
+			MyMessage koniecPrestavka = new MyMessage(this.mySim());
+			koniecPrestavka.setAddressee(this.myAgent().findAssistant(Id.monitorKoniecPrestavkaPokladne));
+			this.startContinualAssistant(koniecPrestavka);
+		}
 	}
 
 	//meta! sender="ProcessObsluhaPokladna", id="88", type="Finish"
@@ -60,11 +84,19 @@ public class ManagerPokladne extends Manager
 	//meta! sender="MonitorZaciatokPrestavkaPokladne", id="102", type="Finish"
 	public void processFinishMonitorZaciatokPrestavkaPokladne(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor zaciatku prestavky pokladne");
+		}
 	}
 
 	//meta! sender="MonitorKoniecPrestavkaPokladne", id="105", type="Finish"
 	public void processFinishMonitorKoniecPrestavkaPokladne(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor konca prestavky pokladne");
+		}
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"

@@ -39,7 +39,7 @@ public class ManagerObsluzneMiesta extends Manager
 	{
 		if (Konstanty.DEBUG_VYPISY)
 		{
-			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- zaciatok prestavky obsluzne miesto");
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- zaciatok prestavky obsluzne miesta");
 		}
 
 		this.myAgent().zacniPrestavku();
@@ -70,7 +70,7 @@ public class ManagerObsluzneMiesta extends Manager
 	{
 		if (Konstanty.DEBUG_VYPISY)
 		{
-			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor konca prestavky obsluzne miesto");
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor konca prestavky obsluzne miesta");
 		}
 	}
 
@@ -79,7 +79,7 @@ public class ManagerObsluzneMiesta extends Manager
 	{
 		if (Konstanty.DEBUG_VYPISY)
 		{
-			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor zaciatku prestavky obsluzne miesto");
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor zaciatku prestavky obsluzne miesta");
 		}
 	}
 
@@ -93,7 +93,7 @@ public class ManagerObsluzneMiesta extends Manager
 	{
 		if (Konstanty.DEBUG_VYPISY)
 		{
-			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- koniec prestavky obsluzne miesto");
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- koniec prestavky obsluzne miesta");
 		}
 
 		this.myAgent().ukonciPrestavku();
@@ -102,13 +102,16 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="AgentSystem", id="169", type="Notice"
 	public void processNoticeInicializaciaObsluzneMiesta(MessageForm message)
 	{
-		MyMessage zaciatokPrestavka = new MyMessage(this.mySim());
-		zaciatokPrestavka.setAddressee(this.myAgent().findAssistant(Id.monitorZaciatokPrestavkaObsluzneMiesta));
-		this.startContinualAssistant(zaciatokPrestavka);
+		if (((MySimulation)this.mySim()).getPrestavka())
+		{
+			MyMessage zaciatokPrestavka = new MyMessage(this.mySim());
+			zaciatokPrestavka.setAddressee(this.myAgent().findAssistant(Id.monitorZaciatokPrestavkaObsluzneMiesta));
+			this.startContinualAssistant(zaciatokPrestavka);
 
-		MyMessage koniecPrestavka = new MyMessage(this.mySim());
-		koniecPrestavka.setAddressee(this.myAgent().findAssistant(Id.monitorKoniecPrestavkaObsluzneMiesta));
-		this.startContinualAssistant(koniecPrestavka);
+			MyMessage koniecPrestavka = new MyMessage(this.mySim());
+			koniecPrestavka.setAddressee(this.myAgent().findAssistant(Id.monitorKoniecPrestavkaObsluzneMiesta));
+			this.startContinualAssistant(koniecPrestavka);
+		}
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"

@@ -18,10 +18,12 @@ public class AgentObsluzneMiesta extends Agent
 
 	public void zacniPrestavku()
 	{
+		// TODO: zaciatok presavky obsluzne miesto
 	}
 
 	public void ukonciPrestavku()
 	{
+		// TODO: koniec prestavky obsluzne miesto
 	}
 	// Vlastne koniec
 
