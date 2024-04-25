@@ -9,8 +9,9 @@ public class MySimulation extends Simulation
 	// Vlastne
 	private double trvanieSimulacie;
 	private boolean zvysenyTokZakaznikov;
+	private boolean prestavka;
 
-	private void customInit(double trvanieSimulacie, boolean zvysenyTokZakaznikov)
+	private void customInit(double trvanieSimulacie, boolean zvysenyTokZakaznikov, boolean prestavka)
 	{
 		if (trvanieSimulacie <= 0)
 		{
@@ -19,6 +20,7 @@ public class MySimulation extends Simulation
 
 		this.trvanieSimulacie = trvanieSimulacie;
 		this.zvysenyTokZakaznikov = zvysenyTokZakaznikov;
+		this.prestavka = prestavka;
 	}
 
 	private void customPrepareReplication()
@@ -37,15 +39,20 @@ public class MySimulation extends Simulation
 	{
 		return this.zvysenyTokZakaznikov;
 	}
+
+	public boolean getPrestavka()
+	{
+		return this.prestavka;
+	}
 	// Vlastne koniec
 
 
-	public MySimulation(double trvanieSimulacie, boolean zvysenyTokZakaznikov)
+	public MySimulation(double trvanieSimulacie, boolean zvysenyTokZakaznikov, boolean prestavka)
 	{
 		init();
 
 		// Vlastne
-		this.customInit(trvanieSimulacie, zvysenyTokZakaznikov);
+		this.customInit(trvanieSimulacie, zvysenyTokZakaznikov, prestavka);
 	}
 
 	public MySimulation()

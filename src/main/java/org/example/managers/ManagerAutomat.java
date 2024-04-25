@@ -43,7 +43,6 @@ public class ManagerAutomat extends Manager
 		zakaznik.setPrichodFrontAutomat(this.mySim().currentTime());
 
 		AgentAutomat automat = this.myAgent();
-
 		if (automat.getAutomatVypnuty() || automat.getAutomatObsadeny() || !automat.frontPrazdny())
 		{
 			// Automat nemozno pouzit
@@ -74,9 +73,18 @@ public class ManagerAutomat extends Manager
 	//meta! sender="ProcessObsluhaAutomat", id="44", type="Finish"
 	public void processFinishProcessObsluhaAutomat(MessageForm message)
 	{
-		// Spracuj zakaznika, ktoreho obsluha skoncila
+		// Spracovanie obsluzeneho zakaznika
 		message.setCode(Mc.requestResponseObsluhaAutomat);
 		this.response(message);
+
+		// Naplanovanie dalsej obsluhy
+		AgentAutomat automat = this.myAgent();
+		if (!automat.frontPrazdny())
+		{
+			MyMessageZakaznik dalsiZakaznik = (MyMessageZakaznik)automat.odoberFront();
+			dalsiZakaznik.setAddressee(this.myAgent().findAssistant(Id.processObsluhaAutomat));
+			this.startContinualAssistant(dalsiZakaznik);
+		}
 	}
 
 	//meta! sender="MonitorVyprazdnenieFrontAutomat", id="63", type="Notice"

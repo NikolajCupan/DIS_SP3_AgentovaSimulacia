@@ -1,6 +1,8 @@
 package org.example.managers;
 
 import OSPABA.*;
+import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.Vlastne.Ostatne.Prezenter;
 import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.continualAssistants.*;
@@ -35,6 +37,12 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="MonitorZaciatokPrestavkaObsluzneMiesta", id="109", type="Notice"
 	public void processNoticeVnutornaZaciatokPrestavkaObsluzneMiesta(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- zaciatok prestavky obsluzne miesto");
+		}
+
+		this.myAgent().zacniPrestavku();
 	}
 
 	//meta! sender="AgentSystem", id="53", type="Request"
@@ -60,11 +68,19 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="MonitorKoniecPrestavkaObsluzneMiesta", id="111", type="Finish"
 	public void processFinishMonitorKoniecPrestavkaObsluzneMiesta(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor konca prestavky obsluzne miesto");
+		}
 	}
 
 	//meta! sender="MonitorZaciatokPrestavkaObsluzneMiesta", id="108", type="Finish"
 	public void processFinishMonitorZaciatokPrestavkaObsluzneMiesta(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor zaciatku prestavky obsluzne miesto");
+		}
 	}
 
 	//meta! sender="ProcessObsluhaObsluzneMiestoObycajnyZakaznik", id="79", type="Finish"
@@ -75,11 +91,24 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="MonitorKoniecPrestavkaObsluzneMiesta", id="112", type="Notice"
 	public void processNoticeVnutornaKoniecPrestavkaObsluzneMiesta(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- koniec prestavky obsluzne miesto");
+		}
+
+		this.myAgent().ukonciPrestavku();
 	}
 
 	//meta! sender="AgentSystem", id="169", type="Notice"
 	public void processNoticeInicializaciaObsluzneMiesta(MessageForm message)
 	{
+		MyMessage zaciatokPrestavka = new MyMessage(this.mySim());
+		zaciatokPrestavka.setAddressee(this.myAgent().findAssistant(Id.monitorZaciatokPrestavkaObsluzneMiesta));
+		this.startContinualAssistant(zaciatokPrestavka);
+
+		MyMessage koniecPrestavka = new MyMessage(this.mySim());
+		koniecPrestavka.setAddressee(this.myAgent().findAssistant(Id.monitorKoniecPrestavkaObsluzneMiesta));
+		this.startContinualAssistant(koniecPrestavka);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"

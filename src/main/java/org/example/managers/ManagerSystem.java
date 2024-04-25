@@ -38,8 +38,15 @@ public class ManagerSystem extends Manager
 		Zakaznik zakaznik = sprava.getZakaznik();
 		if (zakaznik.getPredcasnyOdchod())
 		{
+			// Zakaznik odchadza neobsluzeny
 			sprava.setCode(Mc.requestResponseSpracovanieZakaznik);
 			this.response(sprava);
+		}
+		else
+		{
+			message.setCode(Mc.requestResponseObsluhaObsluzneMiesto);
+			message.setAddressee(Id.agentObsluzneMiesta);
+			this.request(message);
 		}
 	}
 

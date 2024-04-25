@@ -10,7 +10,7 @@ public class Main
     {
         GeneratorNasad.inicializujGeneratorNasad(420, true);
 
-        MySimulation s = new MySimulation(Konstanty.TRVANIE_CAS_SEKUNDY, false);
+        MySimulation s = new MySimulation(Konstanty.TRVANIE_CAS_SEKUNDY, false, true);
         s.simulate(1);
     }
 }

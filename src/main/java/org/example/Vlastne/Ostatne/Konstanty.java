@@ -6,9 +6,19 @@ public class Konstanty
     public static final int HODINA_OTVORENIA = 9;
     public static final int HODINA_ZATVORENIA = 17;
 
-    public static final int ZACIATOK_CAS_SEKUNDY = Konstanty.HODINA_OTVORENIA * 60 * 60;
-    public static final int KONIEC_CAS_SEKUNDY = Konstanty.HODINA_ZATVORENIA * 60 * 60;
+    private static final int ZACIATOK_CAS_SEKUNDY = Konstanty.HODINA_OTVORENIA * 60 * 60;
+    private static final int KONIEC_CAS_SEKUNDY = Konstanty.HODINA_ZATVORENIA * 60 * 60;
     public static final int TRVANIE_CAS_SEKUNDY = Konstanty.KONIEC_CAS_SEKUNDY - Konstanty.ZACIATOK_CAS_SEKUNDY;
+
+
+    // Prestavka
+    private static final double HODINA_ZACIATOK_PRESTAVKA = 12;
+    private static final double HODINA_KONIEC_PRESTAVKA = 12.50;
+
+    public static final double ZACIATOK_PRESTAVKA_OD_OTVORENIA_CAS_SEKUNDY =
+        Konstanty.HODINA_ZACIATOK_PRESTAVKA * 60 * 60 - ZACIATOK_CAS_SEKUNDY;
+    public static final double KONIEC_PRESTAVKA_OD_OTVORENIA_CAS_SEKUNDY =
+        Konstanty.HODINA_KONIEC_PRESTAVKA * 60 * 60 - ZACIATOK_CAS_SEKUNDY;
 
 
     // Generatory
@@ -23,6 +33,7 @@ public class Konstanty
         Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
     public static final double ZVYSENY_POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU =
         Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
+
 
     // Debug
     public static final boolean DEBUG_VYPISY = true;

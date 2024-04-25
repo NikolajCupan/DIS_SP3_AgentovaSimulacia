@@ -46,5 +46,9 @@ public class Mc extends IdList
 	public static final int holdVyprazdnenieFrontAutomat = 4;
 	public static final int holdObsluhaAutomat = 5;
 
+	// Obsluzne miesta
+	public static final int holdZaciatokPrestavkaObsluzneMiesta = 6;
+	public static final int holdKoniecPrestavkaObsluzneMiesta = 7;
+
 	// Vlastne koniec
 }

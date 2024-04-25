@@ -9,10 +9,30 @@ import org.example.instantAssistants.*;
 //meta! id="51"
 public class AgentObsluzneMiesta extends Agent
 {
+	// Vlastne
+	private void customAgentObsluzneMiesta()
+	{
+		this.addOwnMessage(Mc.holdZaciatokPrestavkaObsluzneMiesta);
+		this.addOwnMessage(Mc.holdKoniecPrestavkaObsluzneMiesta);
+	}
+
+	public void zacniPrestavku()
+	{
+	}
+
+	public void ukonciPrestavku()
+	{
+	}
+	// Vlastne koniec
+
+
 	public AgentObsluzneMiesta(int id, Simulation mySim, Agent parent)
 	{
 		super(id, mySim, parent);
 		init();
+
+		// Vlastne
+		this.customAgentObsluzneMiesta();
 	}
 
 	@Override

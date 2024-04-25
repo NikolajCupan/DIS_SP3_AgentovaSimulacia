@@ -50,6 +50,10 @@ public class AgentAutomat extends Agent
 		{
 			throw new RuntimeException("Front pred automatom je prazdny!");
 		}
+		else if (this.automatVypnuty || this.automatObsadeny)
+		{
+			throw new RuntimeException("Pokus o vybratie zakaznika z frontu, ked je automat vypnuty alebo obsadeny!");
+		}
 
 		return this.frontAutomat.dequeue();
 	}

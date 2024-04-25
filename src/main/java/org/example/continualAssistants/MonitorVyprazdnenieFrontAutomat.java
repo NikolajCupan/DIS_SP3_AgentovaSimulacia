@@ -35,7 +35,7 @@ public class MonitorVyprazdnenieFrontAutomat extends Monitor
 		switch (message.code())
 		{
 			case Mc.holdVyprazdnenieFrontAutomat:
-				// Informacie o vyprsani simulacneho casu
+				// Informacia o vyprsani simulacneho casu
 				MyMessage vyprazdnenieFront = new MyMessage(this.mySim());
 				vyprazdnenieFront.setCode(Mc.noticeVnutornaVyprsanieSimulacnyCas);
 				vyprazdnenieFront.setAddressee(this.myAgent().manager());

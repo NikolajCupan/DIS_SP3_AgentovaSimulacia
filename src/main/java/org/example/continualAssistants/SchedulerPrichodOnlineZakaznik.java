@@ -21,7 +21,7 @@ public class SchedulerPrichodOnlineZakaznik extends Scheduler
 		this.rngGeneratorNasad = new GeneratorNasad();
 
 		double priemer = ((MySimulation)this.mySim()).getZvysenyTokZakaznikov()
-				? Konstanty.ZVYSENY_POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU : Konstanty.POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU;
+			? Konstanty.ZVYSENY_POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU : Konstanty.POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU;
 		this.rngPrichodOnlineZakaznik = new ExponentialRNG(priemer, this.rngGeneratorNasad.generator());
 	}
 
