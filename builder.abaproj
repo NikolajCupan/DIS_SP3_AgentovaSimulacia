@@ -2,86 +2,13 @@
 <ABAsim>
   <Agents>
     <Agent>
-      <SimId>17</SimId>
-      <InternalId>74</InternalId>
-      <Name>AgentPokladne</Name>
-      <Bounds>3413,731,180,180</Bounds>
-      <Reasoner>ManagerPokladne</Reasoner>
+      <SimId>12</SimId>
+      <InternalId>35</InternalId>
+      <Name>AgentSystem</Name>
+      <Bounds>2258,732,180,180</Bounds>
+      <Reasoner>ManagerSystem</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
-      <Components>
-        <Query>
-          <SimId>1012</SimId>
-          <InternalId>99</InternalId>
-          <Name>QueryZaciatokPrestavka</Name>
-          <Bounds>131,114,35,13</Bounds>
-        </Query>
-        <Monitor>
-          <SimId>1014</SimId>
-          <InternalId>104</InternalId>
-          <Name>MonitorKoniecPrestavka</Name>
-          <Bounds>49,115,35,13</Bounds>
-        </Monitor>
-        <Monitor>
-          <SimId>1013</SimId>
-          <InternalId>101</InternalId>
-          <Name>MonitorZaciatokPrestavka</Name>
-          <Bounds>90,115,35,13</Bounds>
-        </Monitor>
-        <Process>
-          <SimId>1009</SimId>
-          <InternalId>87</InternalId>
-          <Name>ProcessObsluhaPokladna</Name>
-          <Bounds>14,46,35,18</Bounds>
-        </Process>
-        <Adviser>
-          <SimId>1010</SimId>
-          <InternalId>89</InternalId>
-          <Name>AdviserVyberPokladna</Name>
-          <Bounds>13,75,35,13</Bounds>
-        </Adviser>
-      </Components>
-    </Agent>
-    <Agent>
-      <SimId>15</SimId>
-      <InternalId>51</InternalId>
-      <Name>AgentObsluzneMiesta</Name>
-      <Bounds>2245,1814,180,180</Bounds>
-      <Reasoner>ManagerObsluzneMiesta</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-      <Components>
-        <Process>
-          <SimId>1007</SimId>
-          <InternalId>80</InternalId>
-          <Name>ProcessObsluhaObsluzneMiestoOnlineZakaznik</Name>
-          <Bounds>7,86,35,18</Bounds>
-        </Process>
-        <Monitor>
-          <SimId>1016</SimId>
-          <InternalId>110</InternalId>
-          <Name>MonitorPrichodPrveObsluzneMiesto</Name>
-          <Bounds>102,138,35,13</Bounds>
-        </Monitor>
-        <Process>
-          <SimId>1006</SimId>
-          <InternalId>78</InternalId>
-          <Name>ProcessObsluhaObsluzneMiestoObycajnyZakaznik</Name>
-          <Bounds>8,58,35,18</Bounds>
-        </Process>
-        <Monitor>
-          <SimId>1015</SimId>
-          <InternalId>107</InternalId>
-          <Name>MonitorOdchodPrveObsluzneMiesto</Name>
-          <Bounds>50,138,35,13</Bounds>
-        </Monitor>
-        <Adviser>
-          <SimId>1018</SimId>
-          <InternalId>123</InternalId>
-          <Name>AdviserVyberObsluzneMiesto</Name>
-          <Bounds>125,78,35,13</Bounds>
-        </Adviser>
-      </Components>
     </Agent>
     <Agent>
       <SimId>1</SimId>
@@ -91,66 +18,6 @@
       <Reasoner>ManagerModel</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
-    </Agent>
-    <Agent>
-      <SimId>3</SimId>
-      <InternalId>4</InternalId>
-      <Name>AgentOkolie</Name>
-      <Bounds>700,580,180,180</Bounds>
-      <Reasoner>ManagerOkolie</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-    </Agent>
-    <Agent>
-      <SimId>6</SimId>
-      <InternalId>8</InternalId>
-      <Name>AgentPrichodZmluvnyZakaznik</Name>
-      <Bounds>660,1430,180,180</Bounds>
-      <Reasoner>ManagerPrichodZmluvnyZakaznik</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-      <Components>
-        <Scheduler>
-          <SimId>1002</SimId>
-          <InternalId>24</InternalId>
-          <Name>SchedulerPrichodZmluvnyZakaznik</Name>
-          <Bounds>73,149,35,13</Bounds>
-        </Scheduler>
-      </Components>
-    </Agent>
-    <Agent>
-      <SimId>7</SimId>
-      <InternalId>9</InternalId>
-      <Name>AgentPrichodOnlineZakaznik</Name>
-      <Bounds>1048,1423,180,180</Bounds>
-      <Reasoner>ManagerPrichodOnlineZakaznik</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-      <Components>
-        <Scheduler>
-          <SimId>1003</SimId>
-          <InternalId>28</InternalId>
-          <Name>SchedulerPrichodOnlineZakaznik</Name>
-          <Bounds>71,147,35,13</Bounds>
-        </Scheduler>
-      </Components>
-    </Agent>
-    <Agent>
-      <SimId>5</SimId>
-      <InternalId>7</InternalId>
-      <Name>AgentPrichodBeznyZakaznik</Name>
-      <Bounds>209,1411,180,180</Bounds>
-      <Reasoner>ManagerPrichodBeznyZakaznik</Reasoner>
-      <ReasonerBounds>74,25,32,25</ReasonerBounds>
-      <UsePetriNet>false</UsePetriNet>
-      <Components>
-        <Scheduler>
-          <SimId>1001</SimId>
-          <InternalId>18</InternalId>
-          <Name>SchedulerPrichodBeznyZakaznik</Name>
-          <Bounds>71,134,35,13</Bounds>
-        </Scheduler>
-      </Components>
     </Agent>
     <Agent>
       <SimId>13</SimId>
@@ -165,19 +32,19 @@
           <SimId>1004</SimId>
           <InternalId>43</InternalId>
           <Name>ProcessObsluhaAutomat</Name>
-          <Bounds>18,126,35,18</Bounds>
+          <Bounds>19,114,35,18</Bounds>
         </Process>
         <Monitor>
           <SimId>1005</SimId>
           <InternalId>47</InternalId>
           <Name>MonitorVyprazdnenieFrontAutomat</Name>
-          <Bounds>117,130,35,13</Bounds>
+          <Bounds>119,113,35,13</Bounds>
         </Monitor>
         <Query>
           <SimId>1017</SimId>
           <InternalId>119</InternalId>
           <Name>QueryVyprazdnenieFrontAutomat</Name>
-          <Bounds>68,129,35,13</Bounds>
+          <Bounds>68,151,35,13</Bounds>
         </Query>
       </Components>
     </Agent>
@@ -199,207 +66,147 @@
       </Components>
     </Agent>
     <Agent>
-      <SimId>12</SimId>
-      <InternalId>35</InternalId>
-      <Name>AgentSystem</Name>
-      <Bounds>2258,732,180,180</Bounds>
-      <Reasoner>ManagerSystem</Reasoner>
+      <SimId>15</SimId>
+      <InternalId>51</InternalId>
+      <Name>AgentObsluzneMiesta</Name>
+      <Bounds>2253,1818,180,180</Bounds>
+      <Reasoner>ManagerObsluzneMiesta</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
+      <Components>
+        <Monitor>
+          <SimId>1015</SimId>
+          <InternalId>107</InternalId>
+          <Name>MonitorZaciatokPrestavkaObsluzneMiesta</Name>
+          <Bounds>45,152,35,13</Bounds>
+        </Monitor>
+        <Query>
+          <SimId>1023</SimId>
+          <InternalId>148</InternalId>
+          <Name>QueryKoniecPrestavkaObsluzneMiesta</Name>
+          <Bounds>131,116,35,13</Bounds>
+        </Query>
+        <Adviser>
+          <SimId>1018</SimId>
+          <InternalId>123</InternalId>
+          <Name>AdviserVyberObsluzneMiesto</Name>
+          <Bounds>134,52,35,13</Bounds>
+        </Adviser>
+        <Process>
+          <SimId>1007</SimId>
+          <InternalId>80</InternalId>
+          <Name>ProcessObsluhaObsluzneMiestoOnlineZakaznik</Name>
+          <Bounds>7,86,35,18</Bounds>
+        </Process>
+        <Monitor>
+          <SimId>1016</SimId>
+          <InternalId>110</InternalId>
+          <Name>MonitorKoniecPrestavkaObsluzneMiesta</Name>
+          <Bounds>102,152,35,13</Bounds>
+        </Monitor>
+        <Query>
+          <SimId>1022</SimId>
+          <InternalId>146</InternalId>
+          <Name>QueryZaciatokPrestavkaObsluzneMiesta</Name>
+          <Bounds>134,81,35,13</Bounds>
+        </Query>
+        <Process>
+          <SimId>1006</SimId>
+          <InternalId>78</InternalId>
+          <Name>ProcessObsluhaObsluzneMiestoObycajnyZakaznik</Name>
+          <Bounds>8,58,35,18</Bounds>
+        </Process>
+      </Components>
+    </Agent>
+    <Agent>
+      <SimId>3</SimId>
+      <InternalId>4</InternalId>
+      <Name>AgentOkolie</Name>
+      <Bounds>656,702,180,180</Bounds>
+      <Reasoner>ManagerOkolie</Reasoner>
+      <ReasonerBounds>74,25,32,25</ReasonerBounds>
+      <UsePetriNet>false</UsePetriNet>
+      <Components>
+        <Scheduler>
+          <SimId>1020</SimId>
+          <InternalId>134</InternalId>
+          <Name>SchedulerPrichodZmluvnyZakaznik</Name>
+          <Bounds>69,157,35,13</Bounds>
+        </Scheduler>
+        <Scheduler>
+          <SimId>1021</SimId>
+          <InternalId>136</InternalId>
+          <Name>SchedulerPrichodOnlineZakaznik</Name>
+          <Bounds>116,133,35,13</Bounds>
+        </Scheduler>
+        <Scheduler>
+          <SimId>1019</SimId>
+          <InternalId>132</InternalId>
+          <Name>SchedulerPrichodBeznyZakaznik</Name>
+          <Bounds>21,131,35,13</Bounds>
+        </Scheduler>
+      </Components>
+    </Agent>
+    <Agent>
+      <SimId>17</SimId>
+      <InternalId>74</InternalId>
+      <Name>AgentPokladne</Name>
+      <Bounds>3413,731,180,180</Bounds>
+      <Reasoner>ManagerPokladne</Reasoner>
+      <ReasonerBounds>74,25,32,25</ReasonerBounds>
+      <UsePetriNet>false</UsePetriNet>
+      <Components>
+        <Process>
+          <SimId>1009</SimId>
+          <InternalId>87</InternalId>
+          <Name>ProcessObsluhaPokladna</Name>
+          <Bounds>14,46,35,18</Bounds>
+        </Process>
+        <Monitor>
+          <SimId>1014</SimId>
+          <InternalId>104</InternalId>
+          <Name>MonitorKoniecPrestavkaPokladne</Name>
+          <Bounds>69,140,35,13</Bounds>
+        </Monitor>
+        <Monitor>
+          <SimId>1013</SimId>
+          <InternalId>101</InternalId>
+          <Name>MonitorZaciatokPrestavkaPokladne</Name>
+          <Bounds>24,139,35,13</Bounds>
+        </Monitor>
+        <Query>
+          <SimId>1012</SimId>
+          <InternalId>99</InternalId>
+          <Name>QueryZaciatokPrestavkaPokladne</Name>
+          <Bounds>136,92,35,13</Bounds>
+        </Query>
+        <Adviser>
+          <SimId>1010</SimId>
+          <InternalId>89</InternalId>
+          <Name>AdviserVyberPokladna</Name>
+          <Bounds>141,66,35,13</Bounds>
+        </Adviser>
+        <Query>
+          <SimId>1024</SimId>
+          <InternalId>150</InternalId>
+          <Name>QueryKoniecPrestavkaPokladne</Name>
+          <Bounds>120,117,35,13</Bounds>
+        </Query>
+      </Components>
     </Agent>
   </Agents>
   <Messages>
+    <Message>
+      <InternalId>133</InternalId>
+      <Type>StartFinish</Type>
+      <Source>4</Source>
+      <Destination>132</Destination>
+    </Message>
     <Message>
       <InternalId>6</InternalId>
       <Type>Parent</Type>
       <Source>4</Source>
       <Destination>1</Destination>
-    </Message>
-    <Message>
-      <InternalId>10</InternalId>
-      <Type>Parent</Type>
-      <Source>7</Source>
-      <Destination>4</Destination>
-    </Message>
-    <Message>
-      <InternalId>11</InternalId>
-      <Type>Parent</Type>
-      <Source>8</Source>
-      <Destination>4</Destination>
-    </Message>
-    <Message>
-      <InternalId>12</InternalId>
-      <Type>Parent</Type>
-      <Source>9</Source>
-      <Destination>4</Destination>
-    </Message>
-    <Message>
-      <SimId>1001</SimId>
-      <InternalId>14</InternalId>
-      <Name>NoticePrichodBeznyZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>7</Source>
-      <Destination>4</Destination>
-    </Message>
-    <Message>
-      <SimId>1002</SimId>
-      <InternalId>15</InternalId>
-      <Name>NoticePrichodZmluvnyZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>8</Source>
-      <Destination>4</Destination>
-    </Message>
-    <Message>
-      <SimId>1003</SimId>
-      <InternalId>16</InternalId>
-      <Name>NoticePrichodOnlineZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>9</Source>
-      <Destination>4</Destination>
-    </Message>
-    <Message>
-      <InternalId>19</InternalId>
-      <Type>StartFinish</Type>
-      <Source>7</Source>
-      <Destination>18</Destination>
-    </Message>
-    <Message>
-      <SimId>1004</SimId>
-      <InternalId>22</InternalId>
-      <Name>NoticeVnutornaPrichodBeznyZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>18</Source>
-      <Destination>7</Destination>
-    </Message>
-    <Message>
-      <InternalId>25</InternalId>
-      <Type>StartFinish</Type>
-      <Source>8</Source>
-      <Destination>24</Destination>
-    </Message>
-    <Message>
-      <SimId>1005</SimId>
-      <InternalId>26</InternalId>
-      <Name>NoticeVnutornaPrichodZmluvnyZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>24</Source>
-      <Destination>8</Destination>
-    </Message>
-    <Message>
-      <InternalId>29</InternalId>
-      <Type>StartFinish</Type>
-      <Source>9</Source>
-      <Destination>28</Destination>
-    </Message>
-    <Message>
-      <SimId>1006</SimId>
-      <InternalId>30</InternalId>
-      <Name>NoticeVnutornaPrichodOnlineZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>28</Source>
-      <Destination>9</Destination>
-    </Message>
-    <Message>
-      <SimId>1007</SimId>
-      <InternalId>31</InternalId>
-      <Name>RequestResponsePrichodZakaznik</Name>
-      <Type>RequestResponse</Type>
-      <Source>4</Source>
-      <Destination>1</Destination>
-    </Message>
-    <Message>
-      <SimId>1008</SimId>
-      <InternalId>32</InternalId>
-      <Name>NoticeInicializaciaSimulacia</Name>
-      <Type>Notice</Type>
-      <Source>1</Source>
-      <Destination>4</Destination>
-    </Message>
-    <Message>
-      <InternalId>37</InternalId>
-      <Type>Parent</Type>
-      <Source>35</Source>
-      <Destination>1</Destination>
-    </Message>
-    <Message>
-      <SimId>1009</SimId>
-      <InternalId>38</InternalId>
-      <Name>RequestResponseSpracovanieZakaznik</Name>
-      <Type>RequestResponse</Type>
-      <Source>1</Source>
-      <Destination>35</Destination>
-    </Message>
-    <Message>
-      <InternalId>40</InternalId>
-      <Type>Parent</Type>
-      <Source>39</Source>
-      <Destination>35</Destination>
-    </Message>
-    <Message>
-      <SimId>1010</SimId>
-      <InternalId>41</InternalId>
-      <Name>RequestResponseObsluhaAutomat</Name>
-      <Type>RequestResponse</Type>
-      <Source>35</Source>
-      <Destination>39</Destination>
-    </Message>
-    <Message>
-      <InternalId>44</InternalId>
-      <Type>StartFinish</Type>
-      <Source>39</Source>
-      <Destination>43</Destination>
-    </Message>
-    <Message>
-      <InternalId>48</InternalId>
-      <Type>StartFinish</Type>
-      <Source>39</Source>
-      <Destination>47</Destination>
-    </Message>
-    <Message>
-      <InternalId>52</InternalId>
-      <Type>Parent</Type>
-      <Source>51</Source>
-      <Destination>35</Destination>
-    </Message>
-    <Message>
-      <SimId>1011</SimId>
-      <InternalId>53</InternalId>
-      <Name>RequestResponseObsluhaObsluzneMiesto</Name>
-      <Type>RequestResponse</Type>
-      <Source>35</Source>
-      <Destination>51</Destination>
-    </Message>
-    <Message>
-      <SimId>1018</SimId>
-      <InternalId>63</InternalId>
-      <Name>NoticeVyprsanieSimulacnyCas</Name>
-      <Type>Notice</Type>
-      <Source>47</Source>
-      <Destination>39</Destination>
-    </Message>
-    <Message>
-      <SimId>1019</SimId>
-      <InternalId>66</InternalId>
-      <Name>NoticeInicializaciaPrichodBeznyZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>4</Source>
-      <Destination>7</Destination>
-    </Message>
-    <Message>
-      <SimId>1020</SimId>
-      <InternalId>67</InternalId>
-      <Name>NoticeInicializaciaPrichodZmluvnyZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>4</Source>
-      <Destination>8</Destination>
-    </Message>
-    <Message>
-      <SimId>1021</SimId>
-      <InternalId>68</InternalId>
-      <Name>NoticeInicializaciaPrichodOnlineZakaznik</Name>
-      <Type>Notice</Type>
-      <Source>4</Source>
-      <Destination>9</Destination>
     </Message>
     <Message>
       <SimId>1022</SimId>
@@ -418,6 +225,12 @@
       <Destination>51</Destination>
     </Message>
     <Message>
+      <InternalId>135</InternalId>
+      <Type>StartFinish</Type>
+      <Source>4</Source>
+      <Destination>134</Destination>
+    </Message>
+    <Message>
       <SimId>1024</SimId>
       <InternalId>72</InternalId>
       <Name>NoticeUvolnenieFront</Name>
@@ -434,10 +247,40 @@
       <Destination>39</Destination>
     </Message>
     <Message>
+      <InternalId>137</InternalId>
+      <Type>StartFinish</Type>
+      <Source>4</Source>
+      <Destination>136</Destination>
+    </Message>
+    <Message>
+      <SimId>1037</SimId>
+      <InternalId>139</InternalId>
+      <Name>NoticeVnutornaPrichodBeznyZakaznik</Name>
+      <Type>Notice</Type>
+      <Source>132</Source>
+      <Destination>4</Destination>
+    </Message>
+    <Message>
       <InternalId>76</InternalId>
       <Type>Parent</Type>
       <Source>74</Source>
       <Destination>35</Destination>
+    </Message>
+    <Message>
+      <SimId>1038</SimId>
+      <InternalId>140</InternalId>
+      <Name>NoticeVnutornaPrichodZmluvnyZakaznik</Name>
+      <Type>Notice</Type>
+      <Source>134</Source>
+      <Destination>4</Destination>
+    </Message>
+    <Message>
+      <SimId>1039</SimId>
+      <InternalId>141</InternalId>
+      <Name>NoticeVnutornaOnlineZakaznik</Name>
+      <Type>Notice</Type>
+      <Source>136</Source>
+      <Destination>4</Destination>
     </Message>
     <Message>
       <InternalId>79</InternalId>
@@ -452,12 +295,30 @@
       <Destination>80</Destination>
     </Message>
     <Message>
+      <InternalId>147</InternalId>
+      <Type>Execute</Type>
+      <Source>51</Source>
+      <Destination>146</Destination>
+    </Message>
+    <Message>
       <SimId>1026</SimId>
       <InternalId>85</InternalId>
       <Name>RequestResponseObsluhaPokladna</Name>
       <Type>RequestResponse</Type>
       <Source>35</Source>
       <Destination>74</Destination>
+    </Message>
+    <Message>
+      <InternalId>149</InternalId>
+      <Type>Execute</Type>
+      <Source>51</Source>
+      <Destination>148</Destination>
+    </Message>
+    <Message>
+      <InternalId>151</InternalId>
+      <Type>Execute</Type>
+      <Source>74</Source>
+      <Destination>150</Destination>
     </Message>
     <Message>
       <InternalId>88</InternalId>
@@ -486,6 +347,22 @@
       <Destination>91</Destination>
     </Message>
     <Message>
+      <SimId>1007</SimId>
+      <InternalId>31</InternalId>
+      <Name>RequestResponsePrichodZakaznik</Name>
+      <Type>RequestResponse</Type>
+      <Source>4</Source>
+      <Destination>1</Destination>
+    </Message>
+    <Message>
+      <SimId>1008</SimId>
+      <InternalId>32</InternalId>
+      <Name>NoticeInicializaciaSimulacia</Name>
+      <Type>Notice</Type>
+      <Source>1</Source>
+      <Destination>4</Destination>
+    </Message>
+    <Message>
       <InternalId>97</InternalId>
       <Type>StartFinish</Type>
       <Source>91</Source>
@@ -506,6 +383,20 @@
       <Destination>99</Destination>
     </Message>
     <Message>
+      <InternalId>37</InternalId>
+      <Type>Parent</Type>
+      <Source>35</Source>
+      <Destination>1</Destination>
+    </Message>
+    <Message>
+      <SimId>1009</SimId>
+      <InternalId>38</InternalId>
+      <Name>RequestResponseSpracovanieZakaznik</Name>
+      <Type>RequestResponse</Type>
+      <Source>1</Source>
+      <Destination>35</Destination>
+    </Message>
+    <Message>
       <InternalId>102</InternalId>
       <Type>StartFinish</Type>
       <Source>74</Source>
@@ -514,10 +405,24 @@
     <Message>
       <SimId>1030</SimId>
       <InternalId>103</InternalId>
-      <Name>NoticeZaciatokPrestavka</Name>
+      <Name>NoticeVnutornaZaciatokPrestavkaPokladne</Name>
       <Type>Notice</Type>
       <Source>101</Source>
       <Destination>74</Destination>
+    </Message>
+    <Message>
+      <InternalId>40</InternalId>
+      <Type>Parent</Type>
+      <Source>39</Source>
+      <Destination>35</Destination>
+    </Message>
+    <Message>
+      <SimId>1010</SimId>
+      <InternalId>41</InternalId>
+      <Name>RequestResponseObsluhaAutomat</Name>
+      <Type>RequestResponse</Type>
+      <Source>35</Source>
+      <Destination>39</Destination>
     </Message>
     <Message>
       <InternalId>105</InternalId>
@@ -528,10 +433,16 @@
     <Message>
       <SimId>1031</SimId>
       <InternalId>106</InternalId>
-      <Name>NoticeKoniecPrestavka</Name>
+      <Name>NoticeVnutornaKoniecPrestavkaPokladne</Name>
       <Type>Notice</Type>
       <Source>104</Source>
       <Destination>74</Destination>
+    </Message>
+    <Message>
+      <InternalId>44</InternalId>
+      <Type>StartFinish</Type>
+      <Source>39</Source>
+      <Destination>43</Destination>
     </Message>
     <Message>
       <InternalId>108</InternalId>
@@ -542,7 +453,7 @@
     <Message>
       <SimId>1032</SimId>
       <InternalId>109</InternalId>
-      <Name>NoticeOdchodPrveObsluzneMiesto</Name>
+      <Name>NoticeVnutornaZaciatokPrestavkaObsluzneMiesto</Name>
       <Type>Notice</Type>
       <Source>107</Source>
       <Destination>51</Destination>
@@ -554,11 +465,31 @@
       <Destination>110</Destination>
     </Message>
     <Message>
+      <InternalId>48</InternalId>
+      <Type>StartFinish</Type>
+      <Source>39</Source>
+      <Destination>47</Destination>
+    </Message>
+    <Message>
       <SimId>1033</SimId>
       <InternalId>112</InternalId>
-      <Name>NoticePrichodPrveObsluzneMiesto</Name>
+      <Name>NoticeVnutornaKoniecPrestavkaObsluzneMiesto</Name>
       <Type>Notice</Type>
       <Source>110</Source>
+      <Destination>51</Destination>
+    </Message>
+    <Message>
+      <InternalId>52</InternalId>
+      <Type>Parent</Type>
+      <Source>51</Source>
+      <Destination>35</Destination>
+    </Message>
+    <Message>
+      <SimId>1011</SimId>
+      <InternalId>53</InternalId>
+      <Name>RequestResponseObsluhaObsluzneMiesto</Name>
+      <Type>RequestResponse</Type>
+      <Source>35</Source>
       <Destination>51</Destination>
     </Message>
     <Message>
@@ -589,6 +520,14 @@
       <Source>35</Source>
       <Destination>74</Destination>
     </Message>
+    <Message>
+      <SimId>1018</SimId>
+      <InternalId>63</InternalId>
+      <Name>NoticeVyprsanieSimulacnyCas</Name>
+      <Type>Notice</Type>
+      <Source>47</Source>
+      <Destination>39</Destination>
+    </Message>
   </Messages>
-  <IID>129</IID>
+  <IID>161</IID>
 </ABAsim>
