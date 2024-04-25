@@ -11,16 +11,33 @@ public class MySimulation extends Simulation
 	private boolean zvysenyTokZakaznikov;
 	private boolean prestavka;
 
-	private void customInit(double trvanieSimulacie, boolean zvysenyTokZakaznikov, boolean prestavka)
+	private int pocetObycajnychObsluznychMiest;
+	private int pocetOnlineObsluznychMiest;
+	private int pocetPokladni;
+
+	private void customInit(double trvanieSimulacie, boolean zvysenyTokZakaznikov, boolean prestavka,
+		int pocetObsluznychMiest, int pocetPokladni)
 	{
 		if (trvanieSimulacie <= 0)
 		{
 			throw new RuntimeException("Trvanie simulacie musi byt vacsie ako 0!");
 		}
+		if (pocetObsluznychMiest < 3)
+		{
+			throw new RuntimeException("Pocet obsluznych miest musi byt aspon 3!");
+		}
+		if (pocetPokladni < 1)
+		{
+			throw new RuntimeException("Pocet pokladni miest musi byt aspon 1!");
+		}
 
 		this.trvanieSimulacie = trvanieSimulacie;
 		this.zvysenyTokZakaznikov = zvysenyTokZakaznikov;
 		this.prestavka = prestavka;
+
+		this.pocetObycajnychObsluznychMiest = (int)Math.floor(pocetObsluznychMiest / 3.0);
+		this.pocetOnlineObsluznychMiest = pocetObsluznychMiest - this.pocetObycajnychObsluznychMiest;
+		this.pocetPokladni = pocetPokladni;
 	}
 
 	private void customPrepareReplication()
@@ -44,15 +61,31 @@ public class MySimulation extends Simulation
 	{
 		return this.prestavka;
 	}
+
+	public int getPocetObycajnychObsluznychMiest()
+	{
+		return this.pocetObycajnychObsluznychMiest;
+	}
+
+	public int getPocetOnlineObsluznychMiest()
+	{
+		return this.pocetOnlineObsluznychMiest;
+	}
+
+	public int getPocetPokladni()
+	{
+		return this.pocetPokladni;
+	}
 	// Vlastne koniec
 
 
-	public MySimulation(double trvanieSimulacie, boolean zvysenyTokZakaznikov, boolean prestavka)
+	public MySimulation(double trvanieSimulacie, boolean zvysenyTokZakaznikov, boolean prestavka,
+		int pocetObsluznychMiest, int pocetPokladni)
 	{
 		init();
 
 		// Vlastne
-		this.customInit(trvanieSimulacie, zvysenyTokZakaznikov, prestavka);
+		this.customInit(trvanieSimulacie, zvysenyTokZakaznikov, prestavka, pocetObsluznychMiest, pocetPokladni);
 	}
 
 	public MySimulation()

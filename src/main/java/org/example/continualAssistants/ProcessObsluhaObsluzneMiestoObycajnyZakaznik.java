@@ -1,6 +1,15 @@
 package org.example.continualAssistants;
 
 import OSPABA.*;
+import OSPRNG.EmpiricPair;
+import OSPRNG.EmpiricRNG;
+import OSPRNG.UniformContinuousRNG;
+import org.example.Vlastne.ObsluzneMiesto;
+import org.example.Vlastne.Ostatne.GeneratorNasad;
+import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.Vlastne.Ostatne.Prezenter;
+import org.example.Vlastne.VelkostTovaru;
+import org.example.Vlastne.Zakaznik;
 import org.example.simulation.*;
 import org.example.agents.*;
 import OSPABA.Process;
@@ -8,9 +17,41 @@ import OSPABA.Process;
 //meta! id="78"
 public class ProcessObsluhaObsluzneMiestoObycajnyZakaznik extends Process
 {
+	// Vlastne
+	private GeneratorNasad rngGeneratorNasad;
+	private UniformContinuousRNG rngObsluhaObsluzneMiesto;
+	private EmpiricRNG rngZlozitostObjednavky;
+
+	public void customProcessObsluhaObsluzneMiestoObycajnyZakaznik()
+	{
+		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngObsluhaObsluzneMiesto = new UniformContinuousRNG(60.0, 900.0, this.rngGeneratorNasad.generator());
+
+		EmpiricRNG jednoducha = new EmpiricRNG(this.rngGeneratorNasad.generator(),
+			new EmpiricPair(new UniformContinuousRNG(2.0, 5.0, this.rngGeneratorNasad.generator()), 0.6),
+			new EmpiricPair(new UniformContinuousRNG(5.0, 9.0, this.rngGeneratorNasad.generator()), 0.4)
+		);
+		UniformContinuousRNG mierneZlozita = new UniformContinuousRNG(9.0, 11.0, this.rngGeneratorNasad.generator());
+		EmpiricRNG zlozita = new EmpiricRNG(this.rngGeneratorNasad.generator(),
+			new EmpiricPair(new UniformContinuousRNG(11.0, 12.0, this.rngGeneratorNasad.generator()), 0.1),
+			new EmpiricPair(new UniformContinuousRNG(12.0, 20.0, this.rngGeneratorNasad.generator()), 0.6),
+			new EmpiricPair(new UniformContinuousRNG(20.0, 25.0, this.rngGeneratorNasad.generator()), 0.3)
+		);
+		this.rngZlozitostObjednavky = new EmpiricRNG(this.rngGeneratorNasad.generator(),
+			new EmpiricPair(jednoducha, 0.3),
+			new EmpiricPair(mierneZlozita, 0.4),
+			new EmpiricPair(zlozita, 0.3)
+		);
+	}
+	// Vlastne koniec
+
+
 	public ProcessObsluhaObsluzneMiestoObycajnyZakaznik(int id, Simulation mySim, CommonAgent myAgent)
 	{
 		super(id, mySim, myAgent);
+
+		// Vlastne
+		this.customProcessObsluhaObsluzneMiestoObycajnyZakaznik();
 	}
 
 	@Override
@@ -23,6 +64,23 @@ public class ProcessObsluhaObsluzneMiestoObycajnyZakaznik extends Process
 	//meta! sender="AgentObsluzneMiesta", id="79", type="Start"
 	public void processStart(MessageForm message)
 	{
+		Zakaznik zakaznik = ((MyMessageZakaznik)message).getZakaznik();
+		zakaznik.setOdchodFrontObsluzneMiesta(this.mySim().currentTime());
+
+		ObsluzneMiesto obsluzneMiesto = zakaznik.getObsluzneMiesto();
+		obsluzneMiesto.setObsadene(true);
+
+		// Samotna obsluha
+		double trvanieObsluhy =
+			this.rngObsluhaObsluzneMiesto.sample() + this.rngZlozitostObjednavky.sample().doubleValue();
+		message.setCode(Mc.holdObsluhaObsluzneMiestoObycajnyZakaznik);
+		this.hold(trvanieObsluhy, message);
+
+		if (Konstanty.DEBUG_VYPISY_ZAKAZNIK)
+		{
+			System.out.println("(" + zakaznik.getID() + ") "
+				+ Prezenter.naformatujCas(this.mySim().currentTime()) + " <- zaciatok obsluha obsluzne miesto " + zakaznik.getTypZakaznik());
+		}
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"
@@ -30,6 +88,27 @@ public class ProcessObsluhaObsluzneMiestoObycajnyZakaznik extends Process
 	{
 		switch (message.code())
 		{
+			case Mc.holdObsluhaObsluzneMiestoObycajnyZakaznik:
+				Zakaznik zakaznik = ((MyMessageZakaznik)message).getZakaznik();
+				ObsluzneMiesto obsluzneMiesto = zakaznik.getObsluzneMiesto();
+
+				VelkostTovaru velkostTovaru = this.myAgent().getVelkostTovaru();
+				if (velkostTovaru == VelkostTovaru.MALY)
+				{
+					// Tovar je maly, preto dochadza k uvolneniu obsluzneho miesta
+					obsluzneMiesto.setObsadene(false);
+				}
+
+				this.assistantFinished(message);
+
+				if (Konstanty.DEBUG_VYPISY_ZAKAZNIK)
+				{
+					System.out.println("(" + zakaznik.getID() + ") "
+						+ Prezenter.naformatujCas(this.mySim().currentTime()) + " <- koniec obsluha obsluzne miesto " + zakaznik.getTypZakaznik());
+				}
+				break;
+			default:
+				throw new RuntimeException("Neznamy kod spravy!");
 		}
 	}
 

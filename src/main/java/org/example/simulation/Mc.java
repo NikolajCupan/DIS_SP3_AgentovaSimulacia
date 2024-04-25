@@ -53,6 +53,8 @@ public class Mc extends IdList
 	// Pokladne
 	public static final int holdZaciatokPrestavkaPokladne = 8;
 	public static final int holdKoniecPrestavkaPokladne = 9;
+	public static final int holdObsluhaObsluzneMiestoObycajnyZakaznik = 10;
+	public static final int holdObsluhaObsluzneMiestoOnlineZakaznik = 11;
 
 	// Vlastne koniec
 }

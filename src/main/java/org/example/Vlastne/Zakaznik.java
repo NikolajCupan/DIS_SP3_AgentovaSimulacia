@@ -6,7 +6,6 @@ public class Zakaznik
 {
     private final long ID;
     private final TypZakaznik typZakaznik;
-
     private boolean predcasnyOdchod;
 
     private double prichodSystem;
@@ -15,8 +14,9 @@ public class Zakaznik
     private double prichodFrontAutomat;
     private double odchodFrontAutomat;
 
-    private double prichodFrontObsluzneMiesto;
-    private double odchodFrontObsluzneMiesto;
+    private ObsluzneMiesto obsluzneMiesto;
+    private double prichodFrontObsluzneMiesta;
+    private double odchodFrontObsluzneMiesta;
 
     public Zakaznik(TypZakaznik typZakaznik)
     {
@@ -30,13 +30,9 @@ public class Zakaznik
         this.prichodFrontAutomat = -1;
         this.odchodFrontAutomat = -1;
 
-        this.prichodFrontObsluzneMiesto = -1;
-        this.odchodFrontObsluzneMiesto = -1;
-    }
-
-    public boolean getPredcasnyOdchod()
-    {
-        return this.predcasnyOdchod;
+        this.obsluzneMiesto = null;
+        this.prichodFrontObsluzneMiesta = -1;
+        this.odchodFrontObsluzneMiesta = -1;
     }
 
     public void predcasnyOdchod()
@@ -69,6 +65,64 @@ public class Zakaznik
         this.odchodFrontAutomat = odchodFrontAutomat;
     }
 
+    public void setPrichodFrontObsluzneMiesta(double prichodFrontObsluzneMiesta)
+    {
+        this.prichodFrontObsluzneMiesta = prichodFrontObsluzneMiesta;
+    }
+
+    public void setOdchodFrontObsluzneMiesta(double odchodFrontObsluzneMiesta)
+    {
+        this.odchodFrontObsluzneMiesta = odchodFrontObsluzneMiesta;
+    }
+
+    public void vynulujObsluzneMiesto()
+    {
+        if (this.obsluzneMiesto == null)
+        {
+            throw new RuntimeException("Obsluzne miesto nie je nastavene!");
+        }
+
+        this.obsluzneMiesto = null;
+    }
+
+    public void setObsluzneMiesto(ObsluzneMiesto obsluzneMiesto)
+    {
+        TypOkno typOkno = obsluzneMiesto.getTypOkna();
+        if (typOkno == TypOkno.ONLINE && this.typZakaznik != TypZakaznik.ONLINE)
+        {
+            throw new RuntimeException("Nespravny typ zakaznika!");
+        }
+        else if (typOkno == TypOkno.OBYCAJNE && this.typZakaznik == TypZakaznik.ONLINE)
+        {
+            throw new RuntimeException("Nespravny typ zakaznika!");
+        }
+        if (this.obsluzneMiesto != null)
+        {
+            throw new RuntimeException("Zakaznik uz ma nastavene obsluzne miesto!");
+        }
+        if (!obsluzneMiesto.obsluzneMiestoDostupne())
+        {
+            throw new RuntimeException("Zakaznik nemoze byt priradeny k danemu obsluznemu miestu, pretoze nie je dostupne!");
+        }
+
+        this.obsluzneMiesto = obsluzneMiesto;
+    }
+
+    public ObsluzneMiesto getObsluzneMiesto()
+    {
+        if (this.obsluzneMiesto == null)
+        {
+            throw new RuntimeException("Obsluzne miesto nie je nastavene!");
+        }
+
+        return this.obsluzneMiesto;
+    }
+
+    public boolean getPredcasnyOdchod()
+    {
+        return this.predcasnyOdchod;
+    }
+
     public long getID()
     {
         return this.ID;
@@ -89,37 +143,6 @@ public class Zakaznik
         return this.prichodSystem;
     }
 
-    public double getOdchodSystem()
-    {
-        if (this.odchodSystem == -1)
-        {
-            throw new RuntimeException("Odchod system nie je nastaveny!");
-        }
-
-        return this.odchodSystem;
-    }
-
-    public double getPrichodFrontAutomat()
-    {
-
-        if (this.prichodFrontAutomat == -1)
-        {
-            throw new RuntimeException("Prichod front automat nie je nastaveny!");
-        }
-
-        return this.prichodFrontAutomat;
-    }
-
-    public double getOdchodFrontAutomat()
-    {
-        if (this.odchodFrontAutomat == -1)
-        {
-            throw new RuntimeException("Odchod front automat nie je nastaveny!");
-        }
-
-        return this.odchodFrontAutomat;
-    }
-
     public double getCasSystem()
     {
         if (this.prichodSystem == -1 || this.odchodSystem == -1)
@@ -138,5 +161,15 @@ public class Zakaznik
         }
 
         return this.odchodFrontAutomat - this.prichodFrontAutomat;
+    }
+
+    public double getCasFrontObsluzneMiesta()
+    {
+        if (this.prichodFrontObsluzneMiesta == -1 || this.odchodFrontObsluzneMiesta == -1)
+        {
+            throw new RuntimeException("Nie je nastaveny prichod/odchod obsluzne miesta!");
+        }
+
+        return this.odchodFrontObsluzneMiesta - this.prichodFrontObsluzneMiesta;
     }
 }

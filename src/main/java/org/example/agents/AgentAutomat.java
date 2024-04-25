@@ -50,7 +50,7 @@ public class AgentAutomat extends Agent
 		{
 			throw new RuntimeException("Front pred automatom je prazdny!");
 		}
-		else if (this.automatVypnuty || this.automatObsadeny)
+		if (this.automatVypnuty || this.automatObsadeny)
 		{
 			throw new RuntimeException("Pokus o vybratie zakaznika z frontu, ked je automat vypnuty alebo obsadeny!");
 		}
@@ -93,11 +93,11 @@ public class AgentAutomat extends Agent
 		{
 			throw new RuntimeException("Automat je uz obsadeny!");
 		}
-		else if (!automatObsadeny && !this.automatObsadeny)
+		if (!automatObsadeny && !this.automatObsadeny)
 		{
 			throw new RuntimeException("Automat je uz volny!");
 		}
-		else if (this.automatVypnuty)
+		if (this.automatVypnuty)
 		{
 			throw new RuntimeException("Nemozno obsadit/uvolnit automat, ktory je vypnuty!");
 		}
@@ -112,11 +112,11 @@ public class AgentAutomat extends Agent
 		{
 			throw new RuntimeException("Automat je uz vypnuty!");
 		}
-		else if (!automatVypnuty && !this.automatVypnuty)
+		if (!automatVypnuty && !this.automatVypnuty)
 		{
 			throw new RuntimeException("Automat je uz zapnuty!");
 		}
-		else if (this.automatObsadeny)
+		if (this.automatObsadeny)
 		{
 			throw new RuntimeException("Nemozno vypnut automat, ktory je obsadeny!");
 		}

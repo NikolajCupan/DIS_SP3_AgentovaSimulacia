@@ -29,7 +29,7 @@ public class ManagerOkolie extends Manager
 		if (Konstanty.DEBUG_VYPISY_ZAKAZNIK)
 		{
 			System.out.println("(" + zakaznik.getID() + ") "
-				+ Prezenter.naformatujCas(zakaznik.getPrichodSystem()) + " <- prichod " + zakaznik.getTypZakaznik());
+				+ Prezenter.naformatujCas(this.mySim().currentTime()) + " <- prichod " + zakaznik.getTypZakaznik());
 		}
 	}
 	// Vlastne koniec

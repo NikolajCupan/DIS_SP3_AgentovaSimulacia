@@ -58,7 +58,7 @@ public class ProcessObsluhaAutomat extends Process
 		if (Konstanty.DEBUG_VYPISY_ZAKAZNIK)
 		{
 			System.out.println("(" + zakaznik.getID() + ") "
-				+ Prezenter.naformatujCas(zakaznik.getOdchodFrontAutomat()) + " <- zaciatok obsluha automat " + zakaznik.getTypZakaznik());
+				+ Prezenter.naformatujCas(this.mySim().currentTime()) + " <- zaciatok obsluha automat " + zakaznik.getTypZakaznik());
 		}
 	}
 
