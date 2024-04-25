@@ -1,15 +1,45 @@
 package org.example.continualAssistants;
 
 import OSPABA.*;
+import OSPRNG.ExponentialRNG;
 import org.example.simulation.*;
 import org.example.agents.*;
+import org.example.vlastne.GeneratorNasad;
+import org.example.vlastne.Konstanty;
+import org.example.vlastne.TypZakaznik;
+import org.example.vlastne.Zakaznik;
 
 //meta! id="136"
 public class SchedulerPrichodOnlineZakaznik extends Scheduler
 {
+	// Vlastne
+	private GeneratorNasad rngGeneratorNasad;
+	private ExponentialRNG rngPrichodOnlineZakaznik;
+
+	public void customSchedulerPrichodOnlineZakaznik()
+	{
+		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngPrichodOnlineZakaznik = new ExponentialRNG(Konstanty.POCET_ONLINE_ZAKAZNIKOV_ZA_HODINU,
+			this.rngGeneratorNasad.generator());
+	}
+
+	private boolean prichodPredZatvorenim(double trvaniePrichodu)
+	{
+		if (this.mySim().currentTime() + trvaniePrichodu > ((MySimulation)this.mySim()).getTrvanieSimulacie())
+		{
+			return false;
+		}
+
+		return true;
+	}
+	// Vlastne koniec
+
 	public SchedulerPrichodOnlineZakaznik(int id, Simulation mySim, CommonAgent myAgent)
 	{
 		super(id, mySim, myAgent);
+
+		// Vlastne
+		this.customSchedulerPrichodOnlineZakaznik();
 	}
 
 	@Override
@@ -22,6 +52,14 @@ public class SchedulerPrichodOnlineZakaznik extends Scheduler
 	//meta! sender="AgentOkolie", id="137", type="Start"
 	public void processStart(MessageForm message)
 	{
+		double trvaniePrichodu = this.rngPrichodOnlineZakaznik.sample();
+		if (this.prichodPredZatvorenim(trvaniePrichodu))
+		{
+			// Naplanovanie iba za predpokladu, ze by prichod nenastal po zatvoreni
+			MyMessageZakaznik prichod = new MyMessageZakaznik(this.mySim(), TypZakaznik.ONLINE);
+			prichod.setCode(Mc.holdPrichodOnlineZakaznik);
+			hold(trvaniePrichodu, prichod);
+		}
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"
@@ -29,6 +67,29 @@ public class SchedulerPrichodOnlineZakaznik extends Scheduler
 	{
 		switch (message.code())
 		{
+			case Mc.holdPrichodOnlineZakaznik:
+				// Spracovanie prichodu
+				MyMessageZakaznik prichod = (MyMessageZakaznik)message;
+				Zakaznik zakaznik = prichod.getZakaznik();
+				zakaznik.setPrichodSystem(this.mySim().currentTime());
+
+				// Oznamenie prichodu svojmu manazerovi
+				prichod.setCode(Mc.noticeVnutornaPrichodOnlineZakaznik);
+				prichod.setAddressee(this.myAgent().manager());
+				this.notice(message);
+
+
+				// Dalsi prichod
+				double trvaniePrichodu = this.rngPrichodOnlineZakaznik.sample();
+				if (this.prichodPredZatvorenim(trvaniePrichodu))
+				{
+					MyMessageZakaznik dalsiPrichod = new MyMessageZakaznik(this.mySim(), TypZakaznik.ONLINE);
+					dalsiPrichod.setCode(Mc.holdPrichodOnlineZakaznik);
+					hold(trvaniePrichodu, dalsiPrichod);
+				}
+				break;
+			default:
+				throw new RuntimeException("Neznamy kod spravy!");
 		}
 	}
 

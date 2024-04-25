@@ -9,6 +9,21 @@ import org.example.instantAssistants.*;
 //meta! id="1"
 public class AgentModel extends Agent
 {
+	public void inicializaciaSimulacie()
+	{
+		// Okolie
+		MyMessage inicializaciaOkolie = new MyMessage(this.mySim());
+		inicializaciaOkolie.setCode(Mc.noticeInicializaciaOkolie);
+		inicializaciaOkolie.setAddressee(Id.agentOkolie);
+		this.manager().notice(inicializaciaOkolie);
+
+		// System
+		MyMessage inicializaciaSystem = new MyMessage(this.mySim());
+		inicializaciaSystem.setCode(Mc.noticeInicializaciaSystem);
+		inicializaciaSystem.setAddressee(Id.agentSystem);
+		this.manager().notice(inicializaciaSystem);
+	}
+
 	public AgentModel(int id, Simulation mySim, Agent parent)
 	{
 		super(id, mySim, parent);

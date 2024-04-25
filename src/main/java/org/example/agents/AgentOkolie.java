@@ -9,10 +9,20 @@ import org.example.instantAssistants.*;
 //meta! id="4"
 public class AgentOkolie extends Agent
 {
+	private void customAgentOkolie()
+	{
+		this.addOwnMessage(Mc.holdPrichodBeznyZakaznik);
+		this.addOwnMessage(Mc.holdPrichodZmluvnyZakaznik);
+		this.addOwnMessage(Mc.holdPrichodOnlineZakaznik);
+	}
+
 	public AgentOkolie(int id, Simulation mySim, Agent parent)
 	{
 		super(id, mySim, parent);
 		init();
+
+		// Vlastne
+		this.customAgentOkolie();
 	}
 
 	@Override

@@ -5,6 +5,9 @@ import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
+import org.example.vlastne.Prezenter;
+import org.example.vlastne.TypZakaznik;
+import org.example.vlastne.Zakaznik;
 
 //meta! id="4"
 public class ManagerOkolie extends Manager
@@ -30,11 +33,31 @@ public class ManagerOkolie extends Manager
 	//meta! sender="SchedulerPrichodOnlineZakaznik", id="141", type="Notice"
 	public void processNoticeVnutornaPrichodOnlineZakaznik(MessageForm message)
 	{
+		MyMessageZakaznik prichod = (MyMessageZakaznik)message;
+		Zakaznik zakaznik = prichod.getZakaznik();
+
+		if (zakaznik.getTypZakaznik() != TypZakaznik.ONLINE || zakaznik.getPrichodSystem() == -1
+			|| zakaznik.getPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
+		{
+			throw new RuntimeException("Chyba prichodu online zakaznika!");
+		}
+
+		System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod online");
 	}
 
 	//meta! sender="SchedulerPrichodBeznyZakaznik", id="139", type="Notice"
 	public void processNoticeVnutornaPrichodBeznyZakaznik(MessageForm message)
 	{
+		MyMessageZakaznik prichod = (MyMessageZakaznik)message;
+		Zakaznik zakaznik = prichod.getZakaznik();
+
+		if (zakaznik.getTypZakaznik() != TypZakaznik.BEZNY || zakaznik.getPrichodSystem() == -1
+			|| zakaznik.getPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
+		{
+			throw new RuntimeException("Chyba prichodu bezneho zakaznika!");
+		}
+
+		System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod bezny");
 	}
 
 	//meta! sender="AgentModel", id="31", type="Response"
@@ -60,11 +83,33 @@ public class ManagerOkolie extends Manager
 	//meta! sender="SchedulerPrichodZmluvnyZakaznik", id="140", type="Notice"
 	public void processNoticeVnutornaPrichodZmluvnyZakaznik(MessageForm message)
 	{
+		MyMessageZakaznik prichod = (MyMessageZakaznik)message;
+		Zakaznik zakaznik = prichod.getZakaznik();
+
+		if (zakaznik.getTypZakaznik() != TypZakaznik.ZMLUVNY || zakaznik.getPrichodSystem() == -1
+			|| zakaznik.getPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
+		{
+			throw new RuntimeException("Chyba prichodu zmluvneho zakaznika!");
+		}
+
+		System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod zmluvny");
 	}
 
 	//meta! sender="AgentModel", id="32", type="Notice"
 	public void processNoticeInicializaciaOkolie(MessageForm message)
 	{
+		// Spustenie planovacov
+		MyMessage spustenieBezniZakaznici = new MyMessage(this.mySim());
+		spustenieBezniZakaznici.setAddressee(this.myAgent().findAssistant(Id.schedulerPrichodBeznyZakaznik));
+		this.startContinualAssistant(spustenieBezniZakaznici);
+
+		MyMessage spustenieZmluvniZakaznici = new MyMessage(this.mySim());
+		spustenieZmluvniZakaznici.setAddressee(this.myAgent().findAssistant(Id.schedulerPrichodZmluvnyZakaznik));
+		this.startContinualAssistant(spustenieZmluvniZakaznici);
+
+		MyMessage spustenieOnlineZakaznici = new MyMessage(this.mySim());
+		spustenieOnlineZakaznici.setAddressee(this.myAgent().findAssistant(Id.schedulerPrichodOnlineZakaznik));
+		this.startContinualAssistant(spustenieOnlineZakaznici);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"
