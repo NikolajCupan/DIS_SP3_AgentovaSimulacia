@@ -38,6 +38,9 @@ public class ManagerModel extends Manager
 	//meta! sender="AgentOkolie", id="31", type="Request"
 	public void processRequestResponsePrichodZakaznik(MessageForm message)
 	{
+		message.setCode(Mc.requestResponseSpracovanieZakaznik);
+		message.setAddressee(Id.agentSystem);
+		this.request(message);
 	}
 
 	//meta! sender="AgentSystem", id="38", type="Response"

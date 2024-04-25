@@ -1,4 +1,4 @@
-package org.example.vlastne;
+package org.example.Vlastne.Ostatne;
 
 public class Konstanty
 {
@@ -16,8 +16,15 @@ public class Konstanty
     public static final double POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU = 5.0 * 60.0;
     public static final double POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU = 10.0 * 60.0;
 
+    public static final double ZVYSENY_TOK = 0.30;
+    public static final double ZVYSENY_POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU =
+        Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
+    public static final double ZVYSENY_POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU =
+        Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
+    public static final double ZVYSENY_POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU =
+        Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
 
     // Debug
     public static final boolean DEBUG_VYPISY = true;
-    public static final boolean DEBUG_VYPISY_PRICHODY = false;
+    public static final boolean DEBUG_VYPISY_ZAKAZNIK = false;
 }

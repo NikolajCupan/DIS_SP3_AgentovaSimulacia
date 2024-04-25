@@ -1,7 +1,10 @@
-package org.example.vlastne;
+package org.example.Vlastne;
+
+import org.example.Vlastne.Ostatne.Identifikator;
 
 public class Zakaznik
 {
+    private final long ID;
     private final TypZakaznik typZakaznik;
 
     private double prichodSystem;
@@ -10,8 +13,12 @@ public class Zakaznik
     private double prichodFrontAutomat;
     private double odchodFrontAutomat;
 
+    private double prichodFrontObsluzneMiesto;
+    private double odchodFrontObsluzneMiesto;
+
     public Zakaznik(TypZakaznik typZakaznik)
     {
+        this.ID = Identifikator.getID();
         this.typZakaznik = typZakaznik;
 
         this.prichodSystem = -1;
@@ -19,6 +26,9 @@ public class Zakaznik
 
         this.prichodFrontAutomat = -1;
         this.odchodFrontAutomat = -1;
+
+        this.prichodFrontObsluzneMiesto = -1;
+        this.odchodFrontObsluzneMiesto = -1;
     }
 
     public void setPrichodSystem(double prichodSystem)
@@ -39,6 +49,11 @@ public class Zakaznik
     public void setOdchodFrontAutomat(double odchodFrontAutomat)
     {
         this.odchodFrontAutomat = odchodFrontAutomat;
+    }
+
+    public long getID()
+    {
+        return this.ID;
     }
 
     public TypZakaznik getTypZakaznik()

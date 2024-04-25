@@ -3,7 +3,6 @@ package org.example.continualAssistants;
 import OSPABA.*;
 import org.example.simulation.*;
 import org.example.agents.*;
-import org.example.vlastne.Prezenter;
 
 //meta! id="47"
 public class MonitorVyprazdnenieFrontAutomat extends Monitor
@@ -27,7 +26,7 @@ public class MonitorVyprazdnenieFrontAutomat extends Monitor
 
 		MyMessage vyprazdnenieFront = new MyMessage(this.mySim());
 		vyprazdnenieFront.setCode(Mc.holdVyprazdnenieFrontAutomat);
-		hold(vyprazdnenieZa, vyprazdnenieFront);
+		this.hold(vyprazdnenieZa, vyprazdnenieFront);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"

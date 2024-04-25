@@ -2,8 +2,8 @@ package org.example.simulation;
 
 import OSPABA.MessageForm;
 import OSPABA.Simulation;
-import org.example.vlastne.TypZakaznik;
-import org.example.vlastne.Zakaznik;
+import org.example.Vlastne.TypZakaznik;
+import org.example.Vlastne.Zakaznik;
 
 public class MyMessageZakaznik extends MessageForm
 {

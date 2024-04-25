@@ -44,6 +44,7 @@ public class Mc extends IdList
 
 	// Automat
 	public static final int holdVyprazdnenieFrontAutomat = 4;
+	public static final int holdObsluhaAutomat = 5;
 
 	// Vlastne koniec
 }

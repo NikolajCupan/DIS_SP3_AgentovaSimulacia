@@ -3,10 +3,9 @@ package org.example.managers;
 import OSPABA.*;
 import org.example.simulation.*;
 import org.example.agents.*;
-import org.example.continualAssistants.*;
-import org.example.instantAssistants.*;
-import org.example.vlastne.Konstanty;
-import org.example.vlastne.Prezenter;
+import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.Vlastne.Ostatne.Prezenter;
+import org.example.Vlastne.Zakaznik;
 
 //meta! id="39"
 public class ManagerAutomat extends Manager
@@ -40,6 +39,22 @@ public class ManagerAutomat extends Manager
 	//meta! sender="AgentSystem", id="41", type="Request"
 	public void processRequestResponseObsluhaAutomat(MessageForm message)
 	{
+		Zakaznik zakaznik = ((MyMessageZakaznik)message).getZakaznik();
+		zakaznik.setPrichodFrontAutomat(this.mySim().currentTime());
+
+		AgentAutomat automat = this.myAgent();
+
+		if (automat.getAutomatVypnuty() || automat.getAutomatObsadeny() || !automat.frontPrazdny())
+		{
+			// Automat nemozno pouzit
+			automat.pridajFront(message);
+		}
+		else
+		{
+			// Automat mozno pouzit
+			message.setAddressee(this.myAgent().findAssistant(Id.processObsluhaAutomat));
+			this.startContinualAssistant(message);
+		}
 	}
 
 	//meta! sender="AgentSystem", id="73", type="Notice"
@@ -59,6 +74,8 @@ public class ManagerAutomat extends Manager
 	//meta! sender="ProcessObsluhaAutomat", id="44", type="Finish"
 	public void processFinishProcessObsluhaAutomat(MessageForm message)
 	{
+		// Spracuj zakaznika, ktoreho obsluha skoncila
+
 	}
 
 	//meta! sender="MonitorVyprazdnenieFrontAutomat", id="63", type="Notice"
@@ -68,6 +85,8 @@ public class ManagerAutomat extends Manager
 		{
 			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- vyprazdnenie front automat");
 		}
+
+		// TODO: Vyprazdnenie automatu
 	}
 
 	//meta! sender="AgentSystem", id="70", type="Response"

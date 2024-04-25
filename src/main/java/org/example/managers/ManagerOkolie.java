@@ -3,12 +3,9 @@ package org.example.managers;
 import OSPABA.*;
 import org.example.simulation.*;
 import org.example.agents.*;
-import org.example.continualAssistants.*;
-import org.example.instantAssistants.*;
-import org.example.vlastne.Konstanty;
-import org.example.vlastne.Prezenter;
-import org.example.vlastne.TypZakaznik;
-import org.example.vlastne.Zakaznik;
+import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.Vlastne.Ostatne.Prezenter;
+import org.example.Vlastne.Zakaznik;
 
 //meta! id="4"
 public class ManagerOkolie extends Manager
@@ -22,15 +19,16 @@ public class ManagerOkolie extends Manager
 			throw new RuntimeException("Chyba prichodu zmluvneho zakaznika!");
 		}
 
-		if (Konstanty.DEBUG_VYPISY_PRICHODY)
-		{
-			System.out.println(Prezenter.naformatujCas(zakaznik.getPrichodSystem()) + " <- prichod " + zakaznik.getTypZakaznik());
-		}
-
 		MyMessageZakaznik prichodZakaznika = new MyMessageZakaznik(this.mySim(), zakaznik);
 		prichodZakaznika.setCode(Mc.requestResponsePrichodZakaznik);
 		prichodZakaznika.setAddressee(Id.agentModel);
 		request(prichodZakaznika);
+
+		if (Konstanty.DEBUG_VYPISY_ZAKAZNIK)
+		{
+			System.out.println("(" + zakaznik.getID() + ") "
+				+ Prezenter.naformatujCas(zakaznik.getPrichodSystem()) + " <- prichod " + zakaznik.getTypZakaznik());
+		}
 	}
 	// Vlastne koniec
 

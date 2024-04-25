@@ -3,8 +3,6 @@ package org.example.managers;
 import OSPABA.*;
 import org.example.simulation.*;
 import org.example.agents.*;
-import org.example.continualAssistants.*;
-import org.example.instantAssistants.*;
 
 //meta! id="35"
 public class ManagerSystem extends Manager
@@ -87,6 +85,14 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentModel", id="38", type="Request"
 	public void processRequestResponseSpracovanieZakaznik(MessageForm message)
 	{
+		if (message.deliveryTime() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
+		{
+			throw new RuntimeException("Ziadost o spracovanie zakaznika po vyprsani simulacneho casu!");
+		}
+
+		message.setCode(Mc.requestResponseObsluhaAutomat);
+		message.setAddressee(Id.agentAutomat);
+		request(message);
 	}
 
 	//meta! sender="AgentAutomat", id="70", type="Request"

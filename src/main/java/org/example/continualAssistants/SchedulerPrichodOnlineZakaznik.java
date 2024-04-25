@@ -4,10 +4,10 @@ import OSPABA.*;
 import OSPRNG.ExponentialRNG;
 import org.example.simulation.*;
 import org.example.agents.*;
-import org.example.vlastne.GeneratorNasad;
-import org.example.vlastne.Konstanty;
-import org.example.vlastne.TypZakaznik;
-import org.example.vlastne.Zakaznik;
+import org.example.Vlastne.Ostatne.GeneratorNasad;
+import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.Vlastne.TypZakaznik;
+import org.example.Vlastne.Zakaznik;
 
 //meta! id="136"
 public class SchedulerPrichodOnlineZakaznik extends Scheduler
@@ -19,8 +19,10 @@ public class SchedulerPrichodOnlineZakaznik extends Scheduler
 	public void customSchedulerPrichodOnlineZakaznik()
 	{
 		this.rngGeneratorNasad = new GeneratorNasad();
-		this.rngPrichodOnlineZakaznik = new ExponentialRNG(Konstanty.POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU,
-			this.rngGeneratorNasad.generator());
+
+		double priemer = ((MySimulation)this.mySim()).getZvysenyTokZakaznikov()
+				? Konstanty.ZVYSENY_POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU : Konstanty.POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU;
+		this.rngPrichodOnlineZakaznik = new ExponentialRNG(priemer, this.rngGeneratorNasad.generator());
 	}
 
 	private boolean prichodPredZatvorenim(double trvaniePrichodu)
@@ -66,7 +68,7 @@ public class SchedulerPrichodOnlineZakaznik extends Scheduler
 			// Naplanovanie iba za predpokladu, ze by prichod nenastal po zatvoreni
 			MyMessageZakaznik prichod = new MyMessageZakaznik(this.mySim(), TypZakaznik.ONLINE);
 			prichod.setCode(Mc.holdPrichodOnlineZakaznik);
-			hold(trvaniePrichodu, prichod);
+			this.hold(trvaniePrichodu, prichod);
 		}
 		else
 		{
@@ -97,7 +99,7 @@ public class SchedulerPrichodOnlineZakaznik extends Scheduler
 				{
 					MyMessageZakaznik dalsiPrichod = new MyMessageZakaznik(this.mySim(), TypZakaznik.ONLINE);
 					dalsiPrichod.setCode(Mc.holdPrichodOnlineZakaznik);
-					hold(trvaniePrichodu, dalsiPrichod);
+					this.hold(trvaniePrichodu, dalsiPrichod);
 				}
 				else
 				{

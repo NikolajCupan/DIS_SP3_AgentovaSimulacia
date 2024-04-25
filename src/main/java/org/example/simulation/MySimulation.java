@@ -1,14 +1,16 @@
 package org.example.simulation;
 
 import OSPABA.*;
+import org.example.Vlastne.Ostatne.Identifikator;
 import org.example.agents.*;
 
 public class MySimulation extends Simulation
 {
 	// Vlastne
 	private double trvanieSimulacie;
+	private boolean zvysenyTokZakaznikov;
 
-	private void customInit(double trvanieSimulacie)
+	private void customInit(double trvanieSimulacie, boolean zvysenyTokZakaznikov)
 	{
 		if (trvanieSimulacie <= 0)
 		{
@@ -16,11 +18,13 @@ public class MySimulation extends Simulation
 		}
 
 		this.trvanieSimulacie = trvanieSimulacie;
+		this.zvysenyTokZakaznikov = zvysenyTokZakaznikov;
 	}
 
 	private void customPrepareReplication()
 	{
 		// Spustenie simulacie
+		Identifikator.resetujID();
 		this.agentModel().inicializaciaSimulacie();
 	}
 
@@ -28,15 +32,20 @@ public class MySimulation extends Simulation
 	{
 		return this.trvanieSimulacie;
 	}
+
+	public boolean getZvysenyTokZakaznikov()
+	{
+		return this.zvysenyTokZakaznikov;
+	}
 	// Vlastne koniec
 
 
-	public MySimulation(double trvanieSimulacie)
+	public MySimulation(double trvanieSimulacie, boolean zvysenyTokZakaznikov)
 	{
 		init();
 
 		// Vlastne
-		this.customInit(trvanieSimulacie);
+		this.customInit(trvanieSimulacie, zvysenyTokZakaznikov);
 	}
 
 	public MySimulation()

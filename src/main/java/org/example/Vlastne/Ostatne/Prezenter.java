@@ -1,4 +1,4 @@
-package org.example.vlastne;
+package org.example.Vlastne.Ostatne;
 
 import java.text.DecimalFormat;
 
