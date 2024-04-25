@@ -36,6 +36,5 @@ public class Id extends IdList
 	public static final int monitorZaciatokPrestavkaObsluzneMiesta = 1015;
 	public static final int monitorKoniecPrestavkaObsluzneMiesta = 1016;
 	public static final int monitorVyprazdnenieFrontAutomat = 1005;
-	public static final int queryVyprazdnenieFrontAutomat = 1017;
 	//meta! tag="end"
 }

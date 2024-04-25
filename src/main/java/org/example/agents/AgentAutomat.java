@@ -138,7 +138,6 @@ public class AgentAutomat extends Agent
 		new ManagerAutomat(Id.managerAutomat, mySim(), this);
 		new ProcessObsluhaAutomat(Id.processObsluhaAutomat, mySim(), this);
 		new MonitorVyprazdnenieFrontAutomat(Id.monitorVyprazdnenieFrontAutomat, mySim(), this);
-		new QueryVyprazdnenieFrontAutomat(Id.queryVyprazdnenieFrontAutomat, mySim(), this);
 		addOwnMessage(Mc.noticeInicializaciaAutomat);
 		addOwnMessage(Mc.requestResponseObsluhaAutomat);
 		addOwnMessage(Mc.noticeZapnutieAutomat);
