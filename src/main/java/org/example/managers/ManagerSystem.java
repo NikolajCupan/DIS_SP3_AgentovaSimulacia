@@ -95,6 +95,8 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentObsluzneMiesta", id="71", type="Response"
 	public void processRequestResponseNaplnenieFront(MessageForm message)
 	{
+		message.setCode(Mc.requestResponseVypnutieAutomat);
+		this.response(message);
 	}
 
 	//meta! sender="AgentModel", id="38", type="Request"
@@ -113,6 +115,9 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentAutomat", id="70", type="Request"
 	public void processRequestResponseVypnutieAutomat(MessageForm message)
 	{
+		message.setCode(Mc.requestResponseNaplnenieFront);
+		message.setAddressee(Id.agentObsluzneMiesta);
+		this.request(message);
 	}
 
 	//meta! sender="AgentObsluzneMiesta", id="72", type="Notice"

@@ -26,13 +26,17 @@ public class Konstanty
     public static final double POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU = 5.0 * 60.0;
     public static final double POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU = 10.0 * 60.0;
 
-    public static final double ZVYSENY_TOK = 0.30;
+    private static final double ZVYSENY_TOK = 0.30;
     public static final double ZVYSENY_POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU =
         Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
     public static final double ZVYSENY_POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU =
         Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
     public static final double ZVYSENY_POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU =
         Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
+
+
+    // Ostatne
+    public static final int KAPACITA_FRONT_OBSLUZNE_MIESTA = 9;
 
 
     // Debug

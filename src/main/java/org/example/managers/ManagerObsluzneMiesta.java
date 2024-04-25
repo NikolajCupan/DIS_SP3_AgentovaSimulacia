@@ -48,6 +48,7 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="AgentSystem", id="53", type="Request"
 	public void processRequestResponseObsluhaObsluzneMiesto(MessageForm message)
 	{
+		this.myAgent().pridajFront(message);
 	}
 
 	//meta! sender="AgentSystem", id="98", type="Notice"
@@ -58,6 +59,9 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="AgentSystem", id="71", type="Request"
 	public void processRequestResponseNaplnenieFront(MessageForm message)
 	{
+		MyMessage sprava = (MyMessage)message;
+		sprava.setVypnutieAutomat(this.myAgent().frontPlny());
+		this.response(message);
 	}
 
 	//meta! sender="ProcessObsluhaObsluzneMiestoOnlineZakaznik", id="81", type="Finish"

@@ -71,6 +71,13 @@ public class ProcessObsluhaAutomat extends Process
 				AgentAutomat automat = this.myAgent();
 				automat.setAutomatObsadeny(false);
 				this.assistantFinished(message);
+
+				Zakaznik zakaznik = ((MyMessageZakaznik)message).getZakaznik();
+				if (Konstanty.DEBUG_VYPISY_ZAKAZNIK)
+				{
+					System.out.println("(" + zakaznik.getID() + ") "
+						+ Prezenter.naformatujCas(this.mySim().currentTime()) + " <- koniec obsluha automat " + zakaznik.getTypZakaznik());
+				}
 				break;
 			default:
 				throw new RuntimeException("Neznamy kod spravy!");

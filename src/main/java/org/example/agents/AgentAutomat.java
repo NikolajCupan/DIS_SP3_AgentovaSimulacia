@@ -114,7 +114,7 @@ public class AgentAutomat extends Agent
 		}
 		else if (!automatVypnuty && !this.automatVypnuty)
 		{
-			throw new RuntimeException("Automat je uz vypnuty!");
+			throw new RuntimeException("Automat je uz zapnuty!");
 		}
 		else if (this.automatObsadeny)
 		{

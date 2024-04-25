@@ -10,6 +10,31 @@ import org.example.Vlastne.Zakaznik;
 //meta! id="39"
 public class ManagerAutomat extends Manager
 {
+	// Vlastne
+	private void naplanujPouzitieAutomatu()
+	{
+		AgentAutomat automat = this.myAgent();
+		if (automat.getAutomatVypnuty() || automat.getAutomatObsadeny())
+		{
+			throw new RuntimeException("Automat nemoze byt pouzity!");
+		}
+
+		MyMessageZakaznik zakaznik = (MyMessageZakaznik)automat.odoberFront();
+		zakaznik.setAddressee(this.myAgent().findAssistant(Id.processObsluhaAutomat));
+		this.startContinualAssistant(zakaznik);
+	}
+
+	private void skontrolujVypnutieAutomatu()
+	{
+		// Zistenie situacie ohladom naplnenia frontu pred obsluznymi miestami
+		MyMessage vypnutieAutomat = new MyMessage(this.mySim());
+		vypnutieAutomat.setCode(Mc.requestResponseVypnutieAutomat);
+		vypnutieAutomat.setAddressee(Id.agentSystem);
+		this.request(vypnutieAutomat);
+	}
+	// Vlastne koniec
+
+
 	public ManagerAutomat(int id, Simulation mySim, Agent myAgent)
 	{
 		super(id, mySim, myAgent);
@@ -50,7 +75,7 @@ public class ManagerAutomat extends Manager
 		}
 		else
 		{
-			// Automat mozno pouzit
+			// Automat moze byt pouzity
 			message.setAddressee(this.myAgent().findAssistant(Id.processObsluhaAutomat));
 			this.startContinualAssistant(message);
 		}
@@ -77,14 +102,8 @@ public class ManagerAutomat extends Manager
 		message.setCode(Mc.requestResponseObsluhaAutomat);
 		this.response(message);
 
-		// Naplanovanie dalsej obsluhy
-		AgentAutomat automat = this.myAgent();
-		if (!automat.frontPrazdny())
-		{
-			MyMessageZakaznik dalsiZakaznik = (MyMessageZakaznik)automat.odoberFront();
-			dalsiZakaznik.setAddressee(this.myAgent().findAssistant(Id.processObsluhaAutomat));
-			this.startContinualAssistant(dalsiZakaznik);
-		}
+		// Pokus o naplanovanie dalsej obsluhy pri automate
+		this.skontrolujVypnutieAutomatu();
 	}
 
 	//meta! sender="MonitorVyprazdnenieFrontAutomat", id="63", type="Notice"
@@ -101,6 +120,25 @@ public class ManagerAutomat extends Manager
 	//meta! sender="AgentSystem", id="70", type="Response"
 	public void processRequestResponseVypnutieAutomat(MessageForm message)
 	{
+		MyMessage sprava = (MyMessage)message;
+		if (sprava.getVypnutieAutomat())
+		{
+			// Dochadza k vypnutiu automatu
+			this.myAgent().setAutomatVypnuty(sprava.getVypnutieAutomat());
+
+			if (Konstanty.DEBUG_VYPISY)
+			{
+				System.out.println(Prezenter.naformatujCas(this.mySim().currentTime()) + " <- vypnutie automat");
+			}
+		}
+		else
+		{
+			// Automat moze byt pouzity, naplanuje sa dalsia obsluha
+			if (!this.myAgent().frontPrazdny())
+			{
+				this.naplanujPouzitieAutomatu();
+			}
+		}
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"
