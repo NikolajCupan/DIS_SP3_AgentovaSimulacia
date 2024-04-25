@@ -3,6 +3,7 @@ package org.example.continualAssistants;
 import OSPABA.*;
 import org.example.simulation.*;
 import org.example.agents.*;
+import org.example.vlastne.Prezenter;
 
 //meta! id="47"
 public class MonitorVyprazdnenieFrontAutomat extends Monitor
@@ -22,6 +23,11 @@ public class MonitorVyprazdnenieFrontAutomat extends Monitor
 	//meta! sender="AgentAutomat", id="48", type="Start"
 	public void processStart(MessageForm message)
 	{
+		double vyprazdnenieZa = ((MySimulation)this.mySim()).getTrvanieSimulacie();
+
+		MyMessage vyprazdnenieFront = new MyMessage(this.mySim());
+		vyprazdnenieFront.setCode(Mc.holdVyprazdnenieFrontAutomat);
+		hold(vyprazdnenieZa, vyprazdnenieFront);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"
@@ -29,6 +35,19 @@ public class MonitorVyprazdnenieFrontAutomat extends Monitor
 	{
 		switch (message.code())
 		{
+			case Mc.holdVyprazdnenieFrontAutomat:
+				// Informacie o vyprsani simulacneho casu
+				MyMessage vyprazdnenieFront = new MyMessage(this.mySim());
+				vyprazdnenieFront.setCode(Mc.noticeVnutornaVyprsanieSimulacnyCas);
+				vyprazdnenieFront.setAddressee(this.myAgent().manager());
+				this.notice(vyprazdnenieFront);
+
+				// Informacia o ukonceni cinnosti
+				MyMessage ukoncenieCinnosti = new MyMessage(this.mySim());
+				this.assistantFinished(ukoncenieCinnosti);
+				break;
+			default:
+				throw new RuntimeException("Neznamy kod spravy!");
 		}
 	}
 

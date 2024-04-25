@@ -22,6 +22,14 @@ public class MyMessageZakaznik extends MessageForm
         this.zakaznik = new Zakaznik(typZakaznik);
     }
 
+    public MyMessageZakaznik(Simulation mySim, Zakaznik zakaznik)
+    {
+        super(mySim);
+
+        // Vlastne
+        this.zakaznik = zakaznik;
+    }
+
     protected MyMessageZakaznik(MessageForm original)
     {
         super(original);

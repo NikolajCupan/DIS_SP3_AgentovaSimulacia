@@ -19,4 +19,5 @@ public class Konstanty
 
     // Debug
     public static final boolean DEBUG_VYPISY = true;
+    public static final boolean DEBUG_VYPISY_PRICHODY = false;
 }

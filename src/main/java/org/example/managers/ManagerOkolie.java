@@ -13,6 +13,28 @@ import org.example.vlastne.Zakaznik;
 //meta! id="4"
 public class ManagerOkolie extends Manager
 {
+	// Vlastne
+	private void odosliZakaznikaModelu(MyMessageZakaznik prichod)
+	{
+		Zakaznik zakaznik = prichod.getZakaznik();
+		if (zakaznik.getPrichodSystem() == -1 || zakaznik.getPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
+		{
+			throw new RuntimeException("Chyba prichodu zmluvneho zakaznika!");
+		}
+
+		if (Konstanty.DEBUG_VYPISY_PRICHODY)
+		{
+			System.out.println(Prezenter.naformatujCas(zakaznik.getPrichodSystem()) + " <- prichod " + zakaznik.getTypZakaznik());
+		}
+
+		MyMessageZakaznik prichodZakaznika = new MyMessageZakaznik(this.mySim(), zakaznik);
+		prichodZakaznika.setCode(Mc.requestResponsePrichodZakaznik);
+		prichodZakaznika.setAddressee(Id.agentModel);
+		request(prichodZakaznika);
+	}
+	// Vlastne koniec
+
+
 	public ManagerOkolie(int id, Simulation mySim, Agent myAgent)
 	{
 		super(id, mySim, myAgent);
@@ -34,37 +56,13 @@ public class ManagerOkolie extends Manager
 	//meta! sender="SchedulerPrichodOnlineZakaznik", id="141", type="Notice"
 	public void processNoticeVnutornaPrichodOnlineZakaznik(MessageForm message)
 	{
-		MyMessageZakaznik prichod = (MyMessageZakaznik)message;
-		Zakaznik zakaznik = prichod.getZakaznik();
-
-		if (zakaznik.getTypZakaznik() != TypZakaznik.ONLINE || zakaznik.getPrichodSystem() == -1
-			|| zakaznik.getPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
-		{
-			throw new RuntimeException("Chyba prichodu online zakaznika!");
-		}
-
-		if (Konstanty.DEBUG_VYPISY)
-		{
-			System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod online");
-		}
+		this.odosliZakaznikaModelu((MyMessageZakaznik)message);
 	}
 
 	//meta! sender="SchedulerPrichodBeznyZakaznik", id="139", type="Notice"
 	public void processNoticeVnutornaPrichodBeznyZakaznik(MessageForm message)
 	{
-		MyMessageZakaznik prichod = (MyMessageZakaznik)message;
-		Zakaznik zakaznik = prichod.getZakaznik();
-
-		if (zakaznik.getTypZakaznik() != TypZakaznik.BEZNY || zakaznik.getPrichodSystem() == -1
-			|| zakaznik.getPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
-		{
-			throw new RuntimeException("Chyba prichodu bezneho zakaznika!");
-		}
-
-		if (Konstanty.DEBUG_VYPISY)
-		{
-			System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod bezny");
-		}
+		this.odosliZakaznikaModelu((MyMessageZakaznik)message);
 	}
 
 	//meta! sender="AgentModel", id="31", type="Response"
@@ -105,19 +103,7 @@ public class ManagerOkolie extends Manager
 	//meta! sender="SchedulerPrichodZmluvnyZakaznik", id="140", type="Notice"
 	public void processNoticeVnutornaPrichodZmluvnyZakaznik(MessageForm message)
 	{
-		MyMessageZakaznik prichod = (MyMessageZakaznik)message;
-		Zakaznik zakaznik = prichod.getZakaznik();
-
-		if (zakaznik.getTypZakaznik() != TypZakaznik.ZMLUVNY || zakaznik.getPrichodSystem() == -1
-			|| zakaznik.getPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
-		{
-			throw new RuntimeException("Chyba prichodu zmluvneho zakaznika!");
-		}
-
-		if (Konstanty.DEBUG_VYPISY)
-		{
-			System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod zmluvny");
-		}
+		this.odosliZakaznikaModelu((MyMessageZakaznik)message);
 	}
 
 	//meta! sender="AgentModel", id="32", type="Notice"

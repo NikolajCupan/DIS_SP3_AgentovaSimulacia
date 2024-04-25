@@ -9,10 +9,18 @@ import org.example.instantAssistants.*;
 //meta! id="39"
 public class AgentAutomat extends Agent
 {
+	private void customAgentAutomat()
+	{
+		this.addOwnMessage(Mc.holdVyprazdnenieFrontAutomat);
+	}
+
 	public AgentAutomat(int id, Simulation mySim, Agent parent)
 	{
 		super(id, mySim, parent);
 		init();
+
+		// Vlastne
+		this.customAgentAutomat();
 	}
 
 	@Override

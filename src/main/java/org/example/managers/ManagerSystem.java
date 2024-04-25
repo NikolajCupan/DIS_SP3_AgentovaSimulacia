@@ -60,6 +60,23 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentModel", id="165", type="Notice"
 	public void processNoticeInicializaciaSystem(MessageForm message)
 	{
+		// Automat
+		MyMessage inicializaciaAutomat = new MyMessage(this.mySim());
+		inicializaciaAutomat.setCode(Mc.noticeInicializaciaAutomat);
+		inicializaciaAutomat.setAddressee(Id.agentAutomat);
+		this.notice(inicializaciaAutomat);
+
+		// Obsluzne miesta
+		MyMessage inicializaciaObluzneMiesta = new MyMessage(this.mySim());
+		inicializaciaObluzneMiesta.setCode(Mc.noticeInicializaciaObsluzneMiesta);
+		inicializaciaObluzneMiesta.setAddressee(Id.agentObsluzneMiesta);
+		this.notice(inicializaciaObluzneMiesta);
+
+		// Pokladne
+		MyMessage inicializaciaPokladne = new MyMessage(this.mySim());
+		inicializaciaPokladne.setCode(Mc.noticeInicializaciaPokladne);
+		inicializaciaPokladne.setAddressee(Id.agentPokladne);
+		this.notice(inicializaciaPokladne);
 	}
 
 	//meta! sender="AgentObsluzneMiesta", id="71", type="Response"

@@ -36,9 +36,7 @@ public class SchedulerPrichodBeznyZakaznik extends Scheduler
 	private void ukonciCinnost()
 	{
 		MyMessage ukoncenie = new MyMessage(this.mySim());
-		ukoncenie.setCode(Mc.finish);
-		ukoncenie.setAddressee(this.myAgent().manager());
-		this.notice(ukoncenie);
+		this.assistantFinished(ukoncenie);
 	}
 	// Vlastne koniec
 

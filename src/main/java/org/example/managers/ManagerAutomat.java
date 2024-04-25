@@ -5,6 +5,8 @@ import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
+import org.example.vlastne.Konstanty;
+import org.example.vlastne.Prezenter;
 
 //meta! id="39"
 public class ManagerAutomat extends Manager
@@ -30,6 +32,9 @@ public class ManagerAutomat extends Manager
 	//meta! sender="AgentSystem", id="167", type="Notice"
 	public void processNoticeInicializaciaAutomat(MessageForm message)
 	{
+		MyMessage vyprazdnenieAutomat = new MyMessage(this.mySim());
+		vyprazdnenieAutomat.setAddressee(this.myAgent().findAssistant(Id.monitorVyprazdnenieFrontAutomat));
+		this.startContinualAssistant(vyprazdnenieAutomat);
 	}
 
 	//meta! sender="AgentSystem", id="41", type="Request"
@@ -45,6 +50,10 @@ public class ManagerAutomat extends Manager
 	//meta! sender="MonitorVyprazdnenieFrontAutomat", id="48", type="Finish"
 	public void processFinishMonitorVyprazdnenieFrontAutomat(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- oznamenie o ukonceni cinnosti monitor automat");
+		}
 	}
 
 	//meta! sender="ProcessObsluhaAutomat", id="44", type="Finish"
@@ -55,6 +64,10 @@ public class ManagerAutomat extends Manager
 	//meta! sender="MonitorVyprazdnenieFrontAutomat", id="63", type="Notice"
 	public void processNoticeVnutornaVyprsanieSimulacnyCas(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(message.deliveryTime()) + " <- vyprazdnenie front automat");
+		}
 	}
 
 	//meta! sender="AgentSystem", id="70", type="Response"
