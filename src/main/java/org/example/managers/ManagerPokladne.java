@@ -3,6 +3,7 @@ package org.example.managers;
 import OSPABA.*;
 import org.example.Vlastne.Ostatne.Konstanty;
 import org.example.Vlastne.Ostatne.Prezenter;
+import org.example.Vlastne.Pokladna;
 import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.continualAssistants.*;
@@ -54,6 +55,8 @@ public class ManagerPokladne extends Manager
 	//meta! sender="AgentSystem", id="85", type="Request"
 	public void processRequestResponseObsluhaPokladna(MessageForm message)
 	{
+		AgentPokladne pokladne = this.myAgent();
+		Pokladna pokladna = pokladne.vyberPokladnu();
 	}
 
 	//meta! sender="AgentSystem", id="126", type="Request"

@@ -133,7 +133,7 @@ public class Zakaznik
         return this.typZakaznik;
     }
 
-    public double getPrichodSystem()
+    public double getCasPrichodSystem()
     {
         if (this.prichodSystem == -1)
         {
@@ -141,6 +141,16 @@ public class Zakaznik
         }
 
         return this.prichodSystem;
+    }
+
+    public double getCasOdchodSystem()
+    {
+        if (this.odchodSystem == -1)
+        {
+            throw new RuntimeException("Odchod system nie je nastaveny!");
+        }
+
+        return this.odchodSystem;
     }
 
     public double getCasSystem()

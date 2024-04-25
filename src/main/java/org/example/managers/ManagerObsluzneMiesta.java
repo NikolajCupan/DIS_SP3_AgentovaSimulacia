@@ -40,15 +40,13 @@ public class ManagerObsluzneMiesta extends Manager
 		TypZakaznik typZakaznik = obsluzenyZakaznik.getTypZakaznik();
 		AgentObsluzneMiesta obsluzneMiesta = this.myAgent();
 
-		boolean existujeVolneObsluzneMiesto = obsluzneMiesta.existujeVolneObsluzneMiesto(typZakaznik);
-		if (existujeVolneObsluzneMiesto)
+		ObsluzneMiesto pouziteObsluzneMiesto = obsluzenyZakaznik.getObsluzneMiesto();
+		if (pouziteObsluzneMiesto.obsluzneMiestoDostupne())
 		{
 			// Moze byt obsluhovany dalsi zakaznik
 			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)obsluzneMiesta.vyberZakaznika(typZakaznik);
 			if (dalsiZakaznikSprava != null)
 			{
-				ObsluzneMiesto pouziteObsluzneMiesto = obsluzenyZakaznik.getObsluzneMiesto();
-
 				Zakaznik dalsiZakaznik = dalsiZakaznikSprava.getZakaznik();
 				dalsiZakaznik.setObsluzneMiesto(pouziteObsluzneMiesto);
 				this.spustiObsluhu(dalsiZakaznik, dalsiZakaznikSprava);

@@ -6,7 +6,6 @@ import org.example.Vlastne.Zakaznik;
 import org.example.simulation.*;
 import org.example.managers.*;
 import org.example.continualAssistants.*;
-import org.example.instantAssistants.*;
 
 import java.util.ArrayList;
 
@@ -18,6 +17,8 @@ public class AgentOkolie extends Agent
 
 	// Statistiky
 	private Stat statCasSystem;
+	private double casPoslednyOdchod;
+
 	private int celkovyPocetZakaznikov;
 	private int pocetObsluzenychZakaznikov;
 	private int pocetNeobsluzenychZakaznikov;
@@ -35,6 +36,8 @@ public class AgentOkolie extends Agent
 
 		// Statistiky
 		this.statCasSystem = new Stat();
+		this.casPoslednyOdchod = Double.MIN_VALUE;
+
 		this.celkovyPocetZakaznikov = 0;
 		this.pocetObsluzenychZakaznikov = 0;
 		this.pocetNeobsluzenychZakaznikov = 0;
@@ -67,6 +70,11 @@ public class AgentOkolie extends Agent
 		else
 		{
 			this.pocetNeobsluzenychZakaznikov++;
+		}
+
+		if (zakaznik.getCasOdchodSystem() > this.casPoslednyOdchod)
+		{
+			this.casPoslednyOdchod = zakaznik.getCasOdchodSystem();
 		}
 
 		this.zakazniciSystem.remove(zakaznik);
