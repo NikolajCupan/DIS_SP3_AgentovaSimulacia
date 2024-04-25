@@ -46,6 +46,8 @@ public class ManagerModel extends Manager
 	//meta! sender="AgentSystem", id="38", type="Response"
 	public void processRequestResponseSpracovanieZakaznik(MessageForm message)
 	{
+		message.setCode(Mc.requestResponsePrichodZakaznik);
+		this.response(message);
 	}
 
 	//meta! userInfo="Generated code: do not modify", tag="begin"

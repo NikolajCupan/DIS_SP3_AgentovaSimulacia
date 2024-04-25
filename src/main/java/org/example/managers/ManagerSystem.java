@@ -38,7 +38,8 @@ public class ManagerSystem extends Manager
 		Zakaznik zakaznik = sprava.getZakaznik();
 		if (zakaznik.getPredcasnyOdchod())
 		{
-			System.out.println("skoro");
+			sprava.setCode(Mc.requestResponseSpracovanieZakaznik);
+			this.response(sprava);
 		}
 	}
 

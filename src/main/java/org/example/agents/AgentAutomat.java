@@ -19,7 +19,7 @@ public class AgentAutomat extends Agent
 	private boolean automatVypnuty;
 
 	// Statistiky
-	private Stat statCakanieFrontAutomat;
+	private Stat statCasFrontAutomat;
 	private WStat wstatVytazenieAutomat;
 
 	private void customAgentAutomat()
@@ -35,7 +35,7 @@ public class AgentAutomat extends Agent
 		this.automatVypnuty = false;
 
 		// Statistiky
-		this.statCakanieFrontAutomat = new Stat();
+		this.statCasFrontAutomat = new Stat();
 		this.wstatVytazenieAutomat = new WStat(this.mySim());
 	}
 
@@ -122,7 +122,7 @@ public class AgentAutomat extends Agent
 
 	public void pridajCasFrontAutomat(double cas)
 	{
-		this.statCakanieFrontAutomat.addSample(cas);
+		this.statCasFrontAutomat.addSample(cas);
 	}
 	// Vlastne koniec
 

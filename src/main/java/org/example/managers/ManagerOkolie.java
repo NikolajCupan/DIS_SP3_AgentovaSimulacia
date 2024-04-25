@@ -14,6 +14,8 @@ public class ManagerOkolie extends Manager
 	private void odosliZakaznikaModelu(MyMessageZakaznik prichod)
 	{
 		Zakaznik zakaznik = prichod.getZakaznik();
+		this.myAgent().pridajZakaznikaDoSystemu(zakaznik);
+
 		if (zakaznik.getPrichodSystem() == -1 || zakaznik.getPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
 		{
 			throw new RuntimeException("Chyba prichodu zmluvneho zakaznika!");
@@ -66,6 +68,10 @@ public class ManagerOkolie extends Manager
 	//meta! sender="AgentModel", id="31", type="Response"
 	public void processRequestResponsePrichodZakaznik(MessageForm message)
 	{
+		MyMessageZakaznik sprava = (MyMessageZakaznik)message;
+		Zakaznik zakaznik = sprava.getZakaznik();
+
+		this.myAgent().odoberZakaznikaZoSystemu(zakaznik);
 	}
 
 	//meta! sender="SchedulerPrichodOnlineZakaznik", id="137", type="Finish"

@@ -1,20 +1,73 @@
 package org.example.agents;
 
 import OSPABA.*;
+import OSPStat.Stat;
+import org.example.Vlastne.Zakaznik;
 import org.example.simulation.*;
 import org.example.managers.*;
 import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
 
+import java.util.ArrayList;
+
 //meta! id="4"
 public class AgentOkolie extends Agent
 {
+	// Vlastne
+	private ArrayList<Zakaznik> zakazniciSystem;
+
+	// Statistiky
+	private Stat statCasSystem;
+	private int celkovyPocetZakaznikov;
+	private int pocetObsluzenychZakaznikov;
+	private int pocetNeobsluzenychZakaznikov;
+
 	private void customAgentOkolie()
 	{
 		this.addOwnMessage(Mc.holdPrichodBeznyZakaznik);
 		this.addOwnMessage(Mc.holdPrichodZmluvnyZakaznik);
 		this.addOwnMessage(Mc.holdPrichodOnlineZakaznik);
 	}
+
+	private void customPrepareReplication()
+	{
+		this.zakazniciSystem = new ArrayList<>();
+
+		// Statistiky
+		this.statCasSystem = new Stat();
+		this.celkovyPocetZakaznikov = 0;
+		this.pocetObsluzenychZakaznikov = 0;
+		this.pocetNeobsluzenychZakaznikov = 0;
+	}
+
+	public void pridajZakaznikaDoSystemu(Zakaznik zakaznik)
+	{
+		this.celkovyPocetZakaznikov++;
+		this.zakazniciSystem.add(zakaznik);
+	}
+
+	public void odoberZakaznikaZoSystemu(Zakaznik zakaznik)
+	{
+		if (!this.zakazniciSystem.contains(zakaznik))
+		{
+			throw new RuntimeException("System neobsahuje daneho zakaznika!");
+		}
+
+		if (!zakaznik.getPredcasnyOdchod())
+		{
+			// Statistiky zakaznika sa beru do uvahy
+			this.pocetObsluzenychZakaznikov++;
+			this.statCasSystem.addSample(zakaznik.getCasSystem());
+		}
+		else
+		{
+			this.pocetNeobsluzenychZakaznikov++;
+		}
+
+		this.zakazniciSystem.remove(zakaznik);
+	}
+	// Vlastne koniec
+
 
 	public AgentOkolie(int id, Simulation mySim, Agent parent)
 	{
@@ -30,6 +83,9 @@ public class AgentOkolie extends Agent
 	{
 		super.prepareReplication();
 		// Setup component for the next replication
+
+		// Vlastne
+		this.customPrepareReplication();
 	}
 
 	//meta! userInfo="Generated code: do not modify", tag="begin"
