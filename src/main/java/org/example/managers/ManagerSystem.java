@@ -33,6 +33,7 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentAutomat", id="41", type="Response"
 	public void processRequestResponseObsluhaAutomat(MessageForm message)
 	{
+		System.out.println("hi");
 	}
 
 	//meta! sender="AgentPrevzatieTovar", id="94", type="Response"
@@ -92,7 +93,7 @@ public class ManagerSystem extends Manager
 
 		message.setCode(Mc.requestResponseObsluhaAutomat);
 		message.setAddressee(Id.agentAutomat);
-		request(message);
+		this.request(message);
 	}
 
 	//meta! sender="AgentAutomat", id="70", type="Request"

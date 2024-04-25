@@ -75,7 +75,8 @@ public class ManagerAutomat extends Manager
 	public void processFinishProcessObsluhaAutomat(MessageForm message)
 	{
 		// Spracuj zakaznika, ktoreho obsluha skoncila
-
+		message.setCode(Mc.requestResponseObsluhaAutomat);
+		this.response(message);
 	}
 
 	//meta! sender="MonitorVyprazdnenieFrontAutomat", id="63", type="Notice"

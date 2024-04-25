@@ -7,6 +7,8 @@ public class Zakaznik
     private final long ID;
     private final TypZakaznik typZakaznik;
 
+    private boolean predcasnyOdchod;
+
     private double prichodSystem;
     private double odchodSystem;
 
@@ -20,6 +22,7 @@ public class Zakaznik
     {
         this.ID = Identifikator.getID();
         this.typZakaznik = typZakaznik;
+        this.predcasnyOdchod = false;
 
         this.prichodSystem = -1;
         this.odchodSystem = -1;
@@ -29,6 +32,21 @@ public class Zakaznik
 
         this.prichodFrontObsluzneMiesto = -1;
         this.odchodFrontObsluzneMiesto = -1;
+    }
+
+    public boolean getPredcasnyOdchod()
+    {
+        return this.predcasnyOdchod;
+    }
+
+    public void predcasnyOdchod()
+    {
+        if (this.predcasnyOdchod)
+        {
+            throw new RuntimeException("Predcasny odchod je uz nastaveny!");
+        }
+
+        this.predcasnyOdchod = true;
     }
 
     public void setPrichodSystem(double prichodSystem)

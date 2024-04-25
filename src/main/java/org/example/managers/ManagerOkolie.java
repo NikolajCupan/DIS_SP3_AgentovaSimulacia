@@ -22,7 +22,7 @@ public class ManagerOkolie extends Manager
 		MyMessageZakaznik prichodZakaznika = new MyMessageZakaznik(this.mySim(), zakaznik);
 		prichodZakaznika.setCode(Mc.requestResponsePrichodZakaznik);
 		prichodZakaznika.setAddressee(Id.agentModel);
-		request(prichodZakaznika);
+		this.request(prichodZakaznika);
 
 		if (Konstanty.DEBUG_VYPISY_ZAKAZNIK)
 		{
