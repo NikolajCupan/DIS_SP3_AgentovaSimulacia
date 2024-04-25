@@ -27,6 +27,32 @@ public class ManagerObsluzneMiesta extends Manager
 
 		this.startContinualAssistant(sprava);
 	}
+
+	private void spracujObsluzenehoZakaznika(MessageForm message)
+	{
+		message.setCode(Mc.requestResponseObsluhaObsluzneMiesto);
+		this.response(message);
+
+		// Pokus o naplanovanie dalsej obsluhy pri obsluznom mieste
+		Zakaznik obsluzenyZakaznik = ((MyMessageZakaznik)message).getZakaznik();
+		TypZakaznik typZakaznik = obsluzenyZakaznik.getTypZakaznik();
+		AgentObsluzneMiesta obsluzneMiesta = this.myAgent();
+
+		boolean existujeVolneObsluzneMiesto = obsluzneMiesta.existujeVolneObsluzneMiesto(typZakaznik);
+		if (existujeVolneObsluzneMiesto)
+		{
+			// Moze byt obsluhovany dalsi zakaznik
+			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)obsluzneMiesta.vyberZakaznika(typZakaznik);
+			if (dalsiZakaznikSprava != null)
+			{
+				ObsluzneMiesto pouziteObsluzneMiesto = obsluzenyZakaznik.getObsluzneMiesto();
+
+				Zakaznik dalsiZakaznik = dalsiZakaznikSprava.getZakaznik();
+				dalsiZakaznik.setObsluzneMiesto(pouziteObsluzneMiesto);
+				this.spustiObsluhu(dalsiZakaznik, dalsiZakaznikSprava);
+			}
+		}
+	}
 	// Vlastne koniec
 
 
@@ -103,6 +129,7 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="ProcessObsluhaObsluzneMiestoOnlineZakaznik", id="81", type="Finish"
 	public void processFinishProcessObsluhaObsluzneMiestoOnlineZakaznik(MessageForm message)
 	{
+		this.spracujObsluzenehoZakaznika(message);
 	}
 
 	//meta! sender="MonitorKoniecPrestavkaObsluzneMiesta", id="111", type="Finish"
@@ -126,29 +153,7 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="ProcessObsluhaObsluzneMiestoObycajnyZakaznik", id="79", type="Finish"
 	public void processFinishProcessObsluhaObsluzneMiestoObycajnyZakaznik(MessageForm message)
 	{
-		// Spracovanie obsluzeneho zakaznika
-		message.setCode(Mc.requestResponseObsluhaObsluzneMiesto);
-		this.response(message);
-
-		// Pokus o naplanovanie dalsej obsluhy pri obsluznom mieste
-		Zakaznik obsluzenyZakaznik = ((MyMessageZakaznik)message).getZakaznik();
-		TypZakaznik typZakaznik = obsluzenyZakaznik.getTypZakaznik();
-		AgentObsluzneMiesta obsluzneMiesta = this.myAgent();
-
-		boolean existujeVolneObsluzneMiesto = obsluzneMiesta.existujeVolneObsluzneMiesto(typZakaznik);
-		if (existujeVolneObsluzneMiesto)
-		{
-			// Moze byt obsluhovany dalsi zakaznik
-			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)obsluzneMiesta.vyberZakaznika(typZakaznik);
-			if (dalsiZakaznikSprava != null)
-			{
-				ObsluzneMiesto pouziteObsluzneMiesto = obsluzenyZakaznik.getObsluzneMiesto();
-
-				Zakaznik dalsiZakaznik = dalsiZakaznikSprava.getZakaznik();
-				dalsiZakaznik.setObsluzneMiesto(pouziteObsluzneMiesto);
-				this.spustiObsluhu(dalsiZakaznik, dalsiZakaznikSprava);
-			}
-		}
+		this.spracujObsluzenehoZakaznika(message);
 	}
 
 	//meta! sender="MonitorKoniecPrestavkaObsluzneMiesta", id="112", type="Notice"

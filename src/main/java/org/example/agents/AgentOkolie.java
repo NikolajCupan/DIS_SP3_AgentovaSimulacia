@@ -40,6 +40,11 @@ public class AgentOkolie extends Agent
 		this.pocetNeobsluzenychZakaznikov = 0;
 	}
 
+	public int pocetZakaznikovSystem()
+	{
+		return this.zakazniciSystem.size();
+	}
+
 	public void pridajZakaznikaDoSystemu(Zakaznik zakaznik)
 	{
 		this.celkovyPocetZakaznikov++;

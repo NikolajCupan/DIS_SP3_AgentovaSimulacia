@@ -70,8 +70,15 @@ public class ManagerOkolie extends Manager
 	{
 		MyMessageZakaznik sprava = (MyMessageZakaznik)message;
 		Zakaznik zakaznik = sprava.getZakaznik();
+		zakaznik.setOdchodSystem(this.mySim().currentTime());
 
 		this.myAgent().odoberZakaznikaZoSystemu(zakaznik);
+
+		if (Konstanty.DEBUG_VYPISY_ZAKAZNIK)
+		{
+			System.out.println("(" + zakaznik.getID() + ") "
+				+ Prezenter.naformatujCas(this.mySim().currentTime()) + " <- opustenie systemu " + zakaznik.getTypZakaznik());
+		}
 	}
 
 	//meta! sender="SchedulerPrichodOnlineZakaznik", id="137", type="Finish"

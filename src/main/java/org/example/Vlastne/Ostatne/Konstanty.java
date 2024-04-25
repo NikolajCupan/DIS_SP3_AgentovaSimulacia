@@ -41,5 +41,5 @@ public class Konstanty
 
     // Debug
     public static final boolean DEBUG_VYPISY = true;
-    public static final boolean DEBUG_VYPISY_ZAKAZNIK = false;
+    public static final boolean DEBUG_VYPISY_ZAKAZNIK = true;
 }

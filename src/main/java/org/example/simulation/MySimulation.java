@@ -47,6 +47,13 @@ public class MySimulation extends Simulation
 		this.agentModel().inicializaciaSimulacie();
 	}
 
+	private void customReplicationFinished()
+	{
+		double cas = this.currentTime();
+		int i = this.agentOkolie().pocetZakaznikovSystem();
+		int ii = 100;
+	}
+
 	public double getTrvanieSimulacie()
 	{
 		return this.trvanieSimulacie;
@@ -118,6 +125,9 @@ public class MySimulation extends Simulation
 	{
 		// Collect local statistics into global, update UI, etc...
 		super.replicationFinished();
+
+		// Vlastne
+		this.customReplicationFinished();
 	}
 
 	@Override

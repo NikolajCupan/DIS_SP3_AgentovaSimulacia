@@ -63,6 +63,9 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentObsluzneMiesta", id="53", type="Response"
 	public void processRequestResponseObsluhaObsluzneMiesto(MessageForm message)
 	{
+		// TODO: poslat do pokladne
+		message.setCode(Mc.requestResponseSpracovanieZakaznik);
+		this.response(message);
 	}
 
 	//meta! sender="AgentPokladne", id="126", type="Response"
