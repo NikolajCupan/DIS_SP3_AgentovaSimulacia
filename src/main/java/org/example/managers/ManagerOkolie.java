@@ -5,6 +5,7 @@ import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
+import org.example.vlastne.Konstanty;
 import org.example.vlastne.Prezenter;
 import org.example.vlastne.TypZakaznik;
 import org.example.vlastne.Zakaznik;
@@ -42,7 +43,10 @@ public class ManagerOkolie extends Manager
 			throw new RuntimeException("Chyba prichodu online zakaznika!");
 		}
 
-		System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod online");
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod online");
+		}
 	}
 
 	//meta! sender="SchedulerPrichodBeznyZakaznik", id="139", type="Notice"
@@ -57,7 +61,10 @@ public class ManagerOkolie extends Manager
 			throw new RuntimeException("Chyba prichodu bezneho zakaznika!");
 		}
 
-		System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod bezny");
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod bezny");
+		}
 	}
 
 	//meta! sender="AgentModel", id="31", type="Response"
@@ -68,16 +75,31 @@ public class ManagerOkolie extends Manager
 	//meta! sender="SchedulerPrichodOnlineZakaznik", id="137", type="Finish"
 	public void processFinishSchedulerPrichodOnlineZakaznik(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			MyMessage ukoncenie = (MyMessage)message;
+			System.out.println(Prezenter.naformatujCas(ukoncenie.deliveryTime()) + " <- planovac online zakaznik ukoncil cinnost");
+		}
 	}
 
 	//meta! sender="SchedulerPrichodZmluvnyZakaznik", id="135", type="Finish"
 	public void processFinishSchedulerPrichodZmluvnyZakaznik(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			MyMessage ukoncenie = (MyMessage)message;
+			System.out.println(Prezenter.naformatujCas(ukoncenie.deliveryTime()) + " <- planovac zmluvny zakaznik ukoncil cinnost");
+		}
 	}
 
 	//meta! sender="SchedulerPrichodBeznyZakaznik", id="133", type="Finish"
 	public void processFinishSchedulerPrichodBeznyZakaznik(MessageForm message)
 	{
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			MyMessage ukoncenie = (MyMessage)message;
+			System.out.println(Prezenter.naformatujCas(ukoncenie.deliveryTime()) + " <- planovac bezny zakaznik ukoncil cinnost");
+		}
 	}
 
 	//meta! sender="SchedulerPrichodZmluvnyZakaznik", id="140", type="Notice"
@@ -92,7 +114,10 @@ public class ManagerOkolie extends Manager
 			throw new RuntimeException("Chyba prichodu zmluvneho zakaznika!");
 		}
 
-		System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod zmluvny");
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(prichod.getZakaznik().getPrichodSystem()) + " <- prichod zmluvny");
+		}
 	}
 
 	//meta! sender="AgentModel", id="32", type="Notice"

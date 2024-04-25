@@ -32,6 +32,14 @@ public class SchedulerPrichodZmluvnyZakaznik extends Scheduler
 
 		return true;
 	}
+
+	private void ukonciCinnost()
+	{
+		MyMessage ukoncenie = new MyMessage(this.mySim());
+		ukoncenie.setCode(Mc.finish);
+		ukoncenie.setAddressee(this.myAgent().manager());
+		this.notice(ukoncenie);
+	}
 	// Vlastne koniec
 
 	public SchedulerPrichodZmluvnyZakaznik(int id, Simulation mySim, CommonAgent myAgent)
@@ -60,6 +68,10 @@ public class SchedulerPrichodZmluvnyZakaznik extends Scheduler
 			prichod.setCode(Mc.holdPrichodZmluvnyZakaznik);
 			hold(trvaniePrichodu, prichod);
 		}
+		else
+		{
+			this.ukonciCinnost();
+		}
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"
@@ -86,6 +98,10 @@ public class SchedulerPrichodZmluvnyZakaznik extends Scheduler
 					MyMessageZakaznik dalsiPrichod = new MyMessageZakaznik(this.mySim(), TypZakaznik.ZMLUVNY);
 					dalsiPrichod.setCode(Mc.holdPrichodZmluvnyZakaznik);
 					hold(trvaniePrichodu, dalsiPrichod);
+				}
+				else
+				{
+					this.ukonciCinnost();
 				}
 				break;
 			default:
