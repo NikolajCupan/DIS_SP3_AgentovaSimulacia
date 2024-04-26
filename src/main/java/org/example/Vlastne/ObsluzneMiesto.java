@@ -1,14 +1,20 @@
 package org.example.Vlastne;
 
+import OSPABA.Simulation;
+import OSPStat.WStat;
+import org.example.Vlastne.Ostatne.Helper;
+
 public class ObsluzneMiesto
 {
     private final TypOkno typOkno;
+    private WStat wstatVytazenieObsluzneMiesto;
 
     private boolean obsadene;
 
-    public ObsluzneMiesto(TypOkno typOkno)
+    public ObsluzneMiesto(TypOkno typOkno, Simulation simulacia)
     {
         this.typOkno = typOkno;
+        this.wstatVytazenieObsluzneMiesto = new WStat(simulacia);
 
         this.obsadene = false;
     }
@@ -35,10 +41,16 @@ public class ObsluzneMiesto
         }
 
         this.obsadene = obsadene;
+        this.wstatVytazenieObsluzneMiesto.addSample(Helper.booleanNaDouble(this.obsadene));
     }
 
     public TypOkno getTypOkna()
     {
         return this.typOkno;
+    }
+
+    public WStat getWstatVytazenieObsluzneMiesto()
+    {
+        return this.wstatVytazenieObsluzneMiesto;
     }
 }

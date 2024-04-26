@@ -23,6 +23,9 @@ public class AgentObsluzneMiesta extends Agent
 	private GeneratorNasad rngGeneratorNasad;
 	private UniformContinuousRNG rngVelkostTovaru;
 
+	// Statistiky
+	private Stat statCasFrontObluzneMiesta;
+
 	private void customAgentObsluzneMiesta()
 	{
 		this.addOwnMessage(Mc.holdZaciatokPrestavkaObsluzneMiesta);
@@ -42,14 +45,17 @@ public class AgentObsluzneMiesta extends Agent
 		this.obsluzneMiestaObycajniZakaznici = new ObsluzneMiesto[simulacia.getPocetObycajnychObsluznychMiest()];
 		for (int i = 0; i < this.obsluzneMiestaObycajniZakaznici.length; i++)
 		{
-			this.obsluzneMiestaObycajniZakaznici[i] = new ObsluzneMiesto(TypOkno.OBYCAJNE);
+			this.obsluzneMiestaObycajniZakaznici[i] = new ObsluzneMiesto(TypOkno.OBYCAJNE, this.mySim());
 		}
 
 		this.obsluzneMiestaOnlineZakaznici = new ObsluzneMiesto[simulacia.getPocetOnlineObsluznychMiest()];
 		for (int i = 0; i < this.obsluzneMiestaOnlineZakaznici.length; i++)
 		{
-			this.obsluzneMiestaOnlineZakaznici[i] = new ObsluzneMiesto(TypOkno.ONLINE);
+			this.obsluzneMiestaOnlineZakaznici[i] = new ObsluzneMiesto(TypOkno.ONLINE, this.mySim());
 		}
+
+		// Statistiky
+		this.statCasFrontObluzneMiesta = new Stat();
 	}
 
 	public VelkostTovaru getVelkostTovaru()
@@ -224,6 +230,31 @@ public class AgentObsluzneMiesta extends Agent
 	public void ukonciPrestavku()
 	{
 		// TODO: koniec prestavky obsluzne miesto
+	}
+
+	public void pridajCasFrontObsluzneMiesta(double cas)
+	{
+		this.statCasFrontObluzneMiesta.addSample(cas);
+	}
+
+	public Stat getStatCasFrontObluzneMiesta()
+	{
+		return this.statCasFrontObluzneMiesta;
+	}
+
+	public WStat getWstatDlzkaFrontObsluzneMiesta()
+	{
+		return this.frontObsluzneMiesta.lengthStatistic();
+	}
+
+	public Stat getStatVytazenieObycajneObluzneMiesto(int index)
+	{
+		return this.obsluzneMiestaObycajniZakaznici[index].getWstatVytazenieObsluzneMiesto();
+	}
+
+	public Stat getStatVytazenieOnlineObluzneMiesto(int index)
+	{
+		return this.obsluzneMiestaOnlineZakaznici[index].getWstatVytazenieObsluzneMiesto();
 	}
 	// Vlastne koniec
 

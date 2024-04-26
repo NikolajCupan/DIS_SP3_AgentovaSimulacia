@@ -33,6 +33,12 @@ public class MySimulation extends Simulation
 	private Stat statDlzkaFrontAutomat;
 	private Stat statVytazenieFrontAutomat;
 
+	// Obsluzne miesta
+	private Stat statCasFrontObsluzneMiesta;
+	private Stat statDlzkaFrontObsluzneMiesta;
+	private Stat[] statVytazenieObsluzneMiestaObycajniZakaznici;
+	private Stat[] statVytazenieObsluzneMiestaOnlineZakaznici;
+
 	private void customInit(int nasada, boolean pouziNasadu, double trvanieSimulacie,
 		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
 	{
@@ -74,6 +80,22 @@ public class MySimulation extends Simulation
 		this.statCasFrontAutomat = new Stat();
 		this.statDlzkaFrontAutomat = new Stat();
 		this.statVytazenieFrontAutomat = new Stat();
+
+		// Obsluzne miesta
+		this.statCasFrontObsluzneMiesta = new Stat();
+		this.statDlzkaFrontObsluzneMiesta = new Stat();
+
+		this.statVytazenieObsluzneMiestaObycajniZakaznici = new Stat[this.pocetObycajnychObsluznychMiest];
+		for (int i = 0; i < this.statVytazenieObsluzneMiestaObycajniZakaznici.length; i++)
+		{
+			this.statVytazenieObsluzneMiestaObycajniZakaznici[i] = new Stat();
+		}
+
+		this.statVytazenieObsluzneMiestaOnlineZakaznici = new Stat[this.pocetOnlineObsluznychMiest];
+		for (int i = 0; i < this.statVytazenieObsluzneMiestaOnlineZakaznici.length; i++)
+		{
+			this.statVytazenieObsluzneMiestaOnlineZakaznici[i] = new Stat();
+		}
 	}
 
 	private void customPrepareReplication()
@@ -97,6 +119,7 @@ public class MySimulation extends Simulation
 		}
 
 
+		// Statistiky
 		// System
 		this.statCasSystem.addSample(this.agentOkolie().getStatCasSystem().mean());
 
@@ -115,11 +138,29 @@ public class MySimulation extends Simulation
 		this.statCasFrontAutomat.addSample(this.agentAutomat().getStatCasFrontAutomat().mean());
 		this.statDlzkaFrontAutomat.addSample(this.agentAutomat().getWstatDlzkaFrontAutomat().mean());
 		this.statVytazenieFrontAutomat.addSample(this.agentAutomat().getWstatVytazenieAutomat().mean());
+
+
+		// Obsluzne miesta
+		this.statCasFrontObsluzneMiesta.addSample(this.agentObsluzneMiesta().getStatCasFrontObluzneMiesta().mean());
+		this.statDlzkaFrontObsluzneMiesta.addSample(this.agentObsluzneMiesta().getWstatDlzkaFrontObsluzneMiesta().mean());
+
+		for (int i = 0; i < this.statVytazenieObsluzneMiestaObycajniZakaznici.length; i++)
+		{
+			this.statVytazenieObsluzneMiestaObycajniZakaznici[i]
+				.addSample(this.agentObsluzneMiesta().getStatVytazenieObycajneObluzneMiesto(i).mean());
+		}
+
+		for (int i = 0; i < this.statVytazenieObsluzneMiestaOnlineZakaznici.length; i++)
+		{
+			this.statVytazenieObsluzneMiestaOnlineZakaznici[i]
+					.addSample(this.agentObsluzneMiesta().getStatVytazenieOnlineObluzneMiesto(i).mean());
+		}
 	}
 
 	private void customSimulationFinished()
 	{
 		// System
+		System.out.println("\nSystem:");
 		System.out.println("Priemerny cas v systeme: " + this.statCasSystem.mean() / 60.0);
 		System.out.println("Priemerny cas posledneho odchodu: " + Prezenter.naformatujCas(this.statCasPoslednyOdchod.mean()));
 		System.out.println("Priemerny pocet prislych zakaznikov: " + this.statPocetPrislychZakaznikov.mean());
@@ -128,9 +169,28 @@ public class MySimulation extends Simulation
 
 
 		// Automat
+		System.out.println("\nAutomat:");
 		System.out.println("Priemerny cas vo fronte pred automatom: " + this.statCasFrontAutomat.mean());
 		System.out.println("Priemerna dlzka frontu pred automatom: " + this.statDlzkaFrontAutomat.mean());
 		System.out.println("Priemerne vytazenie automatu: " + this.statVytazenieFrontAutomat.mean());
+
+
+		// Obsluzne miesta
+		System.out.println("\nObsluzne miesta:");
+		System.out.println("Priemerny cas vo fronte pred obsluznymi miestami: " + this.statCasFrontObsluzneMiesta.mean());
+		System.out.println("Priemerna dlzka frontu pred obsluznymi miestami: " + this.statDlzkaFrontObsluzneMiesta.mean());
+
+		System.out.print("Priemerne vytazenie obycajnych obsluznych miest: ");
+		for (int i = 0; i < this.statVytazenieObsluzneMiestaObycajniZakaznici.length; i++)
+		{
+			System.out.print(this.statVytazenieObsluzneMiestaObycajniZakaznici[i].mean() + " ");
+		}
+
+		System.out.print("\nPriemerne vytazenie online obsluznych miest: ");
+		for (int i = 0; i < this.statVytazenieObsluzneMiestaOnlineZakaznici.length; i++)
+		{
+			System.out.print(this.statVytazenieObsluzneMiestaOnlineZakaznici[i].mean() + " ");
+		}
 	}
 
 	public GeneratorNasad getRngGeneratorNasad()

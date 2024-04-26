@@ -50,6 +50,8 @@ public class ProcessObsluhaObsluzneMiestoOnlineZakaznik extends Process
 	{
 		Zakaznik zakaznik = ((MyMessageZakaznik)message).getZakaznik();
 		zakaznik.setOdchodFrontObsluzneMiesta(this.mySim().currentTime());
+		this.myAgent().pridajCasFrontObsluzneMiesta(zakaznik.getCasFrontObsluzneMiesta());
+
 
 		ObsluzneMiesto obsluzneMiesto = zakaznik.getObsluzneMiesto();
 		obsluzneMiesto.setObsadene(true);
