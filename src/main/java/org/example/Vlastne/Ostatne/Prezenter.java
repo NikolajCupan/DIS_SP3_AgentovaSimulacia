@@ -1,12 +1,19 @@
 package org.example.Vlastne.Ostatne;
 
+import OSPABA.MessageForm;
 import OSPStat.Stat;
+import org.example.Vlastne.Zakaznik.TypZakaznik;
+import org.example.Vlastne.Zakaznik.Zakaznik;
+import org.example.agents.AgentAutomat;
+import org.example.simulation.MyMessageZakaznik;
 import org.example.simulation.MySimulation;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Prezenter
 {
@@ -198,6 +205,111 @@ public class Prezenter
         catch (Exception ex)
         {
             throw new RuntimeException("Chyba pri aktualizacii celkovej tabulky okien!");
+        }
+    }
+
+    public static void casFrontAutomat(MySimulation simulacia, JLabel label)
+    {
+        label.setText(Prezenter.zaokruhli(simulacia.agentAutomat().getStatCasFrontAutomat().mean()) + " sec");
+    }
+
+    public static void dlzkaFrontAutomat(MySimulation simulacia, JLabel label)
+    {
+        label.setText(String.valueOf(Prezenter.zaokruhli(simulacia.agentAutomat().getWstatDlzkaFrontAutomat().mean())));
+    }
+
+    public static void aktualnaDlzkaFrontAutomat(MySimulation simulacia, JLabel label)
+    {
+        label.setText(String.valueOf(simulacia.agentAutomat().getPocetFront()));
+    }
+
+    public static void vytazenieAutomat(MySimulation simulacia, JLabel label)
+    {
+        AgentAutomat automat = simulacia.agentAutomat();
+        label.setText(Prezenter.zaokruhli(automat.getWstatVytazenieAutomat().mean() * 100) + " %");
+    }
+
+    public static void casFrontOkno(MySimulation simulacia, JLabel label)
+    {
+        label.setText(Prezenter.zaokruhli(simulacia.agentAutomat().getStatCasFrontAutomat().mean()) + " sec");
+    }
+
+    public static void dlzkaFrontObsluzneMiesta(MySimulation simulacia, JLabel label)
+    {
+        label.setText(String.valueOf(Prezenter.zaokruhli(simulacia.agentObsluzneMiesta().getWstatDlzkaFrontObsluzneMiesta().mean())));
+    }
+
+    public static void aktualnaDlzkaFrontOkno(MySimulation simulacia, JLabel label)
+    {
+        Collection<MessageForm> front = simulacia.agentObsluzneMiesta().getFront();
+        StringBuilder stavFront = new StringBuilder("]");
+
+        for (MessageForm sprava : front)
+        {
+            Zakaznik zakaznik = ((MyMessageZakaznik)sprava).getZakaznik();
+            switch (zakaznik.getTypZakaznik())
+            {
+                case TypZakaznik.ONLINE:
+                    stavFront.append("O ");
+                    break;
+                case TypZakaznik.BEZNY:
+                    stavFront.append("B ");
+                    break;
+                case TypZakaznik.ZMLUVNY:
+                    stavFront.append("Z ");
+                    break;
+            }
+        }
+
+        for (int i = front.size(); i < Konstanty.KAPACITA_FRONT_OBSLUZNE_MIESTA; i++)
+        {
+            stavFront.append("X ");
+        }
+        stavFront.setLength(stavFront.length() - 1);
+        stavFront.append("[");
+        stavFront.reverse();
+
+        stavFront.insert(0, front.size() +  ": -> ");
+        stavFront.append(" ->");
+
+        label.setText(stavFront.toString());
+    }
+
+    public static void tabulkaAgenti(MySimulation simulacia, JTable tabulka)
+    {
+        try
+        {
+            EventQueue.invokeAndWait(() -> {
+                DefaultTableModel model = (DefaultTableModel)tabulka.getModel();
+                ArrayList<Zakaznik> zakaznici = new ArrayList<>(simulacia.agentOkolie().getZakazniciSystem());
+
+                model.setRowCount(0);
+                for (Zakaznik zakaznik : zakaznici)
+                {
+                    String prichodFrontAutomat = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontAutomat());
+                    String odchodFrontAutomat = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontAutomat());
+
+                    String prichodFrontObsluzneMiesta = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontObsluzneMiesta());
+                    String odchodFrontObsluzneMiesta = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontObsluzneMiesta());
+
+                    String prichodFrontPokladna = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontPokladna());
+                    String odchodFrontPokladna = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontPokladna());
+
+                    model.addRow(new Object[]{
+                        zakaznik.getID(),
+                        zakaznik.getTypZakaznik(),
+                        zakaznik.getStav(),
+                        Prezenter.naformatujCas(zakaznik.getCasPrichodSystem()),
+                        prichodFrontAutomat + " - " + odchodFrontAutomat,
+                        prichodFrontObsluzneMiesta + " - " + odchodFrontObsluzneMiesta,
+                        prichodFrontPokladna + " - " + odchodFrontPokladna
+                    });
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException("Chyba pri aktualizacii tabulky agentov!");
         }
     }
 

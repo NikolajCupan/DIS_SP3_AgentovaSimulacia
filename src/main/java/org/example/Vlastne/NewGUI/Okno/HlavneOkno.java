@@ -237,11 +237,11 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
 
             },
             new String [] {
-                "ID", "Typ", "S system", "S automat", "K automat", "S obsluha", "K obsluha", "S pokladna", "K pokladna", "S vyzdvihnutie", "K vyzdvihnutie"
+                "ID", "Typ", "Stav", "Prichod system", "Front automat", "Front obsluzne miesto", "Front pokladna"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1059,13 +1059,16 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
 
     private void toggleSimulaciaPozastavena()
     {
-        if (!this.simulacia.isPaused())
+        if (this.simulacia != null)
         {
-            this.simulacia.pauseSimulation();
-        }
-        else
-        {
-            this.simulacia.resumeSimulation();
+            if (!this.simulacia.isPaused())
+            {
+                this.simulacia.pauseSimulation();
+            }
+            else
+            {
+                this.simulacia.resumeSimulation();
+            }
         }
     }
 
@@ -1132,14 +1135,14 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
 
         if (priebezneStatistiky && this.rychlost < Konstanty.MAX_RYCHLOST)
         {
-//            Prezenter.casFrontAutomat(simulacia, this.labelPriemernyCasAutomat);
-//            Prezenter.dlzkaFrontAutomat(simulacia, this.labelPriemernaDlzkaAutomat);
-//            Prezenter.aktualnaDlzkaFrontAutomat(simulacia, this.labelDlzkaAutomat);
-//            Prezenter.vytazenieAutomat(simulacia, this.labelVytazenieAutomat);
-//            Prezenter.casFrontOkno(simulacia, this.labelPriemernyCasOkno);
-//            Prezenter.dlzkaFrontOkno(simulacia, this.labelPriemernaDlzkaOkno);
-//            Prezenter.aktualnaDlzkaFrontOkno(simulacia, this.labelDlzkaOkno);
-//            Prezenter.tabulkaAgenti(simulacia, this.tabulkaAgenti);
+            Prezenter.casFrontAutomat(simulacia, this.labelPriemernyCasAutomat);
+            Prezenter.dlzkaFrontAutomat(simulacia, this.labelPriemernaDlzkaAutomat);
+            Prezenter.aktualnaDlzkaFrontAutomat(simulacia, this.labelDlzkaAutomat);
+            Prezenter.vytazenieAutomat(simulacia, this.labelVytazenieAutomat);
+            Prezenter.casFrontOkno(simulacia, this.labelPriemernyCasOkno);
+            Prezenter.dlzkaFrontObsluzneMiesta(simulacia, this.labelPriemernaDlzkaOkno);
+            Prezenter.aktualnaDlzkaFrontOkno(simulacia, this.labelDlzkaOkno);
+            Prezenter.tabulkaAgenti(simulacia, this.tabulkaAgenti);
 //            Prezenter.tabulkaOkna(simulacia, this.tabulkaOkna);
 //            Prezenter.tabulkaPokladne(simulacia, this.tabulkaPokladne);
 

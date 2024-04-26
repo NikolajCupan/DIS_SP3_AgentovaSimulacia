@@ -8,6 +8,8 @@ import org.example.managers.*;
 import org.example.continualAssistants.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 //meta! id="4"
 public class AgentOkolie extends Agent
@@ -41,6 +43,11 @@ public class AgentOkolie extends Agent
 		this.celkovyPocetZakaznikov = 0;
 		this.pocetObsluzenychZakaznikov = 0;
 		this.pocetNeobsluzenychZakaznikov = 0;
+	}
+
+	public Collection<Zakaznik> getZakazniciSystem()
+	{
+		return Collections.unmodifiableCollection(this.zakazniciSystem);
 	}
 
 	public int pocetZakaznikovSystem()

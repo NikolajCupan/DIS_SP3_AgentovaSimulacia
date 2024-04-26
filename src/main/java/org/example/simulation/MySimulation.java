@@ -559,6 +559,7 @@ public AgentPrevzatieTovar agentPrevzatieTovar()
 	@Override
 	public void refresh(Simulation simulation)
 	{
+		this.aktualizujGUI(false, true);
 		this.aktualizujSimulacnyCasGUI();
 	}
 	//meta! tag="end"

@@ -39,6 +39,11 @@ public class AgentAutomat extends Agent
 		this.wstatVytazenieAutomat = new WStat(this.mySim());
 	}
 
+	public int getPocetFront()
+	{
+		return this.frontAutomat.size();
+	}
+
 	public void pridajFront(MessageForm message)
 	{
 		this.frontAutomat.enqueue(message);

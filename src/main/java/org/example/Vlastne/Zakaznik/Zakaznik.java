@@ -191,26 +191,6 @@ public class Zakaznik
         return this.velkostTovaru;
     }
 
-    public double getCasPrichodSystem()
-    {
-        if (this.prichodSystem == -1)
-        {
-            throw new RuntimeException("Prichod system nie je nastaveny!");
-        }
-
-        return this.prichodSystem;
-    }
-
-    public double getCasOdchodSystem()
-    {
-        if (this.odchodSystem == -1)
-        {
-            throw new RuntimeException("Odchod system nie je nastaveny!");
-        }
-
-        return this.odchodSystem;
-    }
-
     public double getCasSystem()
     {
         if (this.prichodSystem == -1 || this.odchodSystem == -1)
@@ -249,5 +229,78 @@ public class Zakaznik
         }
 
         return this.odchodFrontPokladna - this.prichodFrontPokladna;
+    }
+
+    public double getCasPrichodSystem()
+    {
+        return this.prichodSystem;
+    }
+
+    public double getCasOdchodSystem()
+    {
+        return this.odchodSystem;
+    }
+
+    public double getCasPrichodFrontAutomat()
+    {
+        return this.prichodFrontAutomat;
+    }
+
+    public double getCasOdchodFrontAutomat()
+    {
+        return this.odchodFrontAutomat;
+    }
+
+    public double getCasPrichodFrontObsluzneMiesta()
+    {
+        return this.prichodFrontObsluzneMiesta;
+    }
+
+    public double getCasOdchodFrontObsluzneMiesta()
+    {
+        return this.odchodFrontObsluzneMiesta;
+    }
+
+    public double getCasPrichodFrontPokladna()
+    {
+        return this.prichodFrontPokladna;
+    }
+
+    public double getCasOdchodFrontPokladna()
+    {
+        return this.odchodFrontPokladna;
+    }
+
+    public String getStav()
+    {
+        if (this.prichodSystem == -1 || this.prichodFrontAutomat == -1)
+        {
+            throw new RuntimeException("Chyba stavu zakaznika!");
+        }
+
+        if (this.odchodFrontAutomat == -1)
+        {
+            return "Front automat";
+        }
+
+        if (this.prichodFrontObsluzneMiesta == -1)
+        {
+            return "Obsluha pri automate";
+        }
+        if (this.odchodFrontObsluzneMiesta == -1)
+        {
+            return "Front obsluzne miesta";
+        }
+
+        if (this.prichodFrontPokladna == -1)
+        {
+            return "Obsluha pri obsluznom mieste";
+        }
+        if (this.odchodFrontPokladna == -1)
+        {
+            return "Obsluha pri pokladni";
+        }
+
+        return "Vyzdvihovanie tovaru";
     }
 }

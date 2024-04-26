@@ -17,6 +17,9 @@ import org.example.managers.*;
 import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
 
+import java.util.Collection;
+import java.util.Collections;
+
 //meta! id="51"
 public class AgentObsluzneMiesta extends Agent
 {
@@ -138,6 +141,11 @@ public class AgentObsluzneMiesta extends Agent
 				throw new RuntimeException("Neplatny typ zakaznika!");
 			}
 		}
+	}
+
+	public Collection<MessageForm> getFront()
+	{
+		return Collections.unmodifiableCollection(this.frontObsluzneMiesta);
 	}
 
 	public void pridajFront(MessageForm message)
