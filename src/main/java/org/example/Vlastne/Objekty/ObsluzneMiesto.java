@@ -29,6 +29,11 @@ public class ObsluzneMiesto
         return false;
     }
 
+    public boolean getObsadene()
+    {
+        return this.obsadene;
+    }
+
     public void setObsadene(boolean obsadene)
     {
         if (obsadene && this.obsadene)

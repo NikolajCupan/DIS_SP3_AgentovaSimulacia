@@ -2,6 +2,8 @@ package org.example.Vlastne.Ostatne;
 
 import OSPABA.MessageForm;
 import OSPStat.Stat;
+import org.example.Vlastne.Objekty.ObsluzneMiesto;
+import org.example.Vlastne.Objekty.Pokladna;
 import org.example.Vlastne.Zakaznik.TypZakaznik;
 import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.agents.AgentAutomat;
@@ -311,6 +313,72 @@ public class Prezenter
         catch (Exception ex)
         {
             throw new RuntimeException("Chyba pri aktualizacii tabulky agentov!");
+        }
+    }
+
+    public static void tabulkaObsluzneMiesta(MySimulation simulacia, JTable tabulka)
+    {
+        try
+        {
+            EventQueue.invokeAndWait(() -> {
+                DefaultTableModel model = (DefaultTableModel)tabulka.getModel();
+                model.setRowCount(0);
+
+                Collection<ObsluzneMiesto> obsluzneMiestaObycajni = simulacia.agentObsluzneMiesta().getObycajneObsluzneMiesta();
+                for (ObsluzneMiesto obsluznemiesto : obsluzneMiestaObycajni)
+                {
+                    model.addRow(new Object[]{
+                        "Obycajne",
+                        obsluznemiesto.getObsadene(),
+                        Prezenter.zaokruhli(obsluznemiesto.getWstatVytazenieObsluzneMiesto().mean() * 100) + " %"
+                    });
+                }
+
+                Collection<ObsluzneMiesto> obsluzneMiestaOnline = simulacia.agentObsluzneMiesta().getOnlineObsluzneMiesta();
+                for (ObsluzneMiesto obsluzneMiesto : obsluzneMiestaOnline)
+                {
+                    model.addRow(new Object[]{
+                        "Online",
+                        obsluzneMiesto.getObsadene(),
+                        Prezenter.zaokruhli(obsluzneMiesto.getWstatVytazenieObsluzneMiesto().mean() * 100) + " %"
+                    });
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException("Chyba pri aktualizacii tabulky okien!");
+        }
+    }
+
+    public static void tabulkaPokladne(MySimulation simulacia, JTable tabulka)
+    {
+        try
+        {
+            EventQueue.invokeAndWait(() -> {
+                DefaultTableModel model = (DefaultTableModel)tabulka.getModel();
+                model.setRowCount(0);
+
+                int pocitadlo = 0;
+                Collection<Pokladna> pokladne = simulacia.agentPokladne().getPokladne();
+                for (Pokladna pokladna : pokladne)
+                {
+                    model.addRow(new Object[]{
+                        pocitadlo,
+                        pokladna.getObsadena(),
+                        Prezenter.zaokruhli(pokladna.getWstatVytazeniePokladna().mean() * 100) + " %",
+                        pokladna.getPocetFront(),
+                        Prezenter.zaokruhli(pokladna.getWstatDlzkaFrontPokladna().mean()),
+                        Prezenter.zaokruhli(pokladna.getStatCasFrontPokladna().mean()) + " sec"
+                    });
+
+                    pocitadlo++;
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException("Chyba pri aktualizacii tabulky pokladni!");
         }
     }
 

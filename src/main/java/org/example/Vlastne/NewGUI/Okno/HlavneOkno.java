@@ -1143,8 +1143,8 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
             Prezenter.dlzkaFrontObsluzneMiesta(simulacia, this.labelPriemernaDlzkaOkno);
             Prezenter.aktualnaDlzkaFrontOkno(simulacia, this.labelDlzkaOkno);
             Prezenter.tabulkaAgenti(simulacia, this.tabulkaAgenti);
-//            Prezenter.tabulkaOkna(simulacia, this.tabulkaOkna);
-//            Prezenter.tabulkaPokladne(simulacia, this.tabulkaPokladne);
+            Prezenter.tabulkaObsluzneMiesta(simulacia, this.tabulkaOkna);
+            Prezenter.tabulkaPokladne(simulacia, this.tabulkaPokladne);
 
             this.priebezneStatistikyVypisane = true;
         }

@@ -12,6 +12,9 @@ import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 //meta! id="74"
 public class AgentPokladne extends Agent
@@ -157,6 +160,11 @@ public class AgentPokladne extends Agent
 	public void ukonciPrestavku()
 	{
 		// TODO: koniec prestavky pokladne
+	}
+
+	public Collection<Pokladna> getPokladne()
+	{
+		return Collections.unmodifiableCollection(Arrays.asList(this.pokladne));
 	}
 
 	public Stat getStatCasFrontPokladna(int index)

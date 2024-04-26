@@ -17,6 +17,7 @@ import org.example.managers.*;
 import org.example.continualAssistants.*;
 import org.example.instantAssistants.*;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -146,6 +147,16 @@ public class AgentObsluzneMiesta extends Agent
 	public Collection<MessageForm> getFront()
 	{
 		return Collections.unmodifiableCollection(this.frontObsluzneMiesta);
+	}
+
+	public Collection<ObsluzneMiesto> getObycajneObsluzneMiesta()
+	{
+		return Collections.unmodifiableCollection(Arrays.asList(this.obsluzneMiestaObycajniZakaznici));
+	}
+
+	public Collection<ObsluzneMiesto> getOnlineObsluzneMiesta()
+	{
+		return Collections.unmodifiableCollection(Arrays.asList(this.obsluzneMiestaOnlineZakaznici));
 	}
 
 	public void pridajFront(MessageForm message)
