@@ -1,7 +1,6 @@
-package org.example.Vlastne.Ostatne;
+package org.example.Vlastne.Generatory;
 
 import OSPRNG.UniformContinuousRNG;
-import OSPRNG.UniformDiscreteRNG;
 
 public class GenerovanieVyberFrontu
 {

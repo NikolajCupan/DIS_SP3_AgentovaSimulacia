@@ -1,4 +1,4 @@
-package org.example.Vlastne;
+package org.example.Vlastne.Generatory;
 
 public enum VelkostTovaru
 {

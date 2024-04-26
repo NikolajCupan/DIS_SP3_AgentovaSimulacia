@@ -1,4 +1,4 @@
-package org.example.Vlastne;
+package org.example.Vlastne.Objekty;
 
 import OSPABA.Simulation;
 import OSPStat.WStat;

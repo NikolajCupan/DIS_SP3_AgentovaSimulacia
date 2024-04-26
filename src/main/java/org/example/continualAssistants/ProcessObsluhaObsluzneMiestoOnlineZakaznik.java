@@ -1,16 +1,13 @@
 package org.example.continualAssistants;
 
 import OSPABA.*;
-import OSPRNG.EmpiricPair;
-import OSPRNG.EmpiricRNG;
 import OSPRNG.TriangularRNG;
-import OSPRNG.UniformContinuousRNG;
-import org.example.Vlastne.ObsluzneMiesto;
-import org.example.Vlastne.Ostatne.GeneratorNasad;
+import org.example.Vlastne.Objekty.ObsluzneMiesto;
+import org.example.Vlastne.Generatory.GeneratorNasad;
 import org.example.Vlastne.Ostatne.Konstanty;
 import org.example.Vlastne.Ostatne.Prezenter;
-import org.example.Vlastne.VelkostTovaru;
-import org.example.Vlastne.Zakaznik;
+import org.example.Vlastne.Generatory.VelkostTovaru;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.simulation.*;
 import org.example.agents.*;
 import OSPABA.Process;

@@ -1,4 +1,4 @@
-package org.example.Vlastne;
+package org.example.Vlastne.Objekty;
 
 import OSPABA.MessageForm;
 import OSPABA.Simulation;

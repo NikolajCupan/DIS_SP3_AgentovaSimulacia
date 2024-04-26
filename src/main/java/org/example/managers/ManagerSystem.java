@@ -1,8 +1,8 @@
 package org.example.managers;
 
 import OSPABA.*;
-import org.example.Vlastne.VelkostTovaru;
-import org.example.Vlastne.Zakaznik;
+import org.example.Vlastne.Generatory.VelkostTovaru;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.simulation.*;
 import org.example.agents.*;
 

@@ -4,10 +4,10 @@ import OSPABA.*;
 import OSPRNG.ExponentialRNG;
 import org.example.simulation.*;
 import org.example.agents.*;
-import org.example.Vlastne.Ostatne.GeneratorNasad;
+import org.example.Vlastne.Generatory.GeneratorNasad;
 import org.example.Vlastne.Ostatne.Konstanty;
-import org.example.Vlastne.TypZakaznik;
-import org.example.Vlastne.Zakaznik;
+import org.example.Vlastne.Zakaznik.TypZakaznik;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 
 //meta! id="132"
 public class SchedulerPrichodBeznyZakaznik extends Scheduler

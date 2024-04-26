@@ -2,7 +2,7 @@ package org.example.agents;
 
 import OSPABA.*;
 import OSPStat.Stat;
-import org.example.Vlastne.Zakaznik;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.simulation.*;
 import org.example.managers.*;
 import org.example.continualAssistants.*;

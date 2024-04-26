@@ -2,7 +2,7 @@ package org.example.simulation;
 
 import OSPABA.*;
 import OSPStat.Stat;
-import org.example.Vlastne.Ostatne.GeneratorNasad;
+import org.example.Vlastne.Generatory.GeneratorNasad;
 import org.example.Vlastne.Ostatne.Identifikator;
 import org.example.Vlastne.Ostatne.Prezenter;
 import org.example.agents.*;

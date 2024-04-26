@@ -5,9 +5,13 @@ import OSPDataStruct.SimQueue;
 import OSPRNG.UniformContinuousRNG;
 import OSPStat.Stat;
 import OSPStat.WStat;
-import org.example.Vlastne.*;
-import org.example.Vlastne.Ostatne.GeneratorNasad;
+import org.example.Vlastne.Generatory.GeneratorNasad;
+import org.example.Vlastne.Generatory.VelkostTovaru;
+import org.example.Vlastne.Objekty.ObsluzneMiesto;
+import org.example.Vlastne.Objekty.TypOkno;
 import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.Vlastne.Zakaznik.TypZakaznik;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.simulation.*;
 import org.example.managers.*;
 import org.example.continualAssistants.*;
@@ -248,12 +252,12 @@ public class AgentObsluzneMiesta extends Agent
 		return this.frontObsluzneMiesta.lengthStatistic();
 	}
 
-	public Stat getStatVytazenieObycajneObluzneMiesto(int index)
+	public WStat getWstatVytazenieObycajneObluzneMiesto(int index)
 	{
 		return this.obsluzneMiestaObycajniZakaznici[index].getWstatVytazenieObsluzneMiesto();
 	}
 
-	public Stat getStatVytazenieOnlineObluzneMiesto(int index)
+	public WStat getWstatVytazenieOnlineObluzneMiesto(int index)
 	{
 		return this.obsluzneMiestaOnlineZakaznici[index].getWstatVytazenieObsluzneMiesto();
 	}

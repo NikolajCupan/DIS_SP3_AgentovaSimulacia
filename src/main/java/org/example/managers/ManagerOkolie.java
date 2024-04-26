@@ -5,7 +5,7 @@ import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.Vlastne.Ostatne.Konstanty;
 import org.example.Vlastne.Ostatne.Prezenter;
-import org.example.Vlastne.Zakaznik;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 
 //meta! id="4"
 public class ManagerOkolie extends Manager

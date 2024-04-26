@@ -1,4 +1,4 @@
-package org.example.Vlastne;
+package org.example.Vlastne.Objekty;
 
 public enum TypOkno
 {

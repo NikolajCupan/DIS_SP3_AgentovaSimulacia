@@ -3,12 +3,10 @@ package org.example.managers;
 import OSPABA.*;
 import org.example.Vlastne.Ostatne.Konstanty;
 import org.example.Vlastne.Ostatne.Prezenter;
-import org.example.Vlastne.Pokladna;
-import org.example.Vlastne.Zakaznik;
+import org.example.Vlastne.Objekty.Pokladna;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.simulation.*;
 import org.example.agents.*;
-import org.example.continualAssistants.*;
-import org.example.instantAssistants.*;
 
 //meta! id="74"
 public class ManagerPokladne extends Manager

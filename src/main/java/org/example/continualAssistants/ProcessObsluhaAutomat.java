@@ -5,10 +5,10 @@ import OSPRNG.UniformContinuousRNG;
 import org.example.simulation.*;
 import org.example.agents.*;
 import OSPABA.Process;
-import org.example.Vlastne.Ostatne.GeneratorNasad;
+import org.example.Vlastne.Generatory.GeneratorNasad;
 import org.example.Vlastne.Ostatne.Konstanty;
 import org.example.Vlastne.Ostatne.Prezenter;
-import org.example.Vlastne.Zakaznik;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 
 //meta! id="43"
 public class ProcessObsluhaAutomat extends Process

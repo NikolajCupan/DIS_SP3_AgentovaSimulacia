@@ -4,7 +4,7 @@ import OSPABA.*;
 import OSPDataStruct.SimQueue;
 import OSPStat.Stat;
 import OSPStat.WStat;
-import org.example.Vlastne.Zakaznik;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.simulation.*;
 import org.example.managers.*;
 import org.example.continualAssistants.*;

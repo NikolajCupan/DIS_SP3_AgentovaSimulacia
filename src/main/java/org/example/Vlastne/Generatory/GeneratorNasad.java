@@ -1,4 +1,4 @@
-package org.example.Vlastne.Ostatne;
+package org.example.Vlastne.Generatory;
 
 import java.util.Random;
 

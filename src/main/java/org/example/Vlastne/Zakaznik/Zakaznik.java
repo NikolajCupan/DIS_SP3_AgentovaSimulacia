@@ -1,5 +1,9 @@
-package org.example.Vlastne;
+package org.example.Vlastne.Zakaznik;
 
+import org.example.Vlastne.Generatory.VelkostTovaru;
+import org.example.Vlastne.Objekty.ObsluzneMiesto;
+import org.example.Vlastne.Objekty.Pokladna;
+import org.example.Vlastne.Objekty.TypOkno;
 import org.example.Vlastne.Ostatne.Identifikator;
 
 public class Zakaznik
