@@ -39,6 +39,11 @@ public class MySimulation extends Simulation
 	private Stat[] statVytazenieObsluzneMiestaObycajniZakaznici;
 	private Stat[] statVytazenieObsluzneMiestaOnlineZakaznici;
 
+	// Pokladne
+	private Stat[] statCasFrontPokladna;
+	private Stat[] statDlzkaFrontPokladna;
+	private Stat[] statVytazeniePokladna;
+
 	private void customInit(int nasada, boolean pouziNasadu, double trvanieSimulacie,
 		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
 	{
@@ -96,6 +101,25 @@ public class MySimulation extends Simulation
 		{
 			this.statVytazenieObsluzneMiestaOnlineZakaznici[i] = new Stat();
 		}
+
+		// Pokladne
+		this.statCasFrontPokladna = new Stat[this.pocetPokladni];
+		for (int i = 0; i < this.statCasFrontPokladna.length; i++)
+		{
+			this.statCasFrontPokladna[i] = new Stat();
+		}
+
+		this.statDlzkaFrontPokladna = new Stat[this.pocetPokladni];
+		for (int i = 0; i < this.statDlzkaFrontPokladna.length; i++)
+		{
+			this.statDlzkaFrontPokladna[i] = new Stat();
+		}
+
+		this.statVytazeniePokladna = new Stat[this.pocetPokladni];
+		for (int i = 0; i < this.statVytazeniePokladna.length; i++)
+		{
+			this.statVytazeniePokladna[i] = new Stat();
+		}
 	}
 
 	private void customPrepareReplication()
@@ -147,13 +171,33 @@ public class MySimulation extends Simulation
 		for (int i = 0; i < this.statVytazenieObsluzneMiestaObycajniZakaznici.length; i++)
 		{
 			this.statVytazenieObsluzneMiestaObycajniZakaznici[i]
-				.addSample(this.agentObsluzneMiesta().getStatVytazenieObycajneObluzneMiesto(i).mean());
+				.addSample(this.agentObsluzneMiesta().getWstatVytazenieObycajneObluzneMiesto(i).mean());
 		}
 
 		for (int i = 0; i < this.statVytazenieObsluzneMiestaOnlineZakaznici.length; i++)
 		{
 			this.statVytazenieObsluzneMiestaOnlineZakaznici[i]
-					.addSample(this.agentObsluzneMiesta().getStatVytazenieOnlineObluzneMiesto(i).mean());
+				.addSample(this.agentObsluzneMiesta().getWstatVytazenieOnlineObluzneMiesto(i).mean());
+		}
+
+
+		// Pokladne
+		for (int i = 0; i < this.statCasFrontPokladna.length; i++)
+		{
+			this.statCasFrontPokladna[i]
+				.addSample(this.agentPokladne().getStatCasFrontPokladna(i).mean());
+		}
+
+		for (int i = 0; i < this.statDlzkaFrontPokladna.length; i++)
+		{
+			this.statDlzkaFrontPokladna[i]
+				.addSample(this.agentPokladne().getWstatDlzkaFrontPokladna(i).mean());
+		}
+
+		for (int i = 0; i < this.statVytazeniePokladna.length; i++)
+		{
+			this.statVytazeniePokladna[i]
+				.addSample(this.agentPokladne().getWstatVytazeniePokladna(i).mean());
 		}
 	}
 
@@ -185,12 +229,38 @@ public class MySimulation extends Simulation
 		{
 			System.out.print(this.statVytazenieObsluzneMiestaObycajniZakaznici[i].mean() + " ");
 		}
+		System.out.println();
 
-		System.out.print("\nPriemerne vytazenie online obsluznych miest: ");
+		System.out.print("Priemerne vytazenie online obsluznych miest: ");
 		for (int i = 0; i < this.statVytazenieObsluzneMiestaOnlineZakaznici.length; i++)
 		{
 			System.out.print(this.statVytazenieObsluzneMiestaOnlineZakaznici[i].mean() + " ");
 		}
+		System.out.println();
+
+
+		// Pokladne
+		System.out.println("\nPokladne:");
+		System.out.print("Priemerne cakanie front pokladne: ");
+		for (int i = 0; i < this.statCasFrontPokladna.length; i++)
+		{
+			System.out.print(this.statCasFrontPokladna[i].mean() + " ");
+		}
+		System.out.println();
+
+		System.out.print("Priemerna dlzka front pokladne: ");
+		for (int i = 0; i < this.statDlzkaFrontPokladna.length; i++)
+		{
+			System.out.print(this.statDlzkaFrontPokladna[i].mean() + " ");
+		}
+		System.out.println();
+
+		System.out.print("Priemerne vytazenie pokladni: ");
+		for (int i = 0; i < this.statVytazeniePokladna.length; i++)
+		{
+			System.out.print(this.statVytazeniePokladna[i].mean() + " ");
+		}
+		System.out.println();
 	}
 
 	public GeneratorNasad getRngGeneratorNasad()

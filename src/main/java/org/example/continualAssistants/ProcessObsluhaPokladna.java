@@ -50,10 +50,11 @@ public class ProcessObsluhaPokladna extends Process
 	public void processStart(MessageForm message)
 	{
 		Zakaznik zakaznik = ((MyMessageZakaznik)message).getZakaznik();
-		zakaznik.setOdchodFrontPokladne(this.mySim().currentTime());
+		zakaznik.setOdchodFrontPokladna(this.mySim().currentTime());
 
 		Pokladna pokladna = zakaznik.getPokladna();
 		pokladna.setPokladnaObsadena(true);
+		pokladna.pridajCasFrontPokladna(zakaznik.getCasFrontPokladna());
 
 		// Samotna obsluha
 		double trvanieObsluhy = this.rngDlzkaPlatenia.sample().doubleValue();

@@ -5,6 +5,7 @@ import OSPABA.Simulation;
 import OSPDataStruct.SimQueue;
 import OSPStat.Stat;
 import OSPStat.WStat;
+import org.example.Vlastne.Ostatne.Helper;
 
 public class Pokladna
 {
@@ -14,7 +15,7 @@ public class Pokladna
 
     // Statistika
     private Stat statCasFrontPokladna;
-    private WStat statVytazeniePokladna;
+    private WStat wstatVytazeniePokladna;
 
     public Pokladna(Simulation simulacia)
     {
@@ -23,7 +24,7 @@ public class Pokladna
         this.obsadena = false;
 
         this.statCasFrontPokladna = new Stat();
-        this.statVytazeniePokladna = new WStat(simulacia);
+        this.wstatVytazeniePokladna = new WStat(simulacia);
     }
 
     public MessageForm vyberFront()
@@ -62,6 +63,7 @@ public class Pokladna
         }
 
         this.obsadena = obsadena;
+        this.wstatVytazeniePokladna.addSample(Helper.booleanNaDouble(this.obsadena));
     }
 
     public boolean frontPrazdny()
@@ -82,5 +84,25 @@ public class Pokladna
     public boolean getObsadena()
     {
         return this.obsadena;
+    }
+
+    public void pridajCasFrontPokladna(double cas)
+    {
+        this.statCasFrontPokladna.addSample(cas);
+    }
+
+    public Stat getStatCasFrontPokladna()
+    {
+        return this.statCasFrontPokladna;
+    }
+
+    public WStat getWstatVytazeniePokladna()
+    {
+        return this.wstatVytazeniePokladna;
+    }
+
+    public WStat getWstatDlzkaFrontPokladna()
+    {
+        return this.frontPokladna.lengthStatistic();
     }
 }

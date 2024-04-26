@@ -1,6 +1,8 @@
 package org.example.agents;
 
 import OSPABA.*;
+import OSPStat.Stat;
+import OSPStat.WStat;
 import org.example.Vlastne.Ostatne.GeneratorNasad;
 import org.example.Vlastne.Ostatne.GenerovanieVyberFrontu;
 import org.example.Vlastne.Pokladna;
@@ -155,6 +157,21 @@ public class AgentPokladne extends Agent
 	public void ukonciPrestavku()
 	{
 		// TODO: koniec prestavky pokladne
+	}
+
+	public Stat getStatCasFrontPokladna(int index)
+	{
+		return this.pokladne[index].getStatCasFrontPokladna();
+	}
+
+	public WStat getWstatVytazeniePokladna(int index)
+	{
+		return this.pokladne[index].getWstatVytazeniePokladna();
+	}
+
+	public WStat getWstatDlzkaFrontPokladna(int index)
+	{
+		return this.pokladne[index].getWstatDlzkaFrontPokladna();
 	}
 	// Vlastne koniec
 

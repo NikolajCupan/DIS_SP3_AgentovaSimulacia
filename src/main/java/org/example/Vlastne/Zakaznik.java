@@ -20,8 +20,8 @@ public class Zakaznik
     private double odchodFrontObsluzneMiesta;
 
     private Pokladna pokladna;
-    private double prichodFrontPokladne;
-    private double odchodFrontPokladne;
+    private double prichodFrontPokladna;
+    private double odchodFrontPokladna;
 
     public Zakaznik(TypZakaznik typZakaznik)
     {
@@ -41,8 +41,8 @@ public class Zakaznik
         this.odchodFrontObsluzneMiesta = -1;
 
         this.pokladna = null;
-        this.prichodFrontPokladne = -1;
-        this.odchodFrontPokladne = -1;
+        this.prichodFrontPokladna = -1;
+        this.odchodFrontPokladna = -1;
     }
 
     public void predcasnyOdchod()
@@ -99,14 +99,14 @@ public class Zakaznik
         this.pokladna = pokladna;
     }
 
-    public void setPrichodFrontPokladne(double prichodFrontPokladne)
+    public void setPrichodFrontPokladna(double prichodFrontPokladna)
     {
-        this.prichodFrontPokladne = prichodFrontPokladne;
+        this.prichodFrontPokladna = prichodFrontPokladna;
     }
 
-    public void setOdchodFrontPokladne(double odchodFrontPokladne)
+    public void setOdchodFrontPokladna(double odchodFrontPokladna)
     {
-        this.odchodFrontPokladne = odchodFrontPokladne;
+        this.odchodFrontPokladna = odchodFrontPokladna;
     }
 
     public void setObsluzneMiesto(ObsluzneMiesto obsluzneMiesto)
@@ -235,5 +235,15 @@ public class Zakaznik
         }
 
         return this.odchodFrontObsluzneMiesta - this.prichodFrontObsluzneMiesta;
+    }
+
+    public double getCasFrontPokladna()
+    {
+        if (this.prichodFrontPokladna == -1 || this.odchodFrontPokladna == -1)
+        {
+            throw new RuntimeException("Nie je nastaveny prichod/odchod pokladna!");
+        }
+
+        return this.odchodFrontPokladna - this.prichodFrontPokladna;
     }
 }

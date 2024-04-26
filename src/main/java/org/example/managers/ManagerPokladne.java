@@ -61,7 +61,7 @@ public class ManagerPokladne extends Manager
 
 		MyMessageZakaznik sprava = (MyMessageZakaznik)message;
 		Zakaznik zakaznik = sprava.getZakaznik();
-		zakaznik.setPrichodFrontPokladne(this.mySim().currentTime());
+		zakaznik.setPrichodFrontPokladna(this.mySim().currentTime());
 
 		if (!pokladna.getObsadena())
 		{
