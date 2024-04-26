@@ -22,17 +22,21 @@ public class Konstanty
 
 
     // Generatory
-    public static final double POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU = 15.0 * 60.0;
-    public static final double POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU = 5.0 * 60.0;
-    public static final double POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU = 10.0 * 60.0;
-
+    private static final int POCET_BEZNI_ZA_HODINU = 15;
+    private static final int POCET_ZMLUVNI_ZA_HODINU = 5;
+    private static final int POCET_ONLINE_ZA_HODINU = 10;
     private static final double ZVYSENY_TOK = 0.30;
-    public static final double ZVYSENY_POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU =
-        Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
-    public static final double ZVYSENY_POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU =
-        Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
-    public static final double ZVYSENY_POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU =
-        Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU / Konstanty.ZVYSENY_TOK;
+
+    public static final double PRIEMER_BEZNI_ZAKAZNICI = 60.0 / Konstanty.POCET_BEZNI_ZA_HODINU * 60.0;
+    public static final double PRIEMER_ZMLUVNI_ZAKAZNICI = 60.0 / Konstanty.POCET_ZMLUVNI_ZA_HODINU * 60.0;
+    public static final double PRIEMER_ONLINE_ZAKAZNICI = 60.0 / Konstanty.POCET_ONLINE_ZA_HODINU * 60.0;
+
+    public static final double ZVYSENY_PRIEMER_BEZNI_ZAKAZNICI = 60.0
+        / (Konstanty.POCET_BEZNI_ZA_HODINU + Konstanty.POCET_BEZNI_ZA_HODINU * ZVYSENY_TOK) * 60.0;
+    public static final double ZVYSENY_PRIEMER_ZMLUVNI_ZAKAZNICI = 60.0
+            / (Konstanty.POCET_ZMLUVNI_ZA_HODINU + Konstanty.POCET_ZMLUVNI_ZA_HODINU * ZVYSENY_TOK) * 60.0;
+    public static final double ZVYSENY_PRIEMER_ONLINE_ZAKAZNICI = 60.0
+            / (Konstanty.POCET_ONLINE_ZA_HODINU + Konstanty.POCET_ONLINE_ZA_HODINU * ZVYSENY_TOK) * 60.0;
 
 
     // Ostatne
@@ -40,6 +44,6 @@ public class Konstanty
 
 
     // Debug
-    public static final boolean DEBUG_VYPISY = true;
-    public static final boolean DEBUG_VYPISY_ZAKAZNIK = true;
+    public static final boolean DEBUG_VYPISY = false;
+    public static final boolean DEBUG_VYPISY_ZAKAZNIK = false;
 }

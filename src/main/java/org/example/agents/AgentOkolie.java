@@ -79,6 +79,36 @@ public class AgentOkolie extends Agent
 
 		this.zakazniciSystem.remove(zakaznik);
 	}
+
+	public Stat getStatCasSystem()
+	{
+		return this.statCasSystem;
+	}
+
+	public double getPoslednyOdchod()
+	{
+		if (this.casPoslednyOdchod < 0)
+		{
+			return -1;
+		}
+
+		return this.casPoslednyOdchod;
+	}
+
+	public int getPocetPrislychZakaznikov()
+	{
+		return this.celkovyPocetZakaznikov;
+	}
+
+	public int getPocetObsluzenychZakaznikov()
+	{
+		return this.pocetObsluzenychZakaznikov;
+	}
+
+	public int getPocetNeobsluzenychZakaznikov()
+	{
+		return this.pocetNeobsluzenychZakaznikov;
+	}
 	// Vlastne koniec
 
 

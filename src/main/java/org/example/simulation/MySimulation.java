@@ -1,8 +1,10 @@
 package org.example.simulation;
 
 import OSPABA.*;
+import OSPStat.Stat;
 import org.example.Vlastne.Ostatne.GeneratorNasad;
 import org.example.Vlastne.Ostatne.Identifikator;
+import org.example.Vlastne.Ostatne.Prezenter;
 import org.example.agents.*;
 
 public class MySimulation extends Simulation
@@ -17,6 +19,13 @@ public class MySimulation extends Simulation
 	private int pocetObycajnychObsluznychMiest;
 	private int pocetOnlineObsluznychMiest;
 	private int pocetPokladni;
+
+	// Statistiky
+	private Stat statCasSystem;
+	private Stat statCasPoslednyOdchod;
+	private Stat statPocetPrislychZakaznikov;
+	private Stat statPocetObsluzenychZakaznikov;
+	private Stat statPocetNeobsluzenychZakaznikov;
 
 	private void customInit(int nasada, boolean pouziNasadu, double trvanieSimulacie,
 		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
@@ -46,6 +55,15 @@ public class MySimulation extends Simulation
 		this.pocetPokladni = pocetPokladni;
 	}
 
+	private void customPrepareSimulation()
+	{
+		this.statCasSystem = new Stat();
+		this.statCasPoslednyOdchod = new Stat();
+		this.statPocetPrislychZakaznikov = new Stat();
+		this.statPocetObsluzenychZakaznikov = new Stat();
+		this.statPocetNeobsluzenychZakaznikov = new Stat();
+	}
+
 	private void customPrepareReplication()
 	{
 		// Spustenie simulacie
@@ -55,6 +73,38 @@ public class MySimulation extends Simulation
 
 	private void customReplicationFinished()
 	{
+		int ostaloVSysteme = this.agentOkolie().pocetZakaznikovSystem();
+		if (ostaloVSysteme != 0)
+		{
+			throw new RuntimeException("Zakaznik ostal v systeme!");
+		}
+
+		if (this.currentReplication() % 1000 == 0 & this.currentReplication() > 0)
+		{
+			System.out.println("R: " + this.currentReplication());
+		}
+
+		Stat replikaciaCasSystem = this.agentOkolie().getStatCasSystem();
+		this.statCasSystem.addSample(replikaciaCasSystem.mean());
+
+		double poslednyOdchod = this.agentOkolie().getPoslednyOdchod();
+		if (poslednyOdchod != -1)
+		{
+			this.statCasPoslednyOdchod.addSample(poslednyOdchod);
+		}
+
+		this.statPocetPrislychZakaznikov.addSample(this.agentOkolie().getPocetPrislychZakaznikov());
+		this.statPocetObsluzenychZakaznikov.addSample(this.agentOkolie().getPocetObsluzenychZakaznikov());
+		this.statPocetNeobsluzenychZakaznikov.addSample(this.agentOkolie().getPocetNeobsluzenychZakaznikov());
+	}
+
+	private void customSimulationFinished()
+	{
+		System.out.println("Priemerny cas v systeme: " + this.statCasSystem.mean() / 60.0);
+		System.out.println("Priemerny cas posledneho odchodu: " + Prezenter.naformatujCas(this.statCasPoslednyOdchod.mean()));
+		System.out.println("Priemerny pocet prislych zakaznikov: " + this.statPocetPrislychZakaznikov.mean());
+		System.out.println("Priemerny pocet obsluzenych zakazikov: " + this.statPocetObsluzenychZakaznikov.mean());
+		System.out.println("Priemerny pocet neobsluzenych zakaznikov: " + this.statPocetNeobsluzenychZakaznikov.mean());
 	}
 
 	public GeneratorNasad getRngGeneratorNasad()
@@ -118,6 +168,9 @@ public class MySimulation extends Simulation
 	{
 		super.prepareSimulation();
 		// Create global statistcis
+
+		// Vlastne
+		this.customPrepareSimulation();
 	}
 
 	@Override
@@ -145,6 +198,9 @@ public class MySimulation extends Simulation
 	{
 		// Dysplay simulation results
 		super.simulationFinished();
+
+		// Vlastne
+		this.customSimulationFinished();
 	}
 
 	//meta! userInfo="Generated code: do not modify", tag="begin"

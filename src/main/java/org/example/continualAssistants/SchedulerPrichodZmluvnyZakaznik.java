@@ -21,7 +21,7 @@ public class SchedulerPrichodZmluvnyZakaznik extends Scheduler
 		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 
 		double priemer = ((MySimulation)this.mySim()).getZvysenyTokZakaznikov()
-			? Konstanty.ZVYSENY_POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU : Konstanty.POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU;
+			? Konstanty.ZVYSENY_PRIEMER_ZMLUVNI_ZAKAZNICI : Konstanty.PRIEMER_ZMLUVNI_ZAKAZNICI;
 		this.rngPrichodZmluvnyZakaznik = new ExponentialRNG(priemer, this.rngGeneratorNasad.generator());
 	}
 
