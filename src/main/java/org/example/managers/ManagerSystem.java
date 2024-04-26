@@ -1,6 +1,7 @@
 package org.example.managers;
 
 import OSPABA.*;
+import org.example.Vlastne.VelkostTovaru;
 import org.example.Vlastne.Zakaznik;
 import org.example.simulation.*;
 import org.example.agents.*;
@@ -29,9 +30,23 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentPokladne", id="85", type="Response"
 	public void processRequestResponseObsluhaPokladna(MessageForm message)
 	{
-		// TODO: check na velkost tovaru
-		message.setCode(Mc.requestResponseSpracovanieZakaznik);
-		this.response(message);
+		MyMessageZakaznik sprava = (MyMessageZakaznik)message;
+		Zakaznik zakaznik = sprava.getZakaznik();
+
+		if (zakaznik.getVelkostTovaru() == VelkostTovaru.MALY)
+		{
+			// Zakaznik opusta system
+			message.setCode(Mc.requestResponseSpracovanieZakaznik);
+			this.response(message);
+		}
+		else if (zakaznik.getVelkostTovaru() == VelkostTovaru.VELKY)
+		{
+			throw new RuntimeException("Neimplementovane!");
+		}
+		else
+		{
+			throw new RuntimeException("Neplatna velkost tovaru zakaznika!");
+		}
 	}
 
 	//meta! sender="AgentAutomat", id="41", type="Response"

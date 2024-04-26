@@ -15,6 +15,7 @@ public class Zakaznik
     private double odchodFrontAutomat;
 
     private ObsluzneMiesto obsluzneMiesto;
+    private VelkostTovaru velkostTovaru;
     private double prichodFrontObsluzneMiesta;
     private double odchodFrontObsluzneMiesta;
 
@@ -35,6 +36,7 @@ public class Zakaznik
         this.odchodFrontAutomat = -1;
 
         this.obsluzneMiesto = null;
+        this.velkostTovaru = null;
         this.prichodFrontObsluzneMiesta = -1;
         this.odchodFrontObsluzneMiesta = -1;
 
@@ -130,6 +132,16 @@ public class Zakaznik
         this.obsluzneMiesto = obsluzneMiesto;
     }
 
+    public void setVelkostTovaru(VelkostTovaru velkostTovaru)
+    {
+        if (this.velkostTovaru != null)
+        {
+            throw new RuntimeException("Zakaznik uz ma nastavenu velkost tovaru!");
+        }
+
+        this.velkostTovaru = velkostTovaru;
+    }
+
     public Pokladna getPokladna()
     {
         if (this.pokladna == null)
@@ -163,6 +175,16 @@ public class Zakaznik
     public TypZakaznik getTypZakaznik()
     {
         return this.typZakaznik;
+    }
+
+    public VelkostTovaru getVelkostTovaru()
+    {
+        if (this.velkostTovaru == null)
+        {
+            throw new RuntimeException("Zakaznik nema nastavenu velkost tovaru!");
+        }
+
+        return this.velkostTovaru;
     }
 
     public double getCasPrichodSystem()

@@ -93,6 +93,7 @@ public class ProcessObsluhaObsluzneMiestoObycajnyZakaznik extends Process
 				ObsluzneMiesto obsluzneMiesto = zakaznik.getObsluzneMiesto();
 
 				VelkostTovaru velkostTovaru = this.myAgent().getVelkostTovaru();
+				zakaznik.setVelkostTovaru(velkostTovaru);
 				if (velkostTovaru == VelkostTovaru.MALY)
 				{
 					// Tovar je maly, preto dochadza k uvolneniu obsluzneho miesta
