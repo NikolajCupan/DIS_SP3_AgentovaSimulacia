@@ -85,6 +85,9 @@ public class AgentOkolie extends Agent
 		}
 
 		this.zakazniciSystem.remove(zakaznik);
+
+		// V pripade ak simulacia bezi v spomalenom rezime, je nutne manualne zastavit replikaciu
+		((MySimulation)this.mySim()).skontrolujUkoncenieReplikacie();
 	}
 
 	public Stat getStatCasSystem()

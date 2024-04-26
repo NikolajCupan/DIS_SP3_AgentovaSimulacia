@@ -18,6 +18,7 @@ public class MySimulation extends Simulation implements ISimDelegate
 	// Vlastne
 	// Prepojenie s GUI
 	private List<ISimulationDelegate> delegati;
+	private int rychlost;
 
 	private GeneratorNasad rngGeneratorNasad;
 
@@ -54,7 +55,7 @@ public class MySimulation extends Simulation implements ISimDelegate
 	private Stat[] statVytazeniePokladne;
 
 	private void customInit(int nasada, boolean pouziNasadu, double trvanieSimulacie,
-		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
+		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni, int rychlost)
 	{
 		if (trvanieSimulacie <= 0)
 		{
@@ -71,6 +72,7 @@ public class MySimulation extends Simulation implements ISimDelegate
 
 		this.delegati = Collections.synchronizedList(new ArrayList<>());
 		this.registerDelegate(this);
+		this.rychlost = rychlost;
 
 		GeneratorNasad.inicializujGeneratorNasad(nasada, pouziNasadu);
 		this.rngGeneratorNasad = new GeneratorNasad();
@@ -141,6 +143,7 @@ public class MySimulation extends Simulation implements ISimDelegate
 		this.agentModel().inicializaciaSimulacie();
 
 		// GUI
+		this.setRychlost(this.rychlost);
 		this.aktualizujGUI(true, false);
 	}
 
@@ -353,6 +356,29 @@ public class MySimulation extends Simulation implements ISimDelegate
 		}
 	}
 
+	public void setRychlost(int rychlost)
+	{
+		this.rychlost = rychlost;
+		if (this.rychlost >= Konstanty.MAX_RYCHLOST)
+		{
+			this.setMaxSimSpeed();
+		}
+		else
+		{
+			this.setSimSpeed(this.rychlost, Konstanty.DLZKA_PAUZY_S);
+		}
+	}
+
+	public void skontrolujUkoncenieReplikacie()
+	{
+		if (this.rychlost < Konstanty.MAX_RYCHLOST
+			&& this.agentOkolie().getZakazniciSystem().isEmpty()
+			&& this.currentTime() > this.trvanieSimulacie)
+		{
+			this.stopReplication();
+		}
+	}
+
 	public double getAktualnySimulacnyCas()
 	{
 		return this.currentTime();
@@ -431,11 +457,11 @@ public class MySimulation extends Simulation implements ISimDelegate
 
 
 	public MySimulation(int nasada, boolean pouziNasadu, double trvanieSimulacie,
-		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
+		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni, int rychlost)
 	{
 		// Vlastne
 		this.customInit(nasada, pouziNasadu, trvanieSimulacie, zvysenyTokZakaznikov,
-			prestavka, pocetObsluznychMiest, pocetPokladni);
+			prestavka, pocetObsluznychMiest, pocetPokladni, rychlost);
 
 		// Vygenerovane
 		init();

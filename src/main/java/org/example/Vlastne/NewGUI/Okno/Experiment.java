@@ -70,7 +70,7 @@ public class Experiment implements ISimulationDelegate
                 }
 
                 this.aktualnaSimulacia = new MySimulation(nasada, pouziNasadu, dlzkaTrvaniaSimulacie,
-                        zvysenyTok, prestavka, pocetObsluznychMiest, i);
+                    zvysenyTok, prestavka, pocetObsluznychMiest, i, Konstanty.MAX_RYCHLOST);
                 this.aktualnaSimulacia.pridajDelegata(this);
                 this.aktualnaSimulacia.simulate(pocetReplikacii);
             }

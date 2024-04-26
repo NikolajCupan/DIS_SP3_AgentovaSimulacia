@@ -825,14 +825,7 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
 
         if (HlavneOkno.this.simulacia != null)
         {
-            if (this.rychlost >= Konstanty.MAX_RYCHLOST)
-            {
-                HlavneOkno.this.simulacia.setMaxSimSpeed();
-            }
-            else
-            {
-                HlavneOkno.this.simulacia.setSimSpeed(this.rychlost, Konstanty.DLZKA_PAUZY_S);
-            }
+            this.simulacia.setRychlost(this.rychlost);
         }
     }//GEN-LAST:event_sliderRychlostMouseReleased
 
@@ -1033,7 +1026,7 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
         boolean zvysenyTok = this.checkBoxZvysenyTok.isSelected();
 
         this.simulacia = new MySimulation(nasada, nasadaZadana, Konstanty.TRVANIE_CAS_SEKUNDY,
-            zvysenyTok, prestavka, pocetObsluznychMiest, pocetPokladni);
+            zvysenyTok, prestavka, pocetObsluznychMiest, pocetPokladni, this.rychlost);
         this.simulacia.pridajDelegata(this);
 
         this.simulacneVlakno = new Thread(() -> {
