@@ -3,6 +3,7 @@ package org.example.agents;
 import OSPABA.*;
 import OSPDataStruct.SimQueue;
 import OSPRNG.UniformContinuousRNG;
+import OSPStat.Stat;
 import OSPStat.WStat;
 import org.example.Vlastne.*;
 import org.example.Vlastne.Ostatne.GeneratorNasad;
