@@ -237,11 +237,11 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
 
             },
             new String [] {
-                "ID", "Typ", "Stav", "Prichod system", "Front automat", "Front obsluzne miesto", "Front pokladna"
+                "ID", "Typ", "Stav", "Prichod system", "Front automat", "Front obsluzne miesto", "Front pokladna", "Vyzdvihovanie tovaru"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

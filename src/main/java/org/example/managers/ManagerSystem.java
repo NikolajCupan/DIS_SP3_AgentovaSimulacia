@@ -42,6 +42,7 @@ public class ManagerSystem extends Manager
 		else if (zakaznik.getVelkostTovaru() == VelkostTovaru.VELKY)
 		{
 			// Zakaznik si ide prevzat tovar
+			zakaznik.setZaciatokVyzdvihovaniaTovaru(this.mySim().currentTime());
 			message.setCode(Mc.requestResponsePrevzatieTovar);
 			message.setAddressee(Id.agentPrevzatieTovar);
 			this.request(message);

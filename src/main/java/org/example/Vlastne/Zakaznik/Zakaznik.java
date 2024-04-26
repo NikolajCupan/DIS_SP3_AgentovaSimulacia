@@ -27,6 +27,8 @@ public class Zakaznik
     private double prichodFrontPokladna;
     private double odchodFrontPokladna;
 
+    private double zaciatokVyzdvihovaniaTovaru;
+
     public Zakaznik(TypZakaznik typZakaznik)
     {
         this.ID = Identifikator.getID();
@@ -47,6 +49,8 @@ public class Zakaznik
         this.pokladna = null;
         this.prichodFrontPokladna = -1;
         this.odchodFrontPokladna = -1;
+
+        this.zaciatokVyzdvihovaniaTovaru = -1;
     }
 
     public void predcasnyOdchod()
@@ -144,6 +148,16 @@ public class Zakaznik
         }
 
         this.velkostTovaru = velkostTovaru;
+    }
+
+    public void setZaciatokVyzdvihovaniaTovaru(double zaciatokVyzdvihovaniaTovaru)
+    {
+        if (this.velkostTovaru != VelkostTovaru.VELKY)
+        {
+            throw new RuntimeException("Zakaznik nemoze vyzdvihovat tovar!");
+        }
+
+        this.zaciatokVyzdvihovaniaTovaru = zaciatokVyzdvihovaniaTovaru;
     }
 
     public Pokladna getPokladna()
@@ -271,6 +285,11 @@ public class Zakaznik
         return this.odchodFrontPokladna;
     }
 
+    public double getZaciatokVyzdvihovaniaTovaru()
+    {
+        return this.zaciatokVyzdvihovaniaTovaru;
+    }
+
     public String getStav()
     {
         if (this.prichodSystem == -1 || this.prichodFrontAutomat == -1)
@@ -280,7 +299,7 @@ public class Zakaznik
 
         if (this.odchodFrontAutomat == -1)
         {
-            return "Front automat";
+            return "Front pred automatom";
         }
 
         if (this.prichodFrontObsluzneMiesta == -1)
@@ -289,7 +308,7 @@ public class Zakaznik
         }
         if (this.odchodFrontObsluzneMiesta == -1)
         {
-            return "Front obsluzne miesta";
+            return "Front pred obsluznym miestom";
         }
 
         if (this.prichodFrontPokladna == -1)
@@ -297,6 +316,11 @@ public class Zakaznik
             return "Obsluha pri obsluznom mieste";
         }
         if (this.odchodFrontPokladna == -1)
+        {
+            return "Front pred pokladni";
+        }
+
+        if (this.zaciatokVyzdvihovaniaTovaru == -1)
         {
             return "Obsluha pri pokladni";
         }

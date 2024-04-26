@@ -302,7 +302,8 @@ public class Prezenter
                         Prezenter.naformatujCas(zakaznik.getCasPrichodSystem()),
                         prichodFrontAutomat + " - " + odchodFrontAutomat,
                         prichodFrontObsluzneMiesta + " - " + odchodFrontObsluzneMiesta,
-                        prichodFrontPokladna + " - " + odchodFrontPokladna
+                        prichodFrontPokladna + " - " + odchodFrontPokladna,
+                        Prezenter.naformatujCas(zakaznik.getZaciatokVyzdvihovaniaTovaru())
                     });
                 }
             });

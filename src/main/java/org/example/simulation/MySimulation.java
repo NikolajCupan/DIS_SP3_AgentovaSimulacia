@@ -149,12 +149,7 @@ public class MySimulation extends Simulation implements ISimDelegate
 		int ostaloVSysteme = this.agentOkolie().pocetZakaznikovSystem();
 		if (ostaloVSysteme != 0)
 		{
-			//throw new RuntimeException("Zakaznik ostal v systeme!");
-		}
-
-		if (this.currentReplication() % 1000 == 0 & this.currentReplication() > 0)
-		{
-			System.out.println("R: " + this.currentReplication());
+			throw new RuntimeException("Zakaznik ostal v systeme!");
 		}
 
 
