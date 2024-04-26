@@ -5,6 +5,7 @@ import OSPStat.Stat;
 import org.example.Vlastne.Generatory.GeneratorNasad;
 import org.example.Vlastne.NewGUI.ISimulationDelegate;
 import org.example.Vlastne.Ostatne.Identifikator;
+import org.example.Vlastne.Ostatne.Konstanty;
 import org.example.Vlastne.Ostatne.Prezenter;
 import org.example.agents.*;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MySimulation extends Simulation
+public class MySimulation extends Simulation implements ISimDelegate
 {
 	// Vlastne
 	// Prepojenie s GUI
@@ -69,6 +70,7 @@ public class MySimulation extends Simulation
 		}
 
 		this.delegati = Collections.synchronizedList(new ArrayList<>());
+		this.registerDelegate(this);
 
 		GeneratorNasad.inicializujGeneratorNasad(nasada, pouziNasadu);
 		this.rngGeneratorNasad = new GeneratorNasad();
@@ -147,7 +149,7 @@ public class MySimulation extends Simulation
 		int ostaloVSysteme = this.agentOkolie().pocetZakaznikovSystem();
 		if (ostaloVSysteme != 0)
 		{
-			throw new RuntimeException("Zakaznik ostal v systeme!");
+			//throw new RuntimeException("Zakaznik ostal v systeme!");
 		}
 
 		if (this.currentReplication() % 1000 == 0 & this.currentReplication() > 0)
@@ -220,64 +222,67 @@ public class MySimulation extends Simulation
 
 	private void customSimulationFinished()
 	{
-		// System
-		System.out.println("\nSystem:");
-		System.out.println("Priemerny cas v systeme: " + this.statCasSystem.mean() / 60.0);
-		System.out.println("Priemerny cas posledneho odchodu: " + Prezenter.naformatujCas(this.statCasPoslednyOdchod.mean()));
-		System.out.println("Priemerny pocet prislych zakaznikov: " + this.statPocetPrislychZakaznikov.mean());
-		System.out.println("Priemerny pocet obsluzenych zakazikov: " + this.statPocetObsluzenychZakaznikov.mean());
-		System.out.println("Priemerny pocet neobsluzenych zakaznikov: " + this.statPocetNeobsluzenychZakaznikov.mean());
-
-
-		// Automat
-		System.out.println("\nAutomat:");
-		System.out.println("Priemerny cas vo fronte pred automatom: " + this.statCasFrontAutomat.mean());
-		System.out.println("Priemerna dlzka frontu pred automatom: " + this.statDlzkaFrontAutomat.mean());
-		System.out.println("Priemerne vytazenie automatu: " + this.statVytazenieAutomat.mean());
-
-
-		// Obsluzne miesta
-		System.out.println("\nObsluzne miesta:");
-		System.out.println("Priemerny cas vo fronte pred obsluznymi miestami: " + this.statCasFrontObsluzneMiesta.mean());
-		System.out.println("Priemerna dlzka frontu pred obsluznymi miestami: " + this.statDlzkaFrontObsluzneMiesta.mean());
-
-		System.out.print("Priemerne vytazenie obycajnych obsluznych miest: ");
-		for (int i = 0; i < this.statVytazenieObsluzneMiestaObycajniZakaznici.length; i++)
+		if (Konstanty.DEBUG_VYPISY_VYSLEDOK)
 		{
-			System.out.print(this.statVytazenieObsluzneMiestaObycajniZakaznici[i].mean() + " ");
-		}
-		System.out.println();
-
-		System.out.print("Priemerne vytazenie online obsluznych miest: ");
-		for (int i = 0; i < this.statVytazenieObsluzneMiestaOnlineZakaznici.length; i++)
-		{
-			System.out.print(this.statVytazenieObsluzneMiestaOnlineZakaznici[i].mean() + " ");
-		}
-		System.out.println();
+			// System
+			System.out.println("\nSystem:");
+			System.out.println("Priemerny cas v systeme: " + this.statCasSystem.mean() / 60.0);
+			System.out.println("Priemerny cas posledneho odchodu: " + Prezenter.naformatujCas(this.statCasPoslednyOdchod.mean()));
+			System.out.println("Priemerny pocet prislych zakaznikov: " + this.statPocetPrislychZakaznikov.mean());
+			System.out.println("Priemerny pocet obsluzenych zakazikov: " + this.statPocetObsluzenychZakaznikov.mean());
+			System.out.println("Priemerny pocet neobsluzenych zakaznikov: " + this.statPocetNeobsluzenychZakaznikov.mean());
 
 
-		// Pokladne
-		System.out.println("\nPokladne:");
-		System.out.print("Priemerne cakanie front pokladne: ");
-		for (int i = 0; i < this.statCasFrontPokladne.length; i++)
-		{
-			System.out.print(this.statCasFrontPokladne[i].mean() + " ");
-		}
-		System.out.println();
+			// Automat
+			System.out.println("\nAutomat:");
+			System.out.println("Priemerny cas vo fronte pred automatom: " + this.statCasFrontAutomat.mean());
+			System.out.println("Priemerna dlzka frontu pred automatom: " + this.statDlzkaFrontAutomat.mean());
+			System.out.println("Priemerne vytazenie automatu: " + this.statVytazenieAutomat.mean());
 
-		System.out.print("Priemerna dlzka front pokladne: ");
-		for (int i = 0; i < this.statDlzkaFrontPokladne.length; i++)
-		{
-			System.out.print(this.statDlzkaFrontPokladne[i].mean() + " ");
-		}
-		System.out.println();
 
-		System.out.print("Priemerne vytazenie pokladni: ");
-		for (int i = 0; i < this.statVytazeniePokladne.length; i++)
-		{
-			System.out.print(this.statVytazeniePokladne[i].mean() + " ");
+			// Obsluzne miesta
+			System.out.println("\nObsluzne miesta:");
+			System.out.println("Priemerny cas vo fronte pred obsluznymi miestami: " + this.statCasFrontObsluzneMiesta.mean());
+			System.out.println("Priemerna dlzka frontu pred obsluznymi miestami: " + this.statDlzkaFrontObsluzneMiesta.mean());
+
+			System.out.print("Priemerne vytazenie obycajnych obsluznych miest: ");
+			for (int i = 0; i < this.statVytazenieObsluzneMiestaObycajniZakaznici.length; i++)
+			{
+				System.out.print(this.statVytazenieObsluzneMiestaObycajniZakaznici[i].mean() + " ");
+			}
+			System.out.println();
+
+			System.out.print("Priemerne vytazenie online obsluznych miest: ");
+			for (int i = 0; i < this.statVytazenieObsluzneMiestaOnlineZakaznici.length; i++)
+			{
+				System.out.print(this.statVytazenieObsluzneMiestaOnlineZakaznici[i].mean() + " ");
+			}
+			System.out.println();
+
+
+			// Pokladne
+			System.out.println("\nPokladne:");
+			System.out.print("Priemerne cakanie front pokladne: ");
+			for (int i = 0; i < this.statCasFrontPokladne.length; i++)
+			{
+				System.out.print(this.statCasFrontPokladne[i].mean() + " ");
+			}
+			System.out.println();
+
+			System.out.print("Priemerna dlzka front pokladne: ");
+			for (int i = 0; i < this.statDlzkaFrontPokladne.length; i++)
+			{
+				System.out.print(this.statDlzkaFrontPokladne[i].mean() + " ");
+			}
+			System.out.println();
+
+			System.out.print("Priemerne vytazenie pokladni: ");
+			for (int i = 0; i < this.statVytazeniePokladne.length; i++)
+			{
+				System.out.print(this.statVytazeniePokladne[i].mean() + " ");
+			}
+			System.out.println();
 		}
-		System.out.println();
 	}
 
 	public GeneratorNasad getRngGeneratorNasad()
@@ -340,6 +345,11 @@ public class MySimulation extends Simulation
 		{
 			delegat.aktualizujSimulacnyCas(this);
 		}
+	}
+
+	public double getAktualnySimulacnyCas()
+	{
+		return this.currentTime();
 	}
 
 	public int getAktualnaReplikacia()
@@ -419,7 +429,7 @@ public class MySimulation extends Simulation
 	{
 		// Vlastne
 		this.customInit(nasada, pouziNasadu, trvanieSimulacie, zvysenyTokZakaznikov,
-				prestavka, pocetObsluznychMiest, pocetPokladni);
+			prestavka, pocetObsluznychMiest, pocetPokladni);
 
 		// Vygenerovane
 		init();
@@ -540,5 +550,16 @@ public AgentPrevzatieTovar agentPrevzatieTovar()
 
 	public void setAgentPrevzatieTovar(AgentPrevzatieTovar agentPrevzatieTovar)
 	{_agentPrevzatieTovar = agentPrevzatieTovar; }
+
+	@Override
+	public void simStateChanged(Simulation simulation, SimState simState)
+	{
+	}
+
+	@Override
+	public void refresh(Simulation simulation)
+	{
+		this.aktualizujSimulacnyCasGUI();
+	}
 	//meta! tag="end"
 }

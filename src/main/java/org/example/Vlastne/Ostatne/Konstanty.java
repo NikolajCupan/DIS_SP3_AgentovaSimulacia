@@ -42,6 +42,7 @@ public class Konstanty
     // GUI
     public static final int DEFAULT_RYCHLOST = 100;
     public static final int MAX_RYCHLOST = 2000;
+    public static final int DLZKA_PAUZY_S = 1;
 
 
     // Experiment
@@ -57,4 +58,5 @@ public class Konstanty
     // Debug
     public static final boolean DEBUG_VYPISY = false;
     public static final boolean DEBUG_VYPISY_ZAKAZNIK = false;
+    public static final boolean DEBUG_VYPISY_VYSLEDOK = false;
 }

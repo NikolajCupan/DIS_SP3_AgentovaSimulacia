@@ -206,6 +206,11 @@ public class Prezenter
         label.setText(String.valueOf(simulacia.getAktualnaReplikacia() + 1));
     }
 
+    public static void simulacnyCas(MySimulation simulacia, JLabel label)
+    {
+        label.setText(Prezenter.naformatujCas(simulacia.getAktualnySimulacnyCas()));
+    }
+
     public static String naformatujCas(double casOdZaciatku)
     {
         if (casOdZaciatku < 0)
@@ -215,7 +220,7 @@ public class Prezenter
 
         int pocetHodin = (int)Math.floor(casOdZaciatku / 3600);
         int pocetMinut = (int)Math.floor((casOdZaciatku - pocetHodin * 3600) / 60);
-        int pocetSekund = (int)Math.round(casOdZaciatku - pocetHodin * 3600 - pocetMinut * 60);
+        int pocetSekund = (int)Math.floor(casOdZaciatku - pocetHodin * 3600 - pocetMinut * 60);
 
         final int hodinaOtvorenia = Konstanty.HODINA_OTVORENIA;
         pocetHodin += hodinaOtvorenia;
