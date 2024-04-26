@@ -29,6 +29,9 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentPokladne", id="85", type="Response"
 	public void processRequestResponseObsluhaPokladna(MessageForm message)
 	{
+		// TODO: check na velkost tovaru
+		message.setCode(Mc.requestResponseSpracovanieZakaznik);
+		this.response(message);
 	}
 
 	//meta! sender="AgentAutomat", id="41", type="Response"

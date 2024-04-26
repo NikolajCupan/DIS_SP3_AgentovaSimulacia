@@ -18,6 +18,10 @@ public class Zakaznik
     private double prichodFrontObsluzneMiesta;
     private double odchodFrontObsluzneMiesta;
 
+    private Pokladna pokladna;
+    private double prichodFrontPokladne;
+    private double odchodFrontPokladne;
+
     public Zakaznik(TypZakaznik typZakaznik)
     {
         this.ID = Identifikator.getID();
@@ -33,6 +37,10 @@ public class Zakaznik
         this.obsluzneMiesto = null;
         this.prichodFrontObsluzneMiesta = -1;
         this.odchodFrontObsluzneMiesta = -1;
+
+        this.pokladna = null;
+        this.prichodFrontPokladne = -1;
+        this.odchodFrontPokladne = -1;
     }
 
     public void predcasnyOdchod()
@@ -75,14 +83,28 @@ public class Zakaznik
         this.odchodFrontObsluzneMiesta = odchodFrontObsluzneMiesta;
     }
 
-    public void vynulujObsluzneMiesto()
+    public void setPokladna(Pokladna pokladna)
     {
-        if (this.obsluzneMiesto == null)
+        if (!pokladna.pokladnaDostupna() || pokladna.getObsadena())
         {
-            throw new RuntimeException("Obsluzne miesto nie je nastavene!");
+            throw new RuntimeException("Zakaznik nemoze byt obsluhovany pri danej pokladni!");
+        }
+        if (this.pokladna != null)
+        {
+            throw new RuntimeException("Zakaznik uz ma nastavenu pokladnu!");
         }
 
-        this.obsluzneMiesto = null;
+        this.pokladna = pokladna;
+    }
+
+    public void setPrichodFrontPokladne(double prichodFrontPokladne)
+    {
+        this.prichodFrontPokladne = prichodFrontPokladne;
+    }
+
+    public void setOdchodFrontPokladne(double odchodFrontPokladne)
+    {
+        this.odchodFrontPokladne = odchodFrontPokladne;
     }
 
     public void setObsluzneMiesto(ObsluzneMiesto obsluzneMiesto)
@@ -106,6 +128,16 @@ public class Zakaznik
         }
 
         this.obsluzneMiesto = obsluzneMiesto;
+    }
+
+    public Pokladna getPokladna()
+    {
+        if (this.pokladna == null)
+        {
+            throw new RuntimeException("Pokladna nie je nastavena!");
+        }
+
+        return this.pokladna;
     }
 
     public ObsluzneMiesto getObsluzneMiesto()

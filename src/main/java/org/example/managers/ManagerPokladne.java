@@ -4,6 +4,7 @@ import OSPABA.*;
 import org.example.Vlastne.Ostatne.Konstanty;
 import org.example.Vlastne.Ostatne.Prezenter;
 import org.example.Vlastne.Pokladna;
+import org.example.Vlastne.Zakaznik;
 import org.example.simulation.*;
 import org.example.agents.*;
 import org.example.continualAssistants.*;
@@ -57,6 +58,22 @@ public class ManagerPokladne extends Manager
 	{
 		AgentPokladne pokladne = this.myAgent();
 		Pokladna pokladna = pokladne.vyberPokladnu();
+
+		MyMessageZakaznik sprava = (MyMessageZakaznik)message;
+		Zakaznik zakaznik = sprava.getZakaznik();
+		zakaznik.setPrichodFrontPokladne(this.mySim().currentTime());
+
+		if (!pokladna.getObsadena())
+		{
+			// Zakaznik moze byt obsluhovany pri danej pokladni
+			zakaznik.setPokladna(pokladna);
+			sprava.setAddressee(pokladne.findAssistant(Id.processObsluhaPokladna));
+			this.startContinualAssistant(sprava);
+		}
+		else
+		{
+			pokladna.vlozFront(message);
+		}
 	}
 
 	//meta! sender="AgentSystem", id="126", type="Request"
@@ -82,6 +99,21 @@ public class ManagerPokladne extends Manager
 	//meta! sender="ProcessObsluhaPokladna", id="88", type="Finish"
 	public void processFinishProcessObsluhaPokladna(MessageForm message)
 	{
+		// Spracovanie obsluzeneho zakaznika
+		message.setCode(Mc.requestResponseObsluhaPokladna);
+		this.response(message);
+
+		// Pokus o naplanovanie dalsej obsluhy pri pokladni
+		AgentPokladne pokladne = this.myAgent();
+		Pokladna pokladna = ((MyMessageZakaznik)message).getZakaznik().getPokladna();
+		if (!pokladna.frontPrazdny())
+		{
+			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)pokladna.vyberFront();
+			Zakaznik dalsiZakaznik = dalsiZakaznikSprava.getZakaznik();
+			dalsiZakaznik.setPokladna(pokladna);
+			dalsiZakaznikSprava.setAddressee(pokladne.findAssistant(Id.processObsluhaPokladna));
+			this.startContinualAssistant(dalsiZakaznikSprava);
+		}
 	}
 
 	//meta! sender="MonitorZaciatokPrestavkaPokladne", id="102", type="Finish"

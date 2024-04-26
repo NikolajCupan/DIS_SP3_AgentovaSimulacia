@@ -36,7 +36,6 @@ public class Mc extends IdList
 
 	// 1..1000 range reserved for user
 	// Vlastne
-
 	// Vseobecne
 	public static final int holdPrichodBeznyZakaznik = 1;
 	public static final int holdPrichodZmluvnyZakaznik = 2;
@@ -49,12 +48,12 @@ public class Mc extends IdList
 	// Obsluzne miesta
 	public static final int holdZaciatokPrestavkaObsluzneMiesta = 6;
 	public static final int holdKoniecPrestavkaObsluzneMiesta = 7;
+	public static final int holdObsluhaObsluzneMiestoObycajnyZakaznik = 10;
+	public static final int holdObsluhaObsluzneMiestoOnlineZakaznik = 11;
 
 	// Pokladne
 	public static final int holdZaciatokPrestavkaPokladne = 8;
 	public static final int holdKoniecPrestavkaPokladne = 9;
-	public static final int holdObsluhaObsluzneMiestoObycajnyZakaznik = 10;
-	public static final int holdObsluhaObsluzneMiestoOnlineZakaznik = 11;
-
+	public static final int holdObsluhaPokladna = 12;
 	// Vlastne koniec
 }

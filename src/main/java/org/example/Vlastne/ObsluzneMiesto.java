@@ -5,19 +5,17 @@ public class ObsluzneMiesto
     private final TypOkno typOkno;
 
     private boolean obsadene;
-    private boolean prestavka;
 
     public ObsluzneMiesto(TypOkno typOkno)
     {
         this.typOkno = typOkno;
 
         this.obsadene = false;
-        this.prestavka = false;
     }
 
     public boolean obsluzneMiestoDostupne()
     {
-        if (!this.obsadene && !this.prestavka)
+        if (!this.obsadene)
         {
             return true;
         }
@@ -27,19 +25,13 @@ public class ObsluzneMiesto
 
     public void setObsadene(boolean obsadene)
     {
-        if (obsadene)
+        if (obsadene && this.obsadene)
         {
-            if (this.obsadene || this.prestavka)
-            {
-                throw new RuntimeException("Dane obsluzne miesto nemoze byt obsadene!");
-            }
+            throw new RuntimeException("Dane obsluzne miesto je uz obsadene!");
         }
-        else
+        if (!obsadene && !this.obsadene)
         {
-            if (!this.obsadene)
-            {
-                throw new RuntimeException("Dane obsluzne miesto nemoze byt uvolnene!");
-            }
+            throw new RuntimeException("Dane obsluzne miesto je uz uvolnene!");
         }
 
         this.obsadene = obsadene;

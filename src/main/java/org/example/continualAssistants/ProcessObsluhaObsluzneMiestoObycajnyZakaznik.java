@@ -28,14 +28,14 @@ public class ProcessObsluhaObsluzneMiestoObycajnyZakaznik extends Process
 		this.rngObsluhaObsluzneMiesto = new UniformContinuousRNG(60.0, 900.0, this.rngGeneratorNasad.generator());
 
 		EmpiricRNG jednoducha = new EmpiricRNG(this.rngGeneratorNasad.generator(),
-			new EmpiricPair(new UniformContinuousRNG(2.0, 5.0, this.rngGeneratorNasad.generator()), 0.6),
-			new EmpiricPair(new UniformContinuousRNG(5.0, 9.0, this.rngGeneratorNasad.generator()), 0.4)
+			new EmpiricPair(new UniformContinuousRNG(240.0, 300.0, this.rngGeneratorNasad.generator()), 0.6),
+			new EmpiricPair(new UniformContinuousRNG(300.0, 540.0, this.rngGeneratorNasad.generator()), 0.4)
 		);
-		UniformContinuousRNG mierneZlozita = new UniformContinuousRNG(9.0, 11.0, this.rngGeneratorNasad.generator());
+		UniformContinuousRNG mierneZlozita = new UniformContinuousRNG(540.0, 660.0, this.rngGeneratorNasad.generator());
 		EmpiricRNG zlozita = new EmpiricRNG(this.rngGeneratorNasad.generator(),
-			new EmpiricPair(new UniformContinuousRNG(11.0, 12.0, this.rngGeneratorNasad.generator()), 0.1),
-			new EmpiricPair(new UniformContinuousRNG(12.0, 20.0, this.rngGeneratorNasad.generator()), 0.6),
-			new EmpiricPair(new UniformContinuousRNG(20.0, 25.0, this.rngGeneratorNasad.generator()), 0.3)
+			new EmpiricPair(new UniformContinuousRNG(660.0, 720.0, this.rngGeneratorNasad.generator()), 0.1),
+			new EmpiricPair(new UniformContinuousRNG(720.0, 1200.0, this.rngGeneratorNasad.generator()), 0.6),
+			new EmpiricPair(new UniformContinuousRNG(1200.0, 1500.0, this.rngGeneratorNasad.generator()), 0.3)
 		);
 		this.rngZlozitostObjednavky = new EmpiricRNG(this.rngGeneratorNasad.generator(),
 			new EmpiricPair(jednoducha, 0.3),

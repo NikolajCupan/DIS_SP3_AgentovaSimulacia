@@ -24,6 +24,7 @@ public class AgentPokladne extends Agent
 	{
 		this.addOwnMessage(Mc.holdZaciatokPrestavkaPokladne);
 		this.addOwnMessage(Mc.holdKoniecPrestavkaPokladne);
+		this.addOwnMessage(Mc.holdObsluhaPokladna);
 
 		this.generatorNasad = new GeneratorNasad();
 		this.rngVyberFrontu = new GenerovanieVyberFrontu(this.generatorNasad);
@@ -40,33 +41,33 @@ public class AgentPokladne extends Agent
 
 	public Pokladna vyberPokladnu()
 	{
-		Pokladna[] fungujucePokladne = this.getFungujucePokladne();
+		Pokladna[] dostupnePokladne = this.getDostupnePokladne();
 
-		boolean existujeNeobsadenaPokladna = this.existujeNeobsadenaPokladna(fungujucePokladne);
+		boolean existujeNeobsadenaPokladna = this.existujeNeobsadenaPokladna(dostupnePokladne);
 		if (existujeNeobsadenaPokladna)
 		{
-			return this.getNeobsadenaPokladna(fungujucePokladne);
+			return this.getNeobsadenaPokladna(dostupnePokladne);
 		}
 		else
 		{
-			return this.getObsadenaPokladna(fungujucePokladne);
+			return this.getObsadenaPokladna(dostupnePokladne);
 		}
 	}
 
-	private Pokladna getObsadenaPokladna(Pokladna[] fungujucePokladne)
+	private Pokladna getObsadenaPokladna(Pokladna[] dostupnePokladne)
 	{
-		int najmensiFront = this.getNajmensiPocetFrontPokladne(fungujucePokladne);
+		int najmensiFront = this.getNajmensiPocetFrontPokladne(dostupnePokladne);
 
 		ArrayList<Pokladna> pokladneNajmensiFront = new ArrayList<>();
-		for (int i = 0; i < fungujucePokladne.length; i++)
+		for (int i = 0; i < dostupnePokladne.length; i++)
 		{
-			if (fungujucePokladne[i].getPocetFront() < najmensiFront)
+			if (dostupnePokladne[i].getPocetFront() < najmensiFront)
 			{
 				throw new RuntimeException("Bol najdeny mensi front pred pokladnami!");
 			}
-			else if (fungujucePokladne[i].getPocetFront() == najmensiFront)
+			else if (dostupnePokladne[i].getPocetFront() == najmensiFront)
 			{
-				pokladneNajmensiFront.add(fungujucePokladne[i]);
+				pokladneNajmensiFront.add(dostupnePokladne[i]);
 			}
 		}
 
@@ -79,28 +80,28 @@ public class AgentPokladne extends Agent
 		return pokladneNajmensiFront.get(vygenerovanyIndex);
 	}
 
-	private int getNajmensiPocetFrontPokladne(Pokladna[] fungujucePokladne)
+	private int getNajmensiPocetFrontPokladne(Pokladna[] dostupnePokladne)
 	{
 		int najmensiFront = Integer.MAX_VALUE;
-		for (int i = 0; i < fungujucePokladne.length; i++)
+		for (int i = 0; i < dostupnePokladne.length; i++)
 		{
-			if (fungujucePokladne[i].getPocetFront() < najmensiFront)
+			if (dostupnePokladne[i].getPocetFront() < najmensiFront)
 			{
-				najmensiFront = fungujucePokladne[i].getPocetFront();
+				najmensiFront = dostupnePokladne[i].getPocetFront();
 			}
 		}
 
 		return najmensiFront;
 	}
 
-	private Pokladna getNeobsadenaPokladna(Pokladna[] fungujucePokladne)
+	private Pokladna getNeobsadenaPokladna(Pokladna[] dostupnePokladne)
 	{
 		ArrayList<Pokladna> neobsadenePokladne = new ArrayList<>();
-		for (int i = 0; i < fungujucePokladne.length; i++)
+		for (int i = 0; i < dostupnePokladne.length; i++)
 		{
-			if (!fungujucePokladne[i].getObsadena())
+			if (!dostupnePokladne[i].getObsadena())
 			{
-				neobsadenePokladne.add(fungujucePokladne[i]);
+				neobsadenePokladne.add(dostupnePokladne[i]);
 			}
 		}
 
@@ -113,13 +114,13 @@ public class AgentPokladne extends Agent
 		return neobsadenePokladne.get(vygenerovanyIndex);
 	}
 
-	private boolean existujeNeobsadenaPokladna(Pokladna[] fungujucePokladne)
+	private boolean existujeNeobsadenaPokladna(Pokladna[] dostupnePokladne)
 	{
-		for (int i = 0; i < fungujucePokladne.length; i++)
+		for (int i = 0; i < dostupnePokladne.length; i++)
 		{
-			if (!fungujucePokladne[i].getObsadena())
+			if (!dostupnePokladne[i].getObsadena())
 			{
-				if (fungujucePokladne[i].getPocetFront() != 0)
+				if (dostupnePokladne[i].getPocetFront() != 0)
 				{
 					throw new RuntimeException("Existuje pokladna, ktora nie je obsadena a front pred nou nie je prazdny!");
 				}
@@ -131,19 +132,19 @@ public class AgentPokladne extends Agent
 		return false;
 	}
 
-	private Pokladna[] getFungujucePokladne()
+	private Pokladna[] getDostupnePokladne()
 	{
-		ArrayList<Pokladna> fungujucePokladne = new ArrayList<>();
+		ArrayList<Pokladna> dostupnePokladne = new ArrayList<>();
 		for (int i = 0; i < this.pokladne.length; i++)
 		{
-			if (!this.pokladne[i].getPrestavka())
+			if (this.pokladne[i].pokladnaDostupna())
 			{
-				fungujucePokladne.add(this.pokladne[i]);
+				dostupnePokladne.add(this.pokladne[i]);
 			}
 		}
 
-		Pokladna[] pole = new Pokladna[fungujucePokladne.size()];
-		return fungujucePokladne.toArray(pole);
+		Pokladna[] polePokladne = new Pokladna[dostupnePokladne.size()];
+		return dostupnePokladne.toArray(polePokladne);
 	}
 
 	public void zacniPrestavku()
