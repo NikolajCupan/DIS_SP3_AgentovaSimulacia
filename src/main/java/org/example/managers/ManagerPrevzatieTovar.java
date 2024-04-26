@@ -30,11 +30,15 @@ public class ManagerPrevzatieTovar extends Manager
 	//meta! sender="AgentSystem", id="94", type="Request"
 	public void processRequestResponsePrevzatieTovar(MessageForm message)
 	{
+		message.setAddressee(this.myAgent().findAssistant(Id.processPrevzatieTovar));
+		this.startContinualAssistant(message);
 	}
 
 	//meta! sender="ProcessPrevzatieTovar", id="97", type="Finish"
 	public void processFinish(MessageForm message)
 	{
+		message.setCode(Mc.requestResponsePrevzatieTovar);
+		this.response(message);
 	}
 
 	//meta! userInfo="Process messages defined in code", id="0"

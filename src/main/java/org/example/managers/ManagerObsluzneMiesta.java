@@ -136,6 +136,34 @@ public class ManagerObsluzneMiesta extends Manager
 	//meta! sender="AgentSystem", id="98", type="Notice"
 	public void processNoticeUvolnenieObsluzneMiesto(MessageForm message)
 	{
+		// Uvolnenie obsluzneho miesta
+		MyMessageZakaznik sprava = (MyMessageZakaznik)message;
+
+		Zakaznik zakaznik = sprava.getZakaznik();
+		TypZakaznik typZakaznik = zakaznik.getTypZakaznik();
+
+		ObsluzneMiesto uvolneneObsluzneMiesto = zakaznik.getObsluzneMiesto();
+		uvolneneObsluzneMiesto.setObsadene(false);
+
+
+		// Pokus o naplanovanie dalsej obsluhy pri danom obsluznom mieste
+		boolean frontPlnyPred = this.myAgent().frontPlny();
+		AgentObsluzneMiesta obsluzneMiesta = this.myAgent();
+
+		MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)obsluzneMiesta.vyberZakaznika(typZakaznik);
+		if (dalsiZakaznikSprava != null)
+		{
+			Zakaznik dalsiZakaznik = dalsiZakaznikSprava.getZakaznik();
+			dalsiZakaznik.setObsluzneMiesto(uvolneneObsluzneMiesto);
+			this.spustiObsluhu(dalsiZakaznik, dalsiZakaznikSprava);
+		}
+
+		boolean frontPlnyPo = this.myAgent().frontPlny();
+		if (frontPlnyPred && !frontPlnyPo)
+		{
+			// Doslo k uvolneniu miesta vo fronte
+			this.zapniAutomat();
+		}
 	}
 
 	//meta! sender="AgentSystem", id="71", type="Request"

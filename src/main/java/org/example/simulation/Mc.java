@@ -55,5 +55,8 @@ public class Mc extends IdList
 	public static final int holdZaciatokPrestavkaPokladne = 8;
 	public static final int holdKoniecPrestavkaPokladne = 9;
 	public static final int holdObsluhaPokladna = 12;
+
+	// Prevzatie tovar
+	public static final int holdPrevzatieTovar = 13;
 	// Vlastne koniec
 }

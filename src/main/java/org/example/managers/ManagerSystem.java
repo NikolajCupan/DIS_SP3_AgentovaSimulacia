@@ -41,7 +41,10 @@ public class ManagerSystem extends Manager
 		}
 		else if (zakaznik.getVelkostTovaru() == VelkostTovaru.VELKY)
 		{
-			throw new RuntimeException("Neimplementovane!");
+			// Zakaznik si ide prevzat tovar
+			message.setCode(Mc.requestResponsePrevzatieTovar);
+			message.setAddressee(Id.agentPrevzatieTovar);
+			this.request(message);
 		}
 		else
 		{
@@ -71,6 +74,15 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentPrevzatieTovar", id="94", type="Response"
 	public void processRequestResponsePrevzatieTovar(MessageForm message)
 	{
+		// Spracovanie zakaznika
+		message.setCode(Mc.requestResponseSpracovanieZakaznik);
+		this.response(message);
+
+		// Uvolenenie obsluzneho miesta
+		MyMessageZakaznik uvolnenie = new MyMessageZakaznik(this.mySim(), ((MyMessageZakaznik)message).getZakaznik());
+		uvolnenie.setCode(Mc.noticeUvolnenieObsluzneMiesto);
+		uvolnenie.setAddressee(Id.agentObsluzneMiesta);
+		this.notice(uvolnenie);
 	}
 
 	//meta! sender="AgentObsluzneMiesta", id="125", type="Request"
