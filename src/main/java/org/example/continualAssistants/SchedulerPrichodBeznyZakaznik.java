@@ -18,7 +18,7 @@ public class SchedulerPrichodBeznyZakaznik extends Scheduler
 
 	public void customSchedulerPrichodBeznyZakaznik()
 	{
-		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 
 		double priemer = ((MySimulation)this.mySim()).getZvysenyTokZakaznikov()
 			? Konstanty.ZVYSENY_POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU : Konstanty.POCET_BEZNYCH_ZAKAZNIKOV_ZA_MINUTU;

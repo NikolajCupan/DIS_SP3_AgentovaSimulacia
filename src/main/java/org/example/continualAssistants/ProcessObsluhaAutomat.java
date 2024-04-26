@@ -19,7 +19,7 @@ public class ProcessObsluhaAutomat extends Process
 
 	public void customProcessObsluhaAutomat()
 	{
-		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 		this.rngObsluhaAutomat = new UniformContinuousRNG(30.0, 120.0, this.rngGeneratorNasad.generator());
 	}
 	// Vlastne koniec

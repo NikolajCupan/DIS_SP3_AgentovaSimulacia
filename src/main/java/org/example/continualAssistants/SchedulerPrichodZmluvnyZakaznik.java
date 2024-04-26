@@ -18,7 +18,7 @@ public class SchedulerPrichodZmluvnyZakaznik extends Scheduler
 
 	public void customSchedulerPrichodZmluvnyZakaznik()
 	{
-		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 
 		double priemer = ((MySimulation)this.mySim()).getZvysenyTokZakaznikov()
 			? Konstanty.ZVYSENY_POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU : Konstanty.POCET_ZMLUVNYCH_ZAKAZNIKOV_ZA_MINUTU;

@@ -24,7 +24,7 @@ public class ProcessObsluhaObsluzneMiestoOnlineZakaznik extends Process
 
 	public void customProcessObsluhaObsluzneMiestoObycajnyZakaznik()
 	{
-		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 		this.rngObsluhaObsluzneMiesto = new TriangularRNG(60.0, 120.0, 480.0, this.rngGeneratorNasad.generator());
 	}
 	// Vlastne koniec

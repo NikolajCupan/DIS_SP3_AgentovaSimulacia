@@ -1,12 +1,15 @@
 package org.example.simulation;
 
 import OSPABA.*;
+import org.example.Vlastne.Ostatne.GeneratorNasad;
 import org.example.Vlastne.Ostatne.Identifikator;
 import org.example.agents.*;
 
 public class MySimulation extends Simulation
 {
 	// Vlastne
+	private GeneratorNasad rngGeneratorNasad;
+
 	private double trvanieSimulacie;
 	private boolean zvysenyTokZakaznikov;
 	private boolean prestavka;
@@ -15,8 +18,8 @@ public class MySimulation extends Simulation
 	private int pocetOnlineObsluznychMiest;
 	private int pocetPokladni;
 
-	private void customInit(double trvanieSimulacie, boolean zvysenyTokZakaznikov, boolean prestavka,
-		int pocetObsluznychMiest, int pocetPokladni)
+	private void customInit(int nasada, boolean pouziNasadu, double trvanieSimulacie,
+		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
 	{
 		if (trvanieSimulacie <= 0)
 		{
@@ -30,6 +33,9 @@ public class MySimulation extends Simulation
 		{
 			throw new RuntimeException("Pocet pokladni miest musi byt aspon 1!");
 		}
+
+		GeneratorNasad.inicializujGeneratorNasad(nasada, pouziNasadu);
+		this.rngGeneratorNasad = new GeneratorNasad();
 
 		this.trvanieSimulacie = trvanieSimulacie;
 		this.zvysenyTokZakaznikov = zvysenyTokZakaznikov;
@@ -49,9 +55,11 @@ public class MySimulation extends Simulation
 
 	private void customReplicationFinished()
 	{
-		double cas = this.currentTime();
-		int i = this.agentOkolie().pocetZakaznikovSystem();
-		int ii = 100;
+	}
+
+	public GeneratorNasad getRngGeneratorNasad()
+	{
+		return this.rngGeneratorNasad;
 	}
 
 	public double getTrvanieSimulacie()
@@ -86,13 +94,15 @@ public class MySimulation extends Simulation
 	// Vlastne koniec
 
 
-	public MySimulation(double trvanieSimulacie, boolean zvysenyTokZakaznikov, boolean prestavka,
-		int pocetObsluznychMiest, int pocetPokladni)
+	public MySimulation(int nasada, boolean pouziNasadu, double trvanieSimulacie,
+		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
 	{
-		init();
-
 		// Vlastne
-		this.customInit(trvanieSimulacie, zvysenyTokZakaznikov, prestavka, pocetObsluznychMiest, pocetPokladni);
+		this.customInit(nasada, pouziNasadu, trvanieSimulacie, zvysenyTokZakaznikov,
+				prestavka, pocetObsluznychMiest, pocetPokladni);
+
+		// Vygenerovane
+		init();
 	}
 
 	public MySimulation()

@@ -24,7 +24,7 @@ public class ProcessObsluhaObsluzneMiestoObycajnyZakaznik extends Process
 
 	public void customProcessObsluhaObsluzneMiestoObycajnyZakaznik()
 	{
-		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 		this.rngObsluhaObsluzneMiesto = new UniformContinuousRNG(60.0, 900.0, this.rngGeneratorNasad.generator());
 
 		EmpiricRNG jednoducha = new EmpiricRNG(this.rngGeneratorNasad.generator(),

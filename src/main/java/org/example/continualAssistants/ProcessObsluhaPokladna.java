@@ -22,7 +22,7 @@ public class ProcessObsluhaPokladna extends Process
 
 	public void customProcessObsluhaPokladna()
 	{
-		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 		this.rngDlzkaPlatenia = new EmpiricRNG(this.rngGeneratorNasad.generator(),
 			new EmpiricPair(new UniformDiscreteRNG(180, 480, this.rngGeneratorNasad.generator()), 0.4),
 			new EmpiricPair(new UniformDiscreteRNG(180, 360, this.rngGeneratorNasad.generator()), 0.6)

@@ -17,7 +17,7 @@ public class AgentPokladne extends Agent
 	// Vlastne
 	private Pokladna[] pokladne;
 
-	private GeneratorNasad generatorNasad;
+	private GeneratorNasad rngGeneratorNasad;
 	private GenerovanieVyberFrontu rngVyberFrontu;
 
 	private void customAgentPokladne()
@@ -26,8 +26,8 @@ public class AgentPokladne extends Agent
 		this.addOwnMessage(Mc.holdKoniecPrestavkaPokladne);
 		this.addOwnMessage(Mc.holdObsluhaPokladna);
 
-		this.generatorNasad = new GeneratorNasad();
-		this.rngVyberFrontu = new GenerovanieVyberFrontu(this.generatorNasad);
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
+		this.rngVyberFrontu = new GenerovanieVyberFrontu(this.rngGeneratorNasad);
 	}
 
 	private void customPrepareReplication()

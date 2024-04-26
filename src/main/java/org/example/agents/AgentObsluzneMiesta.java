@@ -30,7 +30,7 @@ public class AgentObsluzneMiesta extends Agent
 		this.addOwnMessage(Mc.holdObsluhaObsluzneMiestoObycajnyZakaznik);
 		this.addOwnMessage(Mc.holdObsluhaObsluzneMiestoOnlineZakaznik);
 
-		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 		this.rngVelkostTovaru = new UniformContinuousRNG(0.0, 1.0, this.rngGeneratorNasad.generator());
 	}
 

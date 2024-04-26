@@ -8,10 +8,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        GeneratorNasad.inicializujGeneratorNasad(420, true);
-
-        MySimulation s = new MySimulation(Konstanty.TRVANIE_CAS_SEKUNDY, false, false,
-            4, 3);
-        s.simulate(1);
+        MySimulation s = new MySimulation(420, true, Konstanty.TRVANIE_CAS_SEKUNDY, false, false, 4, 3);
+        s.simulate(1000);
     }
 }

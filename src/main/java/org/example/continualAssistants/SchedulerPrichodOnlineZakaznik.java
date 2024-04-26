@@ -18,7 +18,7 @@ public class SchedulerPrichodOnlineZakaznik extends Scheduler
 
 	public void customSchedulerPrichodOnlineZakaznik()
 	{
-		this.rngGeneratorNasad = new GeneratorNasad();
+		this.rngGeneratorNasad = ((MySimulation)this.mySim()).getRngGeneratorNasad();
 
 		double priemer = ((MySimulation)this.mySim()).getZvysenyTokZakaznikov()
 			? Konstanty.ZVYSENY_POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU : Konstanty.POCET_ONLINE_ZAKAZNIKOV_ZA_MINUTU;
