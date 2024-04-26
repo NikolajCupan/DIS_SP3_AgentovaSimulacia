@@ -3,13 +3,21 @@ package org.example.simulation;
 import OSPABA.*;
 import OSPStat.Stat;
 import org.example.Vlastne.Generatory.GeneratorNasad;
+import org.example.Vlastne.NewGUI.ISimulationDelegate;
 import org.example.Vlastne.Ostatne.Identifikator;
 import org.example.Vlastne.Ostatne.Prezenter;
 import org.example.agents.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class MySimulation extends Simulation
 {
 	// Vlastne
+	// Prepojenie s GUI
+	private List<ISimulationDelegate> delegati;
+
 	private GeneratorNasad rngGeneratorNasad;
 
 	private double trvanieSimulacie;
@@ -31,7 +39,7 @@ public class MySimulation extends Simulation
 	// Automat
 	private Stat statCasFrontAutomat;
 	private Stat statDlzkaFrontAutomat;
-	private Stat statVytazenieFrontAutomat;
+	private Stat statVytazenieAutomat;
 
 	// Obsluzne miesta
 	private Stat statCasFrontObsluzneMiesta;
@@ -40,9 +48,9 @@ public class MySimulation extends Simulation
 	private Stat[] statVytazenieObsluzneMiestaOnlineZakaznici;
 
 	// Pokladne
-	private Stat[] statCasFrontPokladna;
-	private Stat[] statDlzkaFrontPokladna;
-	private Stat[] statVytazeniePokladna;
+	private Stat[] statCasFrontPokladne;
+	private Stat[] statDlzkaFrontPokladne;
+	private Stat[] statVytazeniePokladne;
 
 	private void customInit(int nasada, boolean pouziNasadu, double trvanieSimulacie,
 		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
@@ -59,6 +67,8 @@ public class MySimulation extends Simulation
 		{
 			throw new RuntimeException("Pocet pokladni miest musi byt aspon 1!");
 		}
+
+		this.delegati = Collections.synchronizedList(new ArrayList<>());
 
 		GeneratorNasad.inicializujGeneratorNasad(nasada, pouziNasadu);
 		this.rngGeneratorNasad = new GeneratorNasad();
@@ -84,7 +94,7 @@ public class MySimulation extends Simulation
 		// Automat
 		this.statCasFrontAutomat = new Stat();
 		this.statDlzkaFrontAutomat = new Stat();
-		this.statVytazenieFrontAutomat = new Stat();
+		this.statVytazenieAutomat = new Stat();
 
 		// Obsluzne miesta
 		this.statCasFrontObsluzneMiesta = new Stat();
@@ -103,22 +113,22 @@ public class MySimulation extends Simulation
 		}
 
 		// Pokladne
-		this.statCasFrontPokladna = new Stat[this.pocetPokladni];
-		for (int i = 0; i < this.statCasFrontPokladna.length; i++)
+		this.statCasFrontPokladne = new Stat[this.pocetPokladni];
+		for (int i = 0; i < this.statCasFrontPokladne.length; i++)
 		{
-			this.statCasFrontPokladna[i] = new Stat();
+			this.statCasFrontPokladne[i] = new Stat();
 		}
 
-		this.statDlzkaFrontPokladna = new Stat[this.pocetPokladni];
-		for (int i = 0; i < this.statDlzkaFrontPokladna.length; i++)
+		this.statDlzkaFrontPokladne = new Stat[this.pocetPokladni];
+		for (int i = 0; i < this.statDlzkaFrontPokladne.length; i++)
 		{
-			this.statDlzkaFrontPokladna[i] = new Stat();
+			this.statDlzkaFrontPokladne[i] = new Stat();
 		}
 
-		this.statVytazeniePokladna = new Stat[this.pocetPokladni];
-		for (int i = 0; i < this.statVytazeniePokladna.length; i++)
+		this.statVytazeniePokladne = new Stat[this.pocetPokladni];
+		for (int i = 0; i < this.statVytazeniePokladne.length; i++)
 		{
-			this.statVytazeniePokladna[i] = new Stat();
+			this.statVytazeniePokladne[i] = new Stat();
 		}
 	}
 
@@ -127,6 +137,9 @@ public class MySimulation extends Simulation
 		// Spustenie simulacie
 		Identifikator.resetujID();
 		this.agentModel().inicializaciaSimulacie();
+
+		// GUI
+		this.aktualizujGUI(true, false);
 	}
 
 	private void customReplicationFinished()
@@ -161,7 +174,7 @@ public class MySimulation extends Simulation
 		// Automat
 		this.statCasFrontAutomat.addSample(this.agentAutomat().getStatCasFrontAutomat().mean());
 		this.statDlzkaFrontAutomat.addSample(this.agentAutomat().getWstatDlzkaFrontAutomat().mean());
-		this.statVytazenieFrontAutomat.addSample(this.agentAutomat().getWstatVytazenieAutomat().mean());
+		this.statVytazenieAutomat.addSample(this.agentAutomat().getWstatVytazenieAutomat().mean());
 
 
 		// Obsluzne miesta
@@ -182,23 +195,27 @@ public class MySimulation extends Simulation
 
 
 		// Pokladne
-		for (int i = 0; i < this.statCasFrontPokladna.length; i++)
+		for (int i = 0; i < this.statCasFrontPokladne.length; i++)
 		{
-			this.statCasFrontPokladna[i]
+			this.statCasFrontPokladne[i]
 				.addSample(this.agentPokladne().getStatCasFrontPokladna(i).mean());
 		}
 
-		for (int i = 0; i < this.statDlzkaFrontPokladna.length; i++)
+		for (int i = 0; i < this.statDlzkaFrontPokladne.length; i++)
 		{
-			this.statDlzkaFrontPokladna[i]
+			this.statDlzkaFrontPokladne[i]
 				.addSample(this.agentPokladne().getWstatDlzkaFrontPokladna(i).mean());
 		}
 
-		for (int i = 0; i < this.statVytazeniePokladna.length; i++)
+		for (int i = 0; i < this.statVytazeniePokladne.length; i++)
 		{
-			this.statVytazeniePokladna[i]
+			this.statVytazeniePokladne[i]
 				.addSample(this.agentPokladne().getWstatVytazeniePokladna(i).mean());
 		}
+
+
+		// GUI
+		this.aktualizujGUI(true, true);
 	}
 
 	private void customSimulationFinished()
@@ -216,7 +233,7 @@ public class MySimulation extends Simulation
 		System.out.println("\nAutomat:");
 		System.out.println("Priemerny cas vo fronte pred automatom: " + this.statCasFrontAutomat.mean());
 		System.out.println("Priemerna dlzka frontu pred automatom: " + this.statDlzkaFrontAutomat.mean());
-		System.out.println("Priemerne vytazenie automatu: " + this.statVytazenieFrontAutomat.mean());
+		System.out.println("Priemerne vytazenie automatu: " + this.statVytazenieAutomat.mean());
 
 
 		// Obsluzne miesta
@@ -242,23 +259,23 @@ public class MySimulation extends Simulation
 		// Pokladne
 		System.out.println("\nPokladne:");
 		System.out.print("Priemerne cakanie front pokladne: ");
-		for (int i = 0; i < this.statCasFrontPokladna.length; i++)
+		for (int i = 0; i < this.statCasFrontPokladne.length; i++)
 		{
-			System.out.print(this.statCasFrontPokladna[i].mean() + " ");
+			System.out.print(this.statCasFrontPokladne[i].mean() + " ");
 		}
 		System.out.println();
 
 		System.out.print("Priemerna dlzka front pokladne: ");
-		for (int i = 0; i < this.statDlzkaFrontPokladna.length; i++)
+		for (int i = 0; i < this.statDlzkaFrontPokladne.length; i++)
 		{
-			System.out.print(this.statDlzkaFrontPokladna[i].mean() + " ");
+			System.out.print(this.statDlzkaFrontPokladne[i].mean() + " ");
 		}
 		System.out.println();
 
 		System.out.print("Priemerne vytazenie pokladni: ");
-		for (int i = 0; i < this.statVytazeniePokladna.length; i++)
+		for (int i = 0; i < this.statVytazeniePokladne.length; i++)
 		{
-			System.out.print(this.statVytazeniePokladna[i].mean() + " ");
+			System.out.print(this.statVytazeniePokladne[i].mean() + " ");
 		}
 		System.out.println();
 	}
@@ -296,6 +313,103 @@ public class MySimulation extends Simulation
 	public int getPocetPokladni()
 	{
 		return this.pocetPokladni;
+	}
+
+	public void pridajDelegata(ISimulationDelegate delegat)
+	{
+		this.delegati.add(delegat);
+	}
+
+	public void odoberDelegata(ISimulationDelegate delegat)
+	{
+		this.delegati.remove(delegat);
+	}
+
+	public void aktualizujGUI(boolean celkoveStatistiky, boolean priebezneStatistiky)
+	{
+		int velkost = this.delegati.size();
+		for (int i = 0; i < velkost; i++)
+		{
+			this.delegati.get(i).aktualizujSa(this, celkoveStatistiky, priebezneStatistiky);
+		}
+	}
+
+	public void aktualizujSimulacnyCasGUI()
+	{
+		for (ISimulationDelegate delegat : this.delegati)
+		{
+			delegat.aktualizujSimulacnyCas(this);
+		}
+	}
+
+	public int getAktualnaReplikacia()
+	{
+		return this.currentReplication();
+	}
+
+	public Stat getCelkovaStatistikaCasSystem()
+	{
+		return this.statCasSystem;
+	}
+
+	public Stat getCelkovaStatistikaCasFrontAutomat()
+	{
+		return this.statCasFrontAutomat;
+	}
+
+	public Stat getCelkovaStatistikaDlzkaFrontAutomat()
+	{
+		return this.statDlzkaFrontAutomat;
+	}
+
+	public Stat getCelkovaStatistikaVytazenieAutomat()
+	{
+		return this.statVytazenieAutomat;
+	}
+
+	public Stat getCelkovaStatistikaCasPoslednyOdchod()
+	{
+		return this.statCasPoslednyOdchod;
+	}
+
+	public Stat getCelkovaStatistikaPocetObsluzenychZakaznikov()
+	{
+		return this.statPocetObsluzenychZakaznikov;
+	}
+
+	public Stat getCelkovaStatistikaCasFrontObsluzneMiesta()
+	{
+		return this.statCasFrontObsluzneMiesta;
+	}
+
+	public Stat getCelkovaStatistikaDlzkaFrontObsluzneMiesta()
+	{
+		return this.statDlzkaFrontObsluzneMiesta;
+	}
+
+	public Stat[] getCelkovaStatistikaVytazenieObycajneObsluzneMiesta()
+	{
+		return this.statVytazenieObsluzneMiestaObycajniZakaznici;
+	}
+
+	public Stat[] getCelkovaStatistikaVytazenieOnlineObsluzneMiesta()
+	{
+		return this.statVytazenieObsluzneMiestaOnlineZakaznici;
+	}
+
+	public Stat[] getCelkovaStatistikaVytazeniePokladne()
+	{
+		return this.statVytazeniePokladne;
+	}
+
+	public Stat[] getCelkovaStatistikaDlzkaFrontPokladne()
+	{
+		return this.statDlzkaFrontPokladne;
+	}
+
+	public Stat[] getCelkovaStatistikaCakanieFrontPokladne()
+	{
+		return this.statCasFrontPokladne;
 	}
 	// Vlastne koniec
 

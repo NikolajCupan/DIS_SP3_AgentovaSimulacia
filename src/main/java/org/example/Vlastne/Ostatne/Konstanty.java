@@ -39,6 +39,17 @@ public class Konstanty
             / (Konstanty.POCET_ONLINE_ZA_HODINU + Konstanty.POCET_ONLINE_ZA_HODINU * ZVYSENY_TOK) * 60.0;
 
 
+    // GUI
+    public static final int DEFAULT_RYCHLOST = 100;
+    public static final int MAX_RYCHLOST = 2000;
+
+
+    // Experiment
+    public static final int MIN_POCET_POKLADNI = 2;
+    public static final int MAX_POCET_POKLADNI = 6;
+    public static final double HORNA_HRANICA_GRAF = 15.0;
+
+
     // Ostatne
     public static final int KAPACITA_FRONT_OBSLUZNE_MIESTA = 9;
 

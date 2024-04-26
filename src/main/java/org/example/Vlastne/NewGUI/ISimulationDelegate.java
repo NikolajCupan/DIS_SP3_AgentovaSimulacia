@@ -1,11 +1,9 @@
 package org.example.Vlastne.NewGUI;
 
-/*
-import org.example.Simulacia.Jadro.SimulacneJadro;
+import OSPABA.Simulation;
 
 public interface ISimulationDelegate
 {
-    void aktualizujSa(SimulacneJadro simulacneJadro, boolean celkoveStatistiky, boolean priebezneStatistiky);
-    void aktualizujSimulacnyCas(SimulacneJadro simulacneJadro);
+    void aktualizujSa(Simulation simulacneJadro, boolean celkoveStatistiky, boolean priebezneStatistiky);
+    void aktualizujSimulacnyCas(Simulation simulacneJadro);
 }
-*/
