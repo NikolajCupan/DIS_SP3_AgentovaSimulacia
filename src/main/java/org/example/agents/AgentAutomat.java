@@ -128,6 +128,21 @@ public class AgentAutomat extends Agent
 	{
 		this.statCasFrontAutomat.addSample(cas);
 	}
+
+	public Stat getStatCasFrontAutomat()
+	{
+		return this.statCasFrontAutomat;
+	}
+
+	public WStat getWstatDlzkaFrontAutomat()
+	{
+		return this.frontAutomat.lengthStatistic();
+	}
+
+	public WStat getWstatVytazenieAutomat()
+	{
+		return this.wstatVytazenieAutomat;
+	}
 	// Vlastne koniec
 
 

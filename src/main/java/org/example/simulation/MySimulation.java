@@ -21,11 +21,17 @@ public class MySimulation extends Simulation
 	private int pocetPokladni;
 
 	// Statistiky
+	// System
 	private Stat statCasSystem;
 	private Stat statCasPoslednyOdchod;
 	private Stat statPocetPrislychZakaznikov;
 	private Stat statPocetObsluzenychZakaznikov;
 	private Stat statPocetNeobsluzenychZakaznikov;
+
+	// Automat
+	private Stat statCasFrontAutomat;
+	private Stat statDlzkaFrontAutomat;
+	private Stat statVytazenieFrontAutomat;
 
 	private void customInit(int nasada, boolean pouziNasadu, double trvanieSimulacie,
 		boolean zvysenyTokZakaznikov, boolean prestavka, int pocetObsluznychMiest, int pocetPokladni)
@@ -57,11 +63,17 @@ public class MySimulation extends Simulation
 
 	private void customPrepareSimulation()
 	{
+		// System
 		this.statCasSystem = new Stat();
 		this.statCasPoslednyOdchod = new Stat();
 		this.statPocetPrislychZakaznikov = new Stat();
 		this.statPocetObsluzenychZakaznikov = new Stat();
 		this.statPocetNeobsluzenychZakaznikov = new Stat();
+
+		// Automat
+		this.statCasFrontAutomat = new Stat();
+		this.statDlzkaFrontAutomat = new Stat();
+		this.statVytazenieFrontAutomat = new Stat();
 	}
 
 	private void customPrepareReplication()
@@ -84,8 +96,9 @@ public class MySimulation extends Simulation
 			System.out.println("R: " + this.currentReplication());
 		}
 
-		Stat replikaciaCasSystem = this.agentOkolie().getStatCasSystem();
-		this.statCasSystem.addSample(replikaciaCasSystem.mean());
+
+		// System
+		this.statCasSystem.addSample(this.agentOkolie().getStatCasSystem().mean());
 
 		double poslednyOdchod = this.agentOkolie().getPoslednyOdchod();
 		if (poslednyOdchod != -1)
@@ -96,15 +109,28 @@ public class MySimulation extends Simulation
 		this.statPocetPrislychZakaznikov.addSample(this.agentOkolie().getPocetPrislychZakaznikov());
 		this.statPocetObsluzenychZakaznikov.addSample(this.agentOkolie().getPocetObsluzenychZakaznikov());
 		this.statPocetNeobsluzenychZakaznikov.addSample(this.agentOkolie().getPocetNeobsluzenychZakaznikov());
+
+
+		// Automat
+		this.statCasFrontAutomat.addSample(this.agentAutomat().getStatCasFrontAutomat().mean());
+		this.statDlzkaFrontAutomat.addSample(this.agentAutomat().getWstatDlzkaFrontAutomat().mean());
+		this.statVytazenieFrontAutomat.addSample(this.agentAutomat().getWstatVytazenieAutomat().mean());
 	}
 
 	private void customSimulationFinished()
 	{
+		// System
 		System.out.println("Priemerny cas v systeme: " + this.statCasSystem.mean() / 60.0);
 		System.out.println("Priemerny cas posledneho odchodu: " + Prezenter.naformatujCas(this.statCasPoslednyOdchod.mean()));
 		System.out.println("Priemerny pocet prislych zakaznikov: " + this.statPocetPrislychZakaznikov.mean());
 		System.out.println("Priemerny pocet obsluzenych zakazikov: " + this.statPocetObsluzenychZakaznikov.mean());
 		System.out.println("Priemerny pocet neobsluzenych zakaznikov: " + this.statPocetNeobsluzenychZakaznikov.mean());
+
+
+		// Automat
+		System.out.println("Priemerny cas vo fronte pred automatom: " + this.statCasFrontAutomat.mean());
+		System.out.println("Priemerna dlzka frontu pred automatom: " + this.statDlzkaFrontAutomat.mean());
+		System.out.println("Priemerne vytazenie automatu: " + this.statVytazenieFrontAutomat.mean());
 	}
 
 	public GeneratorNasad getRngGeneratorNasad()
