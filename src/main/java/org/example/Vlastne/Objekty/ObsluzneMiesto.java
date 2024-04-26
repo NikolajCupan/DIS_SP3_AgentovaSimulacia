@@ -58,4 +58,9 @@ public class ObsluzneMiesto
     {
         return this.wstatVytazenieObsluzneMiesto;
     }
+
+    public void aktualizujStatistikyPoReplikacii()
+    {
+        this.wstatVytazenieObsluzneMiesto.updateAfterReplication();
+    }
 }

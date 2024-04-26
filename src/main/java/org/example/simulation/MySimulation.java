@@ -144,6 +144,12 @@ public class MySimulation extends Simulation implements ISimDelegate
 		this.aktualizujGUI(true, false);
 	}
 
+	private void aktualizujStatistikyPoReplikacii()
+	{
+		this.agentObsluzneMiesta().aktualizujStatistikyPoReplikacii();
+		this.agentPokladne().aktualizujStatistikyPoReplikacii();
+	}
+
 	private void customReplicationFinished()
 	{
 		int ostaloVSysteme = this.agentOkolie().pocetZakaznikovSystem();
@@ -154,6 +160,11 @@ public class MySimulation extends Simulation implements ISimDelegate
 
 
 		// Statistiky
+		if (Konstanty.AKTUALIZACIA_STATISTIK_PO_REPLIKACII)
+		{
+			this.aktualizujStatistikyPoReplikacii();
+		}
+
 		// System
 		this.statCasSystem.addSample(this.agentOkolie().getStatCasSystem().mean());
 

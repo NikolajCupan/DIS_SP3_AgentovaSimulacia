@@ -53,6 +53,7 @@ public class Konstanty
 
     // Ostatne
     public static final int KAPACITA_FRONT_OBSLUZNE_MIESTA = 9;
+    public static final boolean AKTUALIZACIA_STATISTIK_PO_REPLIKACII = true;
 
 
     // Debug

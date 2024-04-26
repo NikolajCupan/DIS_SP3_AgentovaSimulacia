@@ -280,6 +280,21 @@ public class AgentObsluzneMiesta extends Agent
 	{
 		return this.obsluzneMiestaOnlineZakaznici[index].getWstatVytazenieObsluzneMiesto();
 	}
+
+	public void aktualizujStatistikyPoReplikacii()
+	{
+		this.frontObsluzneMiesta.lengthStatistic().updateAfterReplication();
+
+		for (int i = 0; i < this.obsluzneMiestaObycajniZakaznici.length; i++)
+		{
+			this.obsluzneMiestaObycajniZakaznici[i].aktualizujStatistikyPoReplikacii();
+		}
+
+		for (int i = 0; i < this.obsluzneMiestaOnlineZakaznici.length; i++)
+		{
+			this.obsluzneMiestaOnlineZakaznici[i].aktualizujStatistikyPoReplikacii();
+		}
+	}
 	// Vlastne koniec
 
 

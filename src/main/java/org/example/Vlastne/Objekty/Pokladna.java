@@ -105,4 +105,10 @@ public class Pokladna
     {
         return this.frontPokladna.lengthStatistic();
     }
+
+    public void aktualizujStatistikyPoReplikacii()
+    {
+        this.frontPokladna.lengthStatistic().updateAfterReplication();
+        this.wstatVytazeniePokladna.updateAfterReplication();
+    }
 }

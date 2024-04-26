@@ -181,6 +181,14 @@ public class AgentPokladne extends Agent
 	{
 		return this.pokladne[index].getWstatDlzkaFrontPokladna();
 	}
+
+	public void aktualizujStatistikyPoReplikacii()
+	{
+		for (int i = 0; i < this.pokladne.length; i++)
+		{
+			this.pokladne[i].aktualizujStatistikyPoReplikacii();
+		}
+	}
 	// Vlastne koniec
 
 
