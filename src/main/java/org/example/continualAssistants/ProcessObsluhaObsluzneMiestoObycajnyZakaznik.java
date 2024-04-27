@@ -93,13 +93,13 @@ public class ProcessObsluhaObsluzneMiestoObycajnyZakaznik extends Process
 			case Mc.holdObsluhaObsluzneMiestoObycajnyZakaznik:
 				Zakaznik zakaznik = ((MyMessageZakaznik)message).getZakaznik();
 				ObsluzneMiesto obsluzneMiesto = zakaznik.getObsluzneMiesto();
+				obsluzneMiesto.setObsadene(false);
 
 				VelkostTovaru velkostTovaru = this.myAgent().getVelkostTovaru();
 				zakaznik.setVelkostTovaru(velkostTovaru);
-				if (velkostTovaru == VelkostTovaru.MALY)
+				if (velkostTovaru == VelkostTovaru.VELKY)
 				{
-					// Tovar je maly, preto dochadza k uvolneniu obsluzneho miesta
-					obsluzneMiesto.setObsadene(false);
+					obsluzneMiesto.setOdlozenyTovar(true);
 				}
 
 				this.assistantFinished(message);

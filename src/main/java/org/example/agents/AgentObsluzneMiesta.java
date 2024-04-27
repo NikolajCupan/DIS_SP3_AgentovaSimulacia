@@ -93,7 +93,7 @@ public class AgentObsluzneMiesta extends Agent
 			}
 		}
 
-		throw new RuntimeException("Nebolo najdene volne obsluzne miesto na pridelenie!");
+		throw new RuntimeException("Nebolo najdene dostupne obsluzne miesto na pridelenie!");
 	}
 
 	public boolean existujeVolneObsluzneMiesto(TypZakaznik typZakaznika)
@@ -248,12 +248,20 @@ public class AgentObsluzneMiesta extends Agent
 
 	public void zacniPrestavku()
 	{
-		// TODO: zaciatok presavky obsluzne miesto
+		this.obsluzneMiestaObycajniZakaznici[0].odchodZamestnanec();
+		boolean zamestnanecMozeOdist = this.obsluzneMiestaObycajniZakaznici[0].zamestnanecMozeOdist();
+		if (zamestnanecMozeOdist)
+		{
+			// Zamestnanec odchadza k pokladniam
+			((ManagerObsluzneMiesta)this.manager()).odosliZamestnanca(this.obsluzneMiestaObycajniZakaznici[0]);
+		}
+
+		// Zamestnanec musi najskor ukoncit obsluhu
 	}
 
-	public void ukonciPrestavku()
+	public ObsluzneMiesto getPrveObsluzneMiesto()
 	{
-		// TODO: koniec prestavky obsluzne miesto
+		return this.obsluzneMiestaObycajniZakaznici[0];
 	}
 
 	public void pridajCasFrontObsluzneMiesta(double cas)

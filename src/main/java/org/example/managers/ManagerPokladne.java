@@ -77,6 +77,7 @@ public class ManagerPokladne extends Manager
 	//meta! sender="AgentSystem", id="126", type="Request"
 	public void processRequestResponsePrijatieZamestnanec(MessageForm message)
 	{
+		this.myAgent().prichodZamestnanec(message);
 	}
 
 	//meta! sender="AgentSystem", id="172", type="Notice"
@@ -101,9 +102,14 @@ public class ManagerPokladne extends Manager
 		message.setCode(Mc.requestResponseObsluhaPokladna);
 		this.response(message);
 
+
+		// Kontrola potreby odoslania zamestnanca na obsluzne miesto
+		Pokladna pokladna = ((MyMessageZakaznik)message).getZakaznik().getPokladna();
+		this.myAgent().skontrolujVratenieZamestnanca(pokladna);
+
+
 		// Pokus o naplanovanie dalsej obsluhy pri pokladni
 		AgentPokladne pokladne = this.myAgent();
-		Pokladna pokladna = ((MyMessageZakaznik)message).getZakaznik().getPokladna();
 		if (!pokladna.frontPrazdny() && pokladna.pokladnaDostupna())
 		{
 			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)pokladna.vyberFront();

@@ -6,6 +6,8 @@ import OSPStat.WStat;
 import org.example.Vlastne.Generatory.GeneratorNasad;
 import org.example.Vlastne.Generatory.GenerovanieVyberFrontu;
 import org.example.Vlastne.Objekty.Pokladna;
+import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.Vlastne.Ostatne.Prezenter;
 import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.simulation.*;
 import org.example.managers.*;
@@ -28,6 +30,7 @@ public class AgentPokladne extends Agent
 
 	// Prestavka
 	private boolean prestavkaAktivna;
+	private MessageForm zamestnanecSprava;
 
 	private void customAgentPokladne()
 	{
@@ -42,11 +45,71 @@ public class AgentPokladne extends Agent
 	private void customPrepareReplication()
 	{
 		this.prestavkaAktivna = false;
+		this.zamestnanecSprava = null;
+
 		this.pokladne = new Pokladna[((MySimulation)this.mySim()).getPocetPokladni()];
 		for (int i = 0; i < this.pokladne.length; i++)
 		{
 			this.pokladne[i] = new Pokladna(this.mySim());
 		}
+	}
+
+	public void skontrolujVratenieZamestnanca(Pokladna pokladna)
+	{
+		if (pokladna.getNahrada() && !this.prestavkaAktivna)
+		{
+			if (this.mySim().currentTime() < Konstanty.KONIEC_PRESTAVKA_OD_OTVORENIA_CAS_SEKUNDY)
+			{
+				throw new RuntimeException("Prestavka je neaktivna prilis skoro!");
+			}
+
+			if (this.zamestnanecSprava != null)
+			{
+				this.odchodZamestnanec();
+			}
+		}
+	}
+
+	public void prichodZamestnanec(MessageForm zamestnanecSprava)
+	{
+		this.zamestnanecSprava = zamestnanecSprava;
+		this.pokladne[0].setNahrada(true);
+
+		if (!this.pokladne[0].getObsadena() && this.pokladne[0].getPocetFront() != 0)
+		{
+			if (!this.pokladne[0].pokladnaDostupna())
+			{
+				throw new RuntimeException("Chyba stavu prvej pokladne!");
+			}
+
+			// Pri danej pokladni moze zacat obsluha
+			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)this.pokladne[0].vyberFront();
+			Zakaznik dalsiZakaznik = dalsiZakaznikSprava.getZakaznik();
+			dalsiZakaznik.setPokladna(this.pokladne[0]);
+			dalsiZakaznikSprava.setAddressee(this.findAssistant(Id.processObsluhaPokladna));
+			this.manager().startContinualAssistant(dalsiZakaznikSprava);
+		}
+	}
+
+	public void odchodZamestnanec()
+	{
+		if (this.zamestnanecSprava == null)
+		{
+			throw new RuntimeException("Agent pokladne neobsahuje spravu o prijati zamestnanca!");
+		}
+		if (this.pokladne[0].getObsadena())
+		{
+			throw new RuntimeException("Zamestnanec nemoze odist pocas trvania obsluhy!");
+		}
+
+		if (Konstanty.DEBUG_VYPISY)
+		{
+			System.out.println(Prezenter.naformatujCas(this.mySim().currentTime()) + " <- zamestnanec sa vracia od pokladni");
+		}
+
+		this.zamestnanecSprava.setCode(Mc.requestResponsePrijatieZamestnanec);
+		this.manager().response(this.zamestnanecSprava);
+		this.zamestnanecSprava = null;
 	}
 
 	public Pokladna vyberPokladnu()
@@ -196,7 +259,14 @@ public class AgentPokladne extends Agent
 		{
 			throw new RuntimeException("Pri prvej pokladni by mala prebiehat obsluha!");
 		}
-		else if (!prvaPokladna.getObsadena() && prvaPokladna.getPocetFront() != 0)
+		else if (!prvaPokladna.getObsadena() && prvaPokladna.getNahrada()
+			&& prvaPokladna.getPocetFront() == 0)
+		{
+			// Zamestnanec moze odist
+			this.odchodZamestnanec();
+		}
+		else if (!prvaPokladna.getObsadena() && !prvaPokladna.getNahrada()
+			&& prvaPokladna.getPocetFront() != 0)
 		{
 			// Dana pokladna moze zacat obsluhovat dalsieho zakaznika
 			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)prvaPokladna.vyberFront();

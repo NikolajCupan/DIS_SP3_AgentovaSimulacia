@@ -89,6 +89,9 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentObsluzneMiesta", id="125", type="Request"
 	public void processRequestResponseOdovzdanieZamestnanec(MessageForm message)
 	{
+		message.setCode(Mc.requestResponsePrijatieZamestnanec);
+		message.setAddressee(Id.agentPokladne);
+		this.request(message);
 	}
 
 	//meta! sender="AgentObsluzneMiesta", id="53", type="Response"
@@ -102,6 +105,8 @@ public class ManagerSystem extends Manager
 	//meta! sender="AgentPokladne", id="126", type="Response"
 	public void processRequestResponsePrijatieZamestnanec(MessageForm message)
 	{
+		message.setCode(Mc.requestResponseOdovzdanieZamestnanec);
+		this.response(message);
 	}
 
 	//meta! sender="AgentModel", id="165", type="Notice"

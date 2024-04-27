@@ -84,6 +84,28 @@ public class Pokladna
         this.wstatVytazeniePokladna.addSample(Helper.booleanNaDouble(this.obsadena));
     }
 
+    public void setNahrada(boolean nahrada)
+    {
+        if (nahrada && this.nahrada)
+        {
+            throw new RuntimeException("Pokladna uz ma nahradu");
+        }
+        if (!nahrada && !this.nahrada)
+        {
+            throw new RuntimeException("Nahrada od danej pokladne uz odisla!");
+        }
+        if (nahrada && !this.prestavka)
+        {
+            throw new RuntimeException("Nemozno prijat nahradu po skonceni prestavky!");
+        }
+        if (!nahrada && this.prestavka)
+        {
+            throw new RuntimeException("Nemozno zrusit nahradu pocas trvania prestavky!");
+        }
+
+        this.nahrada = nahrada;
+    }
+
     public boolean frontPrazdny()
     {
         return this.frontPokladna.isEmpty();
