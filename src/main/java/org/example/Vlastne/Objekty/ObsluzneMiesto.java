@@ -117,7 +117,7 @@ public class ObsluzneMiesto
         }
 
         this.obsadene = obsadene;
-        this.wstatVytazenieObsluzneMiesto.addSample(Helper.booleanNaDouble(this.obsadene));
+        this.aktualizaciaVytazenia();
     }
 
     public void setOdlozenyTovar(boolean odlozenyTovar)
@@ -136,6 +136,19 @@ public class ObsluzneMiesto
         }
 
         this.odlozenyTovar = odlozenyTovar;
+        this.aktualizaciaVytazenia();
+    }
+
+    private void aktualizaciaVytazenia()
+    {
+        if (!this.obsadene && !this.odlozenyTovar)
+        {
+            this.wstatVytazenieObsluzneMiesto.addSample(0);
+        }
+        else
+        {
+            this.wstatVytazenieObsluzneMiesto.addSample(1);
+        }
     }
 
     public TypOkno getTypOkna()
