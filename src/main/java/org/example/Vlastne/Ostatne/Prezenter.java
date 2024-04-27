@@ -369,7 +369,9 @@ public class Prezenter
                         Prezenter.zaokruhli(pokladna.getWstatVytazeniePokladna().mean() * 100) + " %",
                         pokladna.getPocetFront(),
                         Prezenter.zaokruhli(pokladna.getWstatDlzkaFrontPokladna().mean()),
-                        Prezenter.zaokruhli(pokladna.getStatCasFrontPokladna().mean()) + " sec"
+                        Prezenter.zaokruhli(pokladna.getStatCasFrontPokladna().mean()) + " sec",
+                        pokladna.getPrestavka(),
+                        pokladna.getNahrada()
                     });
 
                     pocitadlo++;

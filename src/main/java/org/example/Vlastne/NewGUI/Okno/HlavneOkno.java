@@ -261,11 +261,11 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
 
             },
             new String [] {
-                "ID", "Obsadenost", "Vytazenie", "Dlzka front", "Priemerna dlzka front", "Priemerne cakanie front"
+                "ID", "Obsadenost", "Vytazenie", "Dlzka front", "Priemerna dlzka front", "Priemerne cakanie front", "Prestavka", "Nahrada"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -279,6 +279,8 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
             tabulkaPokladne.getColumnModel().getColumn(1).setMaxWidth(100);
             tabulkaPokladne.getColumnModel().getColumn(2).setMaxWidth(80);
             tabulkaPokladne.getColumnModel().getColumn(3).setMaxWidth(110);
+            tabulkaPokladne.getColumnModel().getColumn(6).setMaxWidth(55);
+            tabulkaPokladne.getColumnModel().getColumn(7).setMaxWidth(55);
         }
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

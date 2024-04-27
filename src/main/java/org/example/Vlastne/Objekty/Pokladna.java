@@ -127,6 +127,11 @@ public class Pokladna
         return this.nahrada;
     }
 
+    public boolean getPrestavka()
+    {
+        return this.prestavka;
+    }
+
     public void zaciatokPrestavkaPokladna()
     {
         if (this.prestavka)
