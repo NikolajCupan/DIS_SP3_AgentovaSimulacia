@@ -67,6 +67,13 @@ public class ManagerObsluzneMiesta extends Manager
 		AgentObsluzneMiesta obsluzneMiesta = this.myAgent();
 
 		ObsluzneMiesto pouziteObsluzneMiesto = obsluzenyZakaznik.getObsluzneMiesto();
+		if (pouziteObsluzneMiesto.getOdchodZamestnanec()
+			&& this.mySim().currentTime() > Konstanty.KONIEC_PRESTAVKA_OD_OTVORENIA_CAS_SEKUNDY)
+		{
+			// Obsluha zakaznika skoncila po prestavke, zamestnanec nie je odoslany pokladni
+			pouziteObsluzneMiesto.prichodZamestnanec();
+		}
+
 		if (pouziteObsluzneMiesto.getOdchodZamestnanec())
 		{
 			this.odosliZamestnanca(pouziteObsluzneMiesto);

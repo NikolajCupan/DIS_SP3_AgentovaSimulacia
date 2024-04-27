@@ -122,10 +122,10 @@ public class ObsluzneMiesto
 
     public void setOdlozenyTovar(boolean odlozenyTovar)
     {
-        if (this.odchodZamestnanec)
-        {
-            throw new RuntimeException("Nemozno odlozit tovar ak zamestnanec odisiel!");
-        }
+//        if (this.odchodZamestnanec)
+//        {
+//            throw new RuntimeException("Nemozno odlozit tovar ak zamestnanec odisiel!");
+//        }
         if (odlozenyTovar && this.odlozenyTovar)
         {
             throw new RuntimeException("Obsluzne miesto uz obsahuje odlozeny tovar!");
