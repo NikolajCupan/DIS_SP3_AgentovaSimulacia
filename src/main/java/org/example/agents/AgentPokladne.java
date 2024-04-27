@@ -6,6 +6,7 @@ import OSPStat.WStat;
 import org.example.Vlastne.Generatory.GeneratorNasad;
 import org.example.Vlastne.Generatory.GenerovanieVyberFrontu;
 import org.example.Vlastne.Objekty.Pokladna;
+import org.example.Vlastne.Zakaznik.Zakaznik;
 import org.example.simulation.*;
 import org.example.managers.*;
 import org.example.continualAssistants.*;
@@ -25,6 +26,9 @@ public class AgentPokladne extends Agent
 	private GeneratorNasad rngGeneratorNasad;
 	private GenerovanieVyberFrontu rngVyberFrontu;
 
+	// Prestavka
+	private boolean prestavkaAktivna;
+
 	private void customAgentPokladne()
 	{
 		this.addOwnMessage(Mc.holdZaciatokPrestavkaPokladne);
@@ -37,6 +41,7 @@ public class AgentPokladne extends Agent
 
 	private void customPrepareReplication()
 	{
+		this.prestavkaAktivna = false;
 		this.pokladne = new Pokladna[((MySimulation)this.mySim()).getPocetPokladni()];
 		for (int i = 0; i < this.pokladne.length; i++)
 		{
@@ -47,6 +52,15 @@ public class AgentPokladne extends Agent
 	public Pokladna vyberPokladnu()
 	{
 		Pokladna[] dostupnePokladne = this.getDostupnePokladne();
+		if (dostupnePokladne.length == 0 && !this.prestavkaAktivna)
+		{
+			throw new RuntimeException("Neexistuje dostupna pokladna, hoci neprebieha prestavka!");
+		}
+		if (dostupnePokladne.length == 0)
+		{
+			// Ak prebieha prestavka, zakaznik ide k 1. pokladni
+			return this.pokladne[0];
+		}
 
 		boolean existujeNeobsadenaPokladna = this.existujeNeobsadenaPokladna(dostupnePokladne);
 		if (existujeNeobsadenaPokladna)
@@ -154,12 +168,43 @@ public class AgentPokladne extends Agent
 
 	public void zacniPrestavku()
 	{
-		// TODO: zaciatok presavky pokladne
+		this.prestavkaAktivna = true;
+
+		for (int i = 0; i < this.pokladne.length; i++)
+		{
+			this.pokladne[i].zaciatokPrestavkaPokladna();
+		}
+
+		for (int i = 1; i < this.pokladne.length; i++)
+		{
+			this.pokladne[i].presunSvojFront(this.pokladne[0]);
+		}
 	}
 
 	public void ukonciPrestavku()
 	{
-		// TODO: koniec prestavky pokladne
+		this.prestavkaAktivna = false;
+
+		for (int i = 0; i < this.pokladne.length; i++)
+		{
+			this.pokladne[i].koniecPrestavkaPokladna();
+		}
+
+		Pokladna prvaPokladna = this.pokladne[0];
+		if (!prvaPokladna.getObsadena() && prvaPokladna.getNahrada()
+			&& prvaPokladna.getPocetFront() != 0)
+		{
+			throw new RuntimeException("Pri prvej pokladni by mala prebiehat obsluha!");
+		}
+		else if (!prvaPokladna.getObsadena() && prvaPokladna.getPocetFront() != 0)
+		{
+			// Dana pokladna moze zacat obsluhovat dalsieho zakaznika
+			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)prvaPokladna.vyberFront();
+			Zakaznik dalsiZakaznik = dalsiZakaznikSprava.getZakaznik();
+			dalsiZakaznik.setPokladna(prvaPokladna);
+			dalsiZakaznikSprava.setAddressee(this.findAssistant(Id.processObsluhaPokladna));
+			this.manager().startContinualAssistant(dalsiZakaznikSprava);
+		}
 	}
 
 	public Collection<Pokladna> getPokladne()

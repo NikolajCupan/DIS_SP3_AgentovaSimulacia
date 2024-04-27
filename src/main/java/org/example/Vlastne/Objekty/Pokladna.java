@@ -6,25 +6,36 @@ import OSPDataStruct.SimQueue;
 import OSPStat.Stat;
 import OSPStat.WStat;
 import org.example.Vlastne.Ostatne.Helper;
+import org.example.Vlastne.Ostatne.Konstanty;
+import org.example.simulation.MySimulation;
 
 public class Pokladna
 {
     private SimQueue<MessageForm> frontPokladna;
 
     private boolean obsadena;
+    private boolean prestavka;
+    private boolean nahrada;
 
     // Statistika
     private Stat statCasFrontPokladna;
     private WStat wstatVytazeniePokladna;
+
+    // Referencia na simulaciu za ucelom kontroly prestavky
+    private MySimulation simulacia;
 
     public Pokladna(Simulation simulacia)
     {
         this.frontPokladna = new SimQueue<>(new WStat(simulacia));
 
         this.obsadena = false;
+        this.prestavka = false;
+        this.nahrada = false;
 
         this.statCasFrontPokladna = new Stat();
         this.wstatVytazeniePokladna = new WStat(simulacia);
+
+        this.simulacia = (MySimulation)simulacia;
     }
 
     public MessageForm vyberFront()
@@ -41,7 +52,14 @@ public class Pokladna
     {
         if (!this.obsadena)
         {
-            throw new RuntimeException("Pokus o vlozenie zakaznika do frontu pred pokladnou, ktora nie je obsadena!");
+            if (this.prestavka && !this.nahrada)
+            {
+                // Situacia je v poriadku
+            }
+            else
+            {
+                throw new RuntimeException("Pokus o vlozenie zakaznika do frontu pred pokladnou, ktora nie je obsadena!");
+            }
         }
         if (this.frontPokladna.contains(sprava))
         {
@@ -71,8 +89,26 @@ public class Pokladna
         return this.frontPokladna.isEmpty();
     }
 
+    public void presunSvojFront(Pokladna presunDo)
+    {
+        int pocetZakaznikovVoFronte = this.frontPokladna.size();
+        for (int i = 0; i < pocetZakaznikovVoFronte; i++)
+        {
+            presunDo.vlozFront(this.frontPokladna.dequeue());
+        }
+    }
+
     public boolean pokladnaDostupna()
     {
+        if (this.prestavka && this.nahrada)
+        {
+            return true;
+        }
+        else if (this.prestavka && !this.nahrada)
+        {
+            return false;
+        }
+
         return true;
     }
 
@@ -84,6 +120,39 @@ public class Pokladna
     public boolean getObsadena()
     {
         return this.obsadena;
+    }
+
+    public boolean getNahrada()
+    {
+        return this.nahrada;
+    }
+
+    public void zaciatokPrestavkaPokladna()
+    {
+        if (this.prestavka)
+        {
+            throw new RuntimeException("Prestavka pri pokladni uz prebieha!");
+        }
+        if (this.simulacia.currentTime() < Konstanty.ZACIATOK_PRESTAVKA_OD_OTVORENIA_CAS_SEKUNDY)
+        {
+            throw new RuntimeException("Zaciatok prestavky nastal prilis skoro!");
+        }
+
+        this.prestavka = true;
+    }
+
+    public void koniecPrestavkaPokladna()
+    {
+        if (!this.prestavka)
+        {
+            throw new RuntimeException("Prestavka pri pokladni uz skoncila!");
+        }
+        if (this.simulacia.currentTime() < Konstanty.KONIEC_PRESTAVKA_OD_OTVORENIA_CAS_SEKUNDY)
+        {
+            throw new RuntimeException("Koniec prestavky nastal prilis skoro!");
+        }
+
+        this.prestavka = false;
     }
 
     public void pridajCasFrontPokladna(double cas)

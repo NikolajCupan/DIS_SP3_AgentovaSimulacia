@@ -34,9 +34,9 @@ public class Konstanty
     public static final double ZVYSENY_PRIEMER_BEZNI_ZAKAZNICI = 60.0
         / (Konstanty.POCET_BEZNI_ZA_HODINU + Konstanty.POCET_BEZNI_ZA_HODINU * ZVYSENY_TOK) * 60.0;
     public static final double ZVYSENY_PRIEMER_ZMLUVNI_ZAKAZNICI = 60.0
-            / (Konstanty.POCET_ZMLUVNI_ZA_HODINU + Konstanty.POCET_ZMLUVNI_ZA_HODINU * ZVYSENY_TOK) * 60.0;
+        / (Konstanty.POCET_ZMLUVNI_ZA_HODINU + Konstanty.POCET_ZMLUVNI_ZA_HODINU * ZVYSENY_TOK) * 60.0;
     public static final double ZVYSENY_PRIEMER_ONLINE_ZAKAZNICI = 60.0
-            / (Konstanty.POCET_ONLINE_ZA_HODINU + Konstanty.POCET_ONLINE_ZA_HODINU * ZVYSENY_TOK) * 60.0;
+        / (Konstanty.POCET_ONLINE_ZA_HODINU + Konstanty.POCET_ONLINE_ZA_HODINU * ZVYSENY_TOK) * 60.0;
 
 
     // GUI

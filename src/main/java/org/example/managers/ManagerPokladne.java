@@ -61,7 +61,7 @@ public class ManagerPokladne extends Manager
 		Zakaznik zakaznik = sprava.getZakaznik();
 		zakaznik.setPrichodFrontPokladna(this.mySim().currentTime());
 
-		if (!pokladna.getObsadena())
+		if (!pokladna.getObsadena() && pokladna.pokladnaDostupna())
 		{
 			// Zakaznik moze byt obsluhovany pri danej pokladni
 			zakaznik.setPokladna(pokladna);
@@ -104,7 +104,7 @@ public class ManagerPokladne extends Manager
 		// Pokus o naplanovanie dalsej obsluhy pri pokladni
 		AgentPokladne pokladne = this.myAgent();
 		Pokladna pokladna = ((MyMessageZakaznik)message).getZakaznik().getPokladna();
-		if (!pokladna.frontPrazdny())
+		if (!pokladna.frontPrazdny() && pokladna.pokladnaDostupna())
 		{
 			MyMessageZakaznik dalsiZakaznikSprava = (MyMessageZakaznik)pokladna.vyberFront();
 			Zakaznik dalsiZakaznik = dalsiZakaznikSprava.getZakaznik();
