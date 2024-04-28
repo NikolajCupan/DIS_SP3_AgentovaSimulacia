@@ -7,15 +7,13 @@ import org.example.simulation.*;
 import org.example.managers.*;
 import org.example.continualAssistants.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 //meta! id="4"
 public class AgentOkolie extends Agent
 {
 	// Vlastne
-	private ArrayList<Zakaznik> zakazniciSystem;
+	private List<Zakaznik> zakazniciSystem;
 
 	// Statistiky
 	private Stat statCasSystem;
@@ -34,7 +32,7 @@ public class AgentOkolie extends Agent
 
 	private void customPrepareReplication()
 	{
-		this.zakazniciSystem = new ArrayList<>();
+		this.zakazniciSystem = Collections.synchronizedList(new ArrayList<>());
 
 		// Statistiky
 		this.statCasSystem = new Stat();
@@ -47,7 +45,9 @@ public class AgentOkolie extends Agent
 
 	public Collection<Zakaznik> getZakazniciSystem()
 	{
-		return Collections.unmodifiableCollection(this.zakazniciSystem);
+		ArrayList<Zakaznik> kopieZakaznikov = new ArrayList<>();
+		this.zakazniciSystem.forEach(e -> kopieZakaznikov.add(e.clone()));
+		return Collections.unmodifiableCollection(kopieZakaznikov);
 	}
 
 	public int pocetZakaznikovSystem()

@@ -50,7 +50,7 @@ public class ObsluzneMiesto
         return this.odchodZamestnanec;
     }
 
-    public boolean getObsadene()
+    public synchronized boolean getObsadene()
     {
         return this.obsadene;
     }
@@ -156,7 +156,7 @@ public class ObsluzneMiesto
         return this.typOkno;
     }
 
-    public WStat getWstatVytazenieObsluzneMiesto()
+    public synchronized WStat getWstatVytazenieObsluzneMiesto()
     {
         return this.wstatVytazenieObsluzneMiesto;
     }

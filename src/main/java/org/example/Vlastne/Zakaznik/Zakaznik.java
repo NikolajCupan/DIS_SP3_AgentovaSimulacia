@@ -6,7 +6,7 @@ import org.example.Vlastne.Objekty.Pokladna;
 import org.example.Vlastne.Objekty.TypOkno;
 import org.example.Vlastne.Ostatne.Identifikator;
 
-public class Zakaznik
+public class Zakaznik implements Cloneable
 {
     private final long ID;
     private final TypZakaznik typZakaznik;
@@ -294,7 +294,7 @@ public class Zakaznik
     {
         if (this.prichodSystem == -1 || this.prichodFrontAutomat == -1)
         {
-            throw new RuntimeException("Chyba stavu zakaznika!");
+            return "Prichod";
         }
 
         if (this.odchodFrontAutomat == -1)
@@ -326,5 +326,21 @@ public class Zakaznik
         }
 
         return "Vyzdvihovanie tovaru";
+    }
+
+    @Override
+    public Zakaznik clone()
+    {
+        try
+        {
+            Zakaznik clone = (Zakaznik)super.clone();
+            clone.obsluzneMiesto = null;
+            clone.pokladna = null;
+            return clone;
+        }
+        catch (CloneNotSupportedException e)
+        {
+            throw new AssertionError();
+        }
     }
 }

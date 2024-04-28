@@ -134,22 +134,22 @@ public class Pokladna
         return true;
     }
 
-    public int getPocetFront()
+    public synchronized int getPocetFront()
     {
         return this.frontPokladna.size();
     }
 
-    public boolean getObsadena()
+    public synchronized boolean getObsadena()
     {
         return this.obsadena;
     }
 
-    public boolean getNahrada()
+    public synchronized boolean getNahrada()
     {
         return this.nahrada;
     }
 
-    public boolean getPrestavka()
+    public synchronized boolean getPrestavka()
     {
         return this.prestavka;
     }
@@ -187,17 +187,17 @@ public class Pokladna
         this.statCasFrontPokladna.addSample(cas);
     }
 
-    public Stat getStatCasFrontPokladna()
+    public synchronized Stat getStatCasFrontPokladna()
     {
         return this.statCasFrontPokladna;
     }
 
-    public WStat getWstatVytazeniePokladna()
+    public synchronized WStat getWstatVytazeniePokladna()
     {
         return this.wstatVytazeniePokladna;
     }
 
-    public WStat getWstatDlzkaFrontPokladna()
+    public synchronized WStat getWstatDlzkaFrontPokladna()
     {
         return this.frontPokladna.lengthStatistic();
     }

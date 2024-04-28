@@ -314,7 +314,7 @@ public class Prezenter
     {
         try
         {
-            EventQueue.invokeAndWait(() -> {
+            EventQueue.invokeLater(() -> {
                 DefaultTableModel model = (DefaultTableModel)tabulka.getModel();
                 ArrayList<Zakaznik> zakaznici = new ArrayList<>(simulacia.agentOkolie().getZakazniciSystem());
 
@@ -353,7 +353,7 @@ public class Prezenter
     {
         try
         {
-            EventQueue.invokeAndWait(() -> {
+            EventQueue.invokeLater(() -> {
                 DefaultTableModel model = (DefaultTableModel)tabulka.getModel();
                 model.setRowCount(0);
 
@@ -388,7 +388,7 @@ public class Prezenter
     {
         try
         {
-            EventQueue.invokeAndWait(() -> {
+            EventQueue.invokeLater(() -> {
                 DefaultTableModel model = (DefaultTableModel)tabulka.getModel();
                 model.setRowCount(0);
 
