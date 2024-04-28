@@ -47,9 +47,9 @@ public class Prezenter
         }
         else
         {
-            label.setText(Prezenter.zaokruhli(statistika.mean()) + " sec [" +
-                Prezenter.zaokruhli(statistika.confidenceInterval_95()[0]) + ", " +
-                Prezenter.zaokruhli(statistika.confidenceInterval_95()[1]) + "]");
+            label.setText(Prezenter.zaokruhli(statistika.mean() / 60) + " min [" +
+                Prezenter.zaokruhli(statistika.confidenceInterval_95()[0] / 60) + ", " +
+                Prezenter.zaokruhli(statistika.confidenceInterval_95()[1] / 60) + "]");
         }
     }
 
@@ -221,12 +221,12 @@ public class Prezenter
                     String vytazenieString = Prezenter.zaokruhli(vytazenie[i].mean() * 100) + " % [" +
                         Prezenter.zaokruhli(vytazenie[i].confidenceInterval_95()[0] * 100) + ", " +
                         Prezenter.zaokruhli(vytazenie[i].confidenceInterval_95()[1] * 100) + "]";
-                    String cakanieString = Prezenter.zaokruhli(cakanie[i].mean()) + " [" +
-                        Prezenter.zaokruhli(cakanie[i].confidenceInterval_95()[0]) + ", " +
-                        Prezenter.zaokruhli(cakanie[i].confidenceInterval_95()[1]) + "]";
-                    String dlzkaFrontString = Prezenter.zaokruhli(dlzkaFront[i].mean()) + " sec [" +
+                    String cakanieString = Prezenter.zaokruhli(dlzkaFront[i].mean()) + " [" +
                         Prezenter.zaokruhli(dlzkaFront[i].confidenceInterval_95()[0]) + ", " +
                         Prezenter.zaokruhli(dlzkaFront[i].confidenceInterval_95()[1]) + "]";
+                    String dlzkaFrontString = Prezenter.zaokruhli(cakanie[i].mean()) + " sec [" +
+                        Prezenter.zaokruhli(cakanie[i].confidenceInterval_95()[0]) + ", " +
+                        Prezenter.zaokruhli(cakanie[i].confidenceInterval_95()[1]) + "]";
 
                     model.addRow(new Object[]{
                         i,

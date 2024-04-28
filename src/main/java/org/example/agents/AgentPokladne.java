@@ -255,7 +255,8 @@ public class AgentPokladne extends Agent
 
 		Pokladna prvaPokladna = this.pokladne[0];
 		if (!prvaPokladna.getObsadena() && prvaPokladna.getNahrada()
-			&& prvaPokladna.getPocetFront() != 0)
+			&& prvaPokladna.getPocetFront() != 0
+			&& this.mySim().currentTime() != Konstanty.KONIEC_PRESTAVKA_OD_OTVORENIA_CAS_SEKUNDY)
 		{
 			throw new RuntimeException("Pri prvej pokladni by mala prebiehat obsluha!");
 		}
