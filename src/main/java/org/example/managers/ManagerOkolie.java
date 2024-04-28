@@ -18,7 +18,7 @@ public class ManagerOkolie extends Manager
 
 		if (zakaznik.getCasPrichodSystem() == -1 || zakaznik.getCasPrichodSystem() > ((MySimulation)this.mySim()).getTrvanieSimulacie())
 		{
-			throw new RuntimeException("Chyba prichodu zmluvneho zakaznika!");
+			throw new RuntimeException("Chyba prichodu zakaznika!");
 		}
 
 		MyMessageZakaznik prichodZakaznika = new MyMessageZakaznik(this.mySim(), zakaznik);

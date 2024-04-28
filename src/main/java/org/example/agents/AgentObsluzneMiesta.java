@@ -161,7 +161,7 @@ public class AgentObsluzneMiesta extends Agent
 
 	public void pridajFront(MessageForm message)
 	{
-		if (this.frontObsluzneMiesta.size() == 9)
+		if (this.frontObsluzneMiesta.size() >= Konstanty.KAPACITA_FRONT_OBSLUZNE_MIESTA)
 		{
 			throw new RuntimeException("Nemozno pridat zakaznika do frontu pred obsluznymi miestami, pretoze front je plny!");
 		}
