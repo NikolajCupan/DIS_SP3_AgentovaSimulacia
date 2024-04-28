@@ -156,7 +156,7 @@ public class MySimulation extends Simulation implements ISimDelegate
 	private void customReplicationFinished()
 	{
 		int ostaloVSysteme = this.agentOkolie().pocetZakaznikovSystem();
-		if (ostaloVSysteme != 0)
+		if (ostaloVSysteme != 0 && this.currentTime() >= Konstanty.TRVANIE_CAS_SEKUNDY)
 		{
 			throw new RuntimeException("Zakaznik ostal v systeme!");
 		}
