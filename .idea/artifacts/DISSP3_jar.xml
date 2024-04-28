@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DISSP3:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DISSP3_jar</output-path>
+    <root id="archive" name="DISSP3.jar">
+      <element id="module-output" name="DISSP3" />
+      <element id="extracted-dir" path="D:/Škola/Diskrétna simulácia/Semestrálne práce/3. Semestrálna práca/ABACore_3.0/ABACore.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jfree/jfreechart/1.5.4/jfreechart-1.5.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
