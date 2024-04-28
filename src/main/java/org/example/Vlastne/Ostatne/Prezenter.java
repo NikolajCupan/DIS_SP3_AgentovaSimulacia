@@ -159,18 +159,36 @@ public class Prezenter
                 Stat[] statObycajneObsluzneMiesta = simulacia.getCelkovaStatistikaVytazenieObycajneObsluzneMiesta();
                 for (Stat statistika : statObycajneObsluzneMiesta)
                 {
+                    if (statistika.sampleSize() < 2)
+                    {
+                        break;
+                    }
+
+                    String riadok = Prezenter.zaokruhli(statistika.mean() * 100) + " % [" +
+                        Prezenter.zaokruhli(statistika.confidenceInterval_95()[0] * 100) + ", " +
+                        Prezenter.zaokruhli(statistika.confidenceInterval_95()[1] * 100) + "]";
+
                     model.addRow(new Object[]{
                         "Obycajny",
-                        Prezenter.zaokruhli(statistika.mean() * 100) + " %"
+                        riadok
                     });
                 }
 
                 Stat[] statOnlineObsluzneMiesta = simulacia.getCelkovaStatistikaVytazenieOnlineObsluzneMiesta();
                 for (Stat statistika : statOnlineObsluzneMiesta)
                 {
+                    if (statistika.sampleSize() < 2)
+                    {
+                        break;
+                    }
+
+                    String riadok = Prezenter.zaokruhli(statistika.mean() * 100) + " % [" +
+                        Prezenter.zaokruhli(statistika.confidenceInterval_95()[0] * 100) + ", " +
+                        Prezenter.zaokruhli(statistika.confidenceInterval_95()[1] * 100) + "]";
+
                     model.addRow(new Object[]{
                         "Online",
-                        Prezenter.zaokruhli(statistika.mean() * 100) + " %"
+                        riadok
                     });
                 }
             });
@@ -195,11 +213,26 @@ public class Prezenter
 
                 for (int i = 0; i < vytazenie.length; i++)
                 {
+                    if (vytazenie[i].sampleSize() < 2)
+                    {
+                        break;
+                    }
+
+                    String vytazenieString = Prezenter.zaokruhli(vytazenie[i].mean() * 100) + " % [" +
+                        Prezenter.zaokruhli(vytazenie[i].confidenceInterval_95()[0] * 100) + ", " +
+                        Prezenter.zaokruhli(vytazenie[i].confidenceInterval_95()[1] * 100) + "]";
+                    String cakanieString = Prezenter.zaokruhli(cakanie[i].mean()) + " [" +
+                        Prezenter.zaokruhli(cakanie[i].confidenceInterval_95()[0]) + ", " +
+                        Prezenter.zaokruhli(cakanie[i].confidenceInterval_95()[1]) + "]";
+                    String dlzkaFrontString = Prezenter.zaokruhli(dlzkaFront[i].mean()) + " sec [" +
+                        Prezenter.zaokruhli(dlzkaFront[i].confidenceInterval_95()[0]) + ", " +
+                        Prezenter.zaokruhli(dlzkaFront[i].confidenceInterval_95()[1]) + "]";
+
                     model.addRow(new Object[]{
                         i,
-                        Prezenter.zaokruhli(vytazenie[i].mean() * 100) + " %",
-                        Prezenter.zaokruhli(dlzkaFront[i].mean()),
-                        Prezenter.zaokruhli(cakanie[i].mean()) + " sec"
+                        vytazenieString,
+                        cakanieString,
+                        dlzkaFrontString
                     });
                 }
             });

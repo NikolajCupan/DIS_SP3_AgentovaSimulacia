@@ -5,7 +5,7 @@
       <SimId>17</SimId>
       <InternalId>74</InternalId>
       <Name>AgentPokladne</Name>
-      <Bounds>3413,731,180,180</Bounds>
+      <Bounds>3396,587,180,180</Bounds>
       <Reasoner>ManagerPokladne</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -34,7 +34,7 @@
       <SimId>12</SimId>
       <InternalId>35</InternalId>
       <Name>AgentSystem</Name>
-      <Bounds>2258,732,180,180</Bounds>
+      <Bounds>2691,587,180,180</Bounds>
       <Reasoner>ManagerSystem</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -43,7 +43,7 @@
       <SimId>3</SimId>
       <InternalId>4</InternalId>
       <Name>AgentOkolie</Name>
-      <Bounds>547,111,180,180</Bounds>
+      <Bounds>1273,585,180,180</Bounds>
       <Reasoner>ManagerOkolie</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -72,7 +72,7 @@
       <SimId>15</SimId>
       <InternalId>51</InternalId>
       <Name>AgentObsluzneMiesta</Name>
-      <Bounds>1200,735,180,180</Bounds>
+      <Bounds>1815,1187,180,180</Bounds>
       <Reasoner>ManagerObsluzneMiesta</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -107,7 +107,7 @@
       <SimId>13</SimId>
       <InternalId>39</InternalId>
       <Name>AgentAutomat</Name>
-      <Bounds>1571,1317,180,180</Bounds>
+      <Bounds>1623,586,180,180</Bounds>
       <Reasoner>ManagerAutomat</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -130,7 +130,7 @@
       <SimId>21</SimId>
       <InternalId>91</InternalId>
       <Name>AgentPrevzatieTovar</Name>
-      <Bounds>3412,146,180,180</Bounds>
+      <Bounds>3394,144,180,180</Bounds>
       <Reasoner>ManagerPrevzatieTovar</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -147,7 +147,7 @@
       <SimId>1</SimId>
       <InternalId>1</InternalId>
       <Name>AgentModel</Name>
-      <Bounds>1673,99,180,180</Bounds>
+      <Bounds>1852,164,180,180</Bounds>
       <Reasoner>ManagerModel</Reasoner>
       <ReasonerBounds>74,25,32,25</ReasonerBounds>
       <UsePetriNet>false</UsePetriNet>
@@ -197,7 +197,7 @@
     <Message>
       <SimId>1039</SimId>
       <InternalId>141</InternalId>
-      <Name>NoticeVnutornaOnlineZakaznik</Name>
+      <Name>NoticeVnutornaPrichodOnlineZakaznik</Name>
       <Type>Notice</Type>
       <Source>136</Source>
       <Destination>4</Destination>
@@ -477,5 +477,5 @@
       <Destination>74</Destination>
     </Message>
   </Messages>
-  <IID>178</IID>
+  <IID>194</IID>
 </ABAsim>

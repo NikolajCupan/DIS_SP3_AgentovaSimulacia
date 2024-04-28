@@ -373,7 +373,6 @@ public class HlavneOkno extends javax.swing.JFrame implements ISimulationDelegat
         jScrollPane6.setViewportView(tabulkaCelkovePokladne);
         if (tabulkaCelkovePokladne.getColumnModel().getColumnCount() > 0) {
             tabulkaCelkovePokladne.getColumnModel().getColumn(0).setMaxWidth(40);
-            tabulkaCelkovePokladne.getColumnModel().getColumn(1).setMaxWidth(70);
         }
 
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
