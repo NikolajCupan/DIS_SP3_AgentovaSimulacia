@@ -317,7 +317,7 @@ public class Zakaznik implements Cloneable
         }
         if (this.odchodFrontPokladna == -1)
         {
-            return "Front pred pokladni";
+            return "Front pred pokladnami";
         }
 
         if (this.zaciatokVyzdvihovaniaTovaru == -1)

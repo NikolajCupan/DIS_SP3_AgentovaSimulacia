@@ -31,9 +31,9 @@ public class Prezenter
         }
         else
         {
-            label.setText(Prezenter.zaokruhli(statistika.mean() / 60.0) + " min [" +
-                Prezenter.zaokruhli(statistika.confidenceInterval_95()[0] / 60.0) + ", " +
-                Prezenter.zaokruhli(statistika.confidenceInterval_95()[1] / 60.0) + "]");
+            label.setText(Prezenter.naformatujCas(statistika.mean(), false) + " [" +
+                Prezenter.naformatujCas(statistika.confidenceInterval_95()[0], false) + ", " +
+                Prezenter.naformatujCas(statistika.confidenceInterval_95()[1], false) + "]");
         }
     }
 
@@ -47,9 +47,9 @@ public class Prezenter
         }
         else
         {
-            label.setText(Prezenter.zaokruhli(statistika.mean() / 60) + " min [" +
-                Prezenter.zaokruhli(statistika.confidenceInterval_95()[0] / 60) + ", " +
-                Prezenter.zaokruhli(statistika.confidenceInterval_95()[1] / 60) + "]");
+            label.setText(Prezenter.naformatujCas(statistika.mean(), false) + " [" +
+                Prezenter.naformatujCas(statistika.confidenceInterval_95()[0], false) + ", " +
+                Prezenter.naformatujCas(statistika.confidenceInterval_95()[1], false) + "]");
         }
     }
 
@@ -95,9 +95,9 @@ public class Prezenter
         }
         else
         {
-            label.setText(Prezenter.naformatujCas(statistika.mean()) + " [" +
-                Prezenter.naformatujCas(statistika.confidenceInterval_95()[0]) + ", " +
-                Prezenter.naformatujCas(statistika.confidenceInterval_95()[1]) + "]");
+            label.setText(Prezenter.naformatujCas(statistika.mean(), true) + " [" +
+                Prezenter.naformatujCas(statistika.confidenceInterval_95()[0], true) + ", " +
+                Prezenter.naformatujCas(statistika.confidenceInterval_95()[1], true) + "]");
         }
     }
 
@@ -127,9 +127,9 @@ public class Prezenter
         }
         else
         {
-            label.setText(Prezenter.zaokruhli(statistika.mean()) + " sec [" +
-                Prezenter.zaokruhli(statistika.confidenceInterval_95()[0]) + ", " +
-                Prezenter.zaokruhli(statistika.confidenceInterval_95()[1]) + "]");
+            label.setText(Prezenter.naformatujCas(statistika.mean(), false) + " [" +
+                Prezenter.naformatujCas(statistika.confidenceInterval_95()[0], false) + ", " +
+                Prezenter.naformatujCas(statistika.confidenceInterval_95()[1], false) + "]");
         }
     }
 
@@ -221,18 +221,19 @@ public class Prezenter
                     String vytazenieString = Prezenter.zaokruhli(vytazenie[i].mean() * 100) + " % [" +
                         Prezenter.zaokruhli(vytazenie[i].confidenceInterval_95()[0] * 100) + ", " +
                         Prezenter.zaokruhli(vytazenie[i].confidenceInterval_95()[1] * 100) + "]";
-                    String cakanieString = Prezenter.zaokruhli(dlzkaFront[i].mean()) + " [" +
+                    String dlzkaFrontString = Prezenter.zaokruhli(dlzkaFront[i].mean()) + " [" +
                         Prezenter.zaokruhli(dlzkaFront[i].confidenceInterval_95()[0]) + ", " +
                         Prezenter.zaokruhli(dlzkaFront[i].confidenceInterval_95()[1]) + "]";
-                    String dlzkaFrontString = Prezenter.zaokruhli(cakanie[i].mean()) + " sec [" +
-                        Prezenter.zaokruhli(cakanie[i].confidenceInterval_95()[0]) + ", " +
-                        Prezenter.zaokruhli(cakanie[i].confidenceInterval_95()[1]) + "]";
+                    String cakanieString = Prezenter.naformatujCas(cakanie[i].mean(), false) + " [" +
+                        Prezenter.naformatujCas(cakanie[i].confidenceInterval_95()[0], false) + ", " +
+                        Prezenter.naformatujCas(cakanie[i].confidenceInterval_95()[1], false) + "]";
+
 
                     model.addRow(new Object[]{
                         i,
                         vytazenieString,
-                        cakanieString,
-                        dlzkaFrontString
+                        dlzkaFrontString,
+                        cakanieString
                     });
                 }
             });
@@ -245,7 +246,7 @@ public class Prezenter
 
     public static void casFrontAutomat(MySimulation simulacia, JLabel label)
     {
-        label.setText(Prezenter.zaokruhli(simulacia.agentAutomat().getStatCasFrontAutomat().mean()) + " sec");
+        label.setText(Prezenter.naformatujCas(simulacia.agentAutomat().getStatCasFrontAutomat().mean(), false));
     }
 
     public static void dlzkaFrontAutomat(MySimulation simulacia, JLabel label)
@@ -266,7 +267,7 @@ public class Prezenter
 
     public static void casFrontOkno(MySimulation simulacia, JLabel label)
     {
-        label.setText(Prezenter.zaokruhli(simulacia.agentAutomat().getStatCasFrontAutomat().mean()) + " sec");
+        label.setText(Prezenter.naformatujCas(simulacia.agentAutomat().getStatCasFrontAutomat().mean(), false));
     }
 
     public static void dlzkaFrontObsluzneMiesta(MySimulation simulacia, JLabel label)
@@ -321,24 +322,24 @@ public class Prezenter
                 model.setRowCount(0);
                 for (Zakaznik zakaznik : zakaznici)
                 {
-                    String prichodFrontAutomat = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontAutomat());
-                    String odchodFrontAutomat = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontAutomat());
+                    String prichodFrontAutomat = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontAutomat(), true);
+                    String odchodFrontAutomat = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontAutomat(), true);
 
-                    String prichodFrontObsluzneMiesta = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontObsluzneMiesta());
-                    String odchodFrontObsluzneMiesta = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontObsluzneMiesta());
+                    String prichodFrontObsluzneMiesta = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontObsluzneMiesta(), true);
+                    String odchodFrontObsluzneMiesta = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontObsluzneMiesta(), true);
 
-                    String prichodFrontPokladna = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontPokladna());
-                    String odchodFrontPokladna = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontPokladna());
+                    String prichodFrontPokladna = Prezenter.naformatujCas(zakaznik.getCasPrichodFrontPokladna(), true);
+                    String odchodFrontPokladna = Prezenter.naformatujCas(zakaznik.getCasOdchodFrontPokladna(), true);
 
                     model.addRow(new Object[]{
                         zakaznik.getID(),
                         zakaznik.getTypZakaznik(),
                         zakaznik.getStav(),
-                        Prezenter.naformatujCas(zakaznik.getCasPrichodSystem()),
+                        Prezenter.naformatujCas(zakaznik.getCasPrichodSystem(), true),
                         prichodFrontAutomat + " - " + odchodFrontAutomat,
                         prichodFrontObsluzneMiesta + " - " + odchodFrontObsluzneMiesta,
                         prichodFrontPokladna + " - " + odchodFrontPokladna,
-                        Prezenter.naformatujCas(zakaznik.getZaciatokVyzdvihovaniaTovaru())
+                        Prezenter.naformatujCas(zakaznik.getZaciatokVyzdvihovaniaTovaru(), true)
                     });
                 }
             });
@@ -402,7 +403,7 @@ public class Prezenter
                         Prezenter.zaokruhli(pokladna.getWstatVytazeniePokladna().mean() * 100) + " %",
                         pokladna.getPocetFront(),
                         Prezenter.zaokruhli(pokladna.getWstatDlzkaFrontPokladna().mean()),
-                        Prezenter.zaokruhli(pokladna.getStatCasFrontPokladna().mean()) + " sec",
+                        Prezenter.naformatujCas(pokladna.getStatCasFrontPokladna().mean(), false),
                         pokladna.getPrestavka(),
                         pokladna.getNahrada()
                     });
@@ -424,10 +425,15 @@ public class Prezenter
 
     public static void simulacnyCas(MySimulation simulacia, JLabel label)
     {
-        label.setText(Prezenter.naformatujCas(simulacia.getAktualnySimulacnyCas()));
+        label.setText(Prezenter.naformatujCas(simulacia.getAktualnySimulacnyCas(), true));
     }
 
     public static String naformatujCas(double casOdZaciatku)
+    {
+        return Prezenter.naformatujCas(casOdZaciatku, true);
+    }
+
+    public static String naformatujCas(double casOdZaciatku, boolean posun)
     {
         if (casOdZaciatku < 0)
         {
@@ -439,7 +445,10 @@ public class Prezenter
         int pocetSekund = (int)Math.floor(casOdZaciatku - pocetHodin * 3600 - pocetMinut * 60);
 
         final int hodinaOtvorenia = Konstanty.HODINA_OTVORENIA;
-        pocetHodin += hodinaOtvorenia;
+        if (posun)
+        {
+            pocetHodin += hodinaOtvorenia;
+        }
 
         return Prezenter.casNaString(pocetHodin) + ":" + Prezenter.casNaString(pocetMinut) + ":" + Prezenter.casNaString(pocetSekund);
     }
